@@ -13,7 +13,9 @@ import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //FirstInstall();
         AnhXa();
-        User user = DataLocalManager.getUser();
-        if(user != null)
-        {
-            tvId.setText(user.toString());
-        }
+        //User user = DataLocalManager.getUser();
+        List<User> list = DataLocalManager.getListUser();
+        tvId.setText(list.toString());
+
+
     }
 
     private void AnhXa() {

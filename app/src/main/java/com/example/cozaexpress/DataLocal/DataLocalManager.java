@@ -1,10 +1,18 @@
 package com.example.cozaexpress.DataLocal;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.cozaexpress.Model.User;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 //Quản lý xem sẽ lưu gì vào sharedpreferenecs
@@ -12,6 +20,7 @@ public class DataLocalManager {
     private static final String PRE_FIRST_INSTALL = "PRE_FIRST_INSTALL";
     private static final String PRE_NAME_USER = "PRE_NAME_USER";
     private static final String PRE_OBJECT_USER = "PRE_OBJECT_USER";
+    private static final String PRE_LIST_USER = "PRE_LIST_USER";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
     public  static void init(Context context){
@@ -55,5 +64,35 @@ public class DataLocalManager {
         Gson gson = new Gson();
         User user = gson.fromJson(strJsonUser, User.class);
         return user;
+    }
+
+    public static void setListUser(List<User> listUser){
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(listUser).getAsJsonArray(); //Tạo một json array
+        String strJsonArray = jsonArray.toString();
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_USER, strJsonArray);
+    }
+
+    public static List<User> getListUser(){
+        String strJsonArray = DataLocalManager.getInstance()
+                .mySharedPreferences
+                .getStringVaule(PRE_LIST_USER); //lấy chuỗi json từ local
+        List<User> userList = new ArrayList<>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(strJsonArray);
+            JSONObject jsonObject;
+            User user;
+            //convert => list user
+            Gson gson = new Gson();
+            for(int i = 0; i < jsonArray.length(); i++){
+                jsonObject = jsonArray.getJSONObject(i);
+                user = gson.fromJson(jsonObject.toString(), User.class);
+                userList.add(user);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return userList;
     }
 }
