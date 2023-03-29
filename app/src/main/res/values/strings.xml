@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CozaExpress</string>
+    <string name="action_home">Home</string>
+    <string name="action_mall">Mall</string>
+    <string name="action_live">Live</string>
+    <string name="action_notification">Notification</string>
+    <string name="action_account">Account</string>
 </resources>
