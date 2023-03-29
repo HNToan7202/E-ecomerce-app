@@ -31,6 +31,9 @@ import java.util.Set;
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Nhấn 2 lần để thoát
+    private long backPressTime;
     BottomNavigationView mBottom_nav;
     ViewPager mViewPager;
 
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         AnhXa();
         setUpViewPager();
         setUpNavigationView();
-
 
     }
 
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0 :
+
                         mBottom_nav.getMenu().findItem(R.id.action_home).setChecked(true);
                         break;
                     case 1 :
@@ -124,5 +127,16 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "First Install App", Toast.LENGTH_LONG).show();
             DataLocalManager.setFirstInstall(true);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backPressTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        }else {
+            Toast.makeText(MainActivity.this, "Nhấn lần nữa để thoát", Toast.LENGTH_LONG).show();
+        }
+        backPressTime = System.currentTimeMillis();
     }
 }

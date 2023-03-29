@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.viewpager.widget.ViewPager
-            android:background="@drawable/hinh1"
+            android:background="@color/material_dynamic_primary20"
             android:id="@+id/viewPager_Home"
             android:layout_width="match_parent"
             android:layout_height="220dp">
@@ -19,7 +19,6 @@
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="13dp"
-            android:background="@color/white"
             android:layout_marginTop="16dp">
         </me.relex.circleindicator.CircleIndicator>
 

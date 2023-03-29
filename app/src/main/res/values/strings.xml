@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">CozaExpress</string>
-    <string name="action_home">Home</string>
-    <string name="action_mall">Mall</string>
-    <string name="action_live">Live</string>
+    <string name="action_home">Trang Chủ</string>
+    <string name="action_mall">Dạo</string>
+    <string name="action_message">Tin Nhắn</string>
     <string name="action_notification">Notification</string>
-    <string name="action_account">Account</string>
+    <string name="action_account">Tài Khoản</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="view_fragment">Xem Dạo</string>
+    <string name="followed_fragment">Đã Theo Dõi</string>
 </resources>
