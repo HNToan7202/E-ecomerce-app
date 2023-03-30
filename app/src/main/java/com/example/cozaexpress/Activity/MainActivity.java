@@ -3,6 +3,8 @@ package com.example.cozaexpress.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -31,6 +33,14 @@ import java.util.Set;
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity {
+
+    RecyclerView rcvData;
+    SwipeRefreshLayout swipeRefreshLayout; //refresh lại trang
+
+
+    //Nhấn 2 lần để thoát
+    private long backPressTime;
+    Toast mToast;
     BottomNavigationView mBottom_nav;
     ViewPager mViewPager;
 
@@ -42,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         AnhXa();
         setUpViewPager();
         setUpNavigationView();
-
 
     }
 
@@ -124,5 +133,18 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "First Install App", Toast.LENGTH_LONG).show();
             DataLocalManager.setFirstInstall(true);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backPressTime + 2000 > System.currentTimeMillis()){
+            mToast.cancel();
+            super.onBackPressed();
+            return;
+        }else {
+            mToast = Toast.makeText(MainActivity.this, "Nhấn lần nữa để thoát", Toast.LENGTH_LONG);
+            mToast.show();
+        }
+        backPressTime = System.currentTimeMillis();
     }
 }
