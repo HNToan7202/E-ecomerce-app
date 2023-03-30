@@ -1,11 +1,13 @@
 package com.example.cozaexpress.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.cozaexpress.Activity.SearchActivity;
 import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.R;
@@ -36,6 +39,8 @@ public class HomeFragment extends Fragment {
 
     private Timer mTimer;
 
+    Button btnSearch;
+
 
     @Nullable
     @Override
@@ -53,6 +58,13 @@ public class HomeFragment extends Fragment {
         photoAdapter = new PhotoAdapter(getContext(), mListPhoto);
         viewPager.setAdapter(photoAdapter);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+        btnSearch = view.findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
 
         autoSlideImage();
     }

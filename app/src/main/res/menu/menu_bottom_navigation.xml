@@ -17,8 +17,8 @@
     </item>
 
     <item android:id="@+id/action_notification"
-        android:title="@string/action_notification"
-        android:icon="@drawable/bell_outline">
+        android:title="@string/action_cart"
+        android:icon="@drawable/cart">
     </item>
 
     <item android:id="@+id/action_account"
