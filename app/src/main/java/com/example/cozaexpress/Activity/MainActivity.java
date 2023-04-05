@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView mBottom_nav;
     ViewPager mViewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     private void AnhXa() {
         mBottom_nav = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.viewPager);
-
     }
 
     private void setUpViewPager() {

@@ -17,7 +17,8 @@ android {
     defaultConfig {
         applicationId "com.example.cozaexpress"
         minSdk 24
-        targetSdk 33
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -51,4 +52,13 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // Network & Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //bo goc tron cho image view
+    implementation 'de.hdodenhof:circleimageview:1.2.1'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
 }

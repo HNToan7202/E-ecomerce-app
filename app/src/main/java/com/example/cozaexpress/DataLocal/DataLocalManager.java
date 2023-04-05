@@ -3,6 +3,7 @@ package com.example.cozaexpress.DataLocal;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -21,6 +22,8 @@ public class DataLocalManager {
     private static final String PRE_NAME_USER = "PRE_NAME_USER";
     private static final String PRE_OBJECT_USER = "PRE_OBJECT_USER";
     private static final String PRE_LIST_USER = "PRE_LIST_USER";
+
+    private static final String PRE_LIST_ITEM_CART = "PRE_LIST_ITEM_CART";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
     public  static void init(Context context){
@@ -71,6 +74,46 @@ public class DataLocalManager {
         JsonArray jsonArray = gson.toJsonTree(listUser).getAsJsonArray(); //Tạo một json array
         String strJsonArray = jsonArray.toString();
         DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_USER, strJsonArray);
+    }
+
+    public static void setListProduct(List<Product> listProduct){
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(listProduct).getAsJsonArray(); //Tạo một json array
+        String strJsonArray = jsonArray.toString();
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_ITEM_CART, strJsonArray);
+    }
+
+    //Add item mới vào cart
+    public static void setItemCart(Product product){
+        List<Product> productList = DataLocalManager.getListProduct();
+        productList.add(product);
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(productList).getAsJsonArray(); //Tạo một json array
+        String strJsonArray = jsonArray.toString();
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_ITEM_CART, strJsonArray);
+    }
+
+    public static List<Product> getListProduct(){
+        String strJsonArray = DataLocalManager.getInstance()
+                .mySharedPreferences
+                .getStringVaule(PRE_LIST_ITEM_CART); //lấy chuỗi json từ local
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(strJsonArray);
+            JSONObject jsonObject;
+            Product product;
+            //convert => list user
+            Gson gson = new Gson();
+            for(int i = 0; i < jsonArray.length(); i++){
+                jsonObject = jsonArray.getJSONObject(i);
+                product = gson.fromJson(jsonObject.toString(), Product.class);
+                productList.add(product);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return productList;
     }
 
     public static List<User> getListUser(){

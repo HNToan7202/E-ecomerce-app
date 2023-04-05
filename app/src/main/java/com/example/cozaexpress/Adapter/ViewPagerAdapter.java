@@ -9,7 +9,7 @@ import com.example.cozaexpress.Fragment.AccountFragment;
 import com.example.cozaexpress.Fragment.HomeFragment;
 import com.example.cozaexpress.Fragment.LiveFragment;
 import com.example.cozaexpress.Fragment.MallFragment;
-import com.example.cozaexpress.Fragment.NotificationFragment;
+import com.example.cozaexpress.Fragment.CartFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -28,7 +28,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new LiveFragment();
             case 3:
-                return new NotificationFragment();
+                return new CartFragment();
             case 4:
                 return new AccountFragment();
         }
