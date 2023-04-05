@@ -1,27 +1,52 @@
 package com.example.cozaexpress.Model;
 
-import androidx.annotation.NonNull;
+import com.example.cozaexpress.Model.Store;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
-    private int id;
-    private String name,email, gender, images;
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String username;
+    private String password;// mật khẩu mã hóa
+    private String address;
+    private String avatar;
+    private String role;
+    private Boolean isActive;
+    private String resetpasswordtoken;
+    private Date createat;
+    private Date updateat;
+    private Store stores;
 
-    public int getId() {
+    public User(String string, String string1, String string2, String string3, String string4, String string5, String string6, String string7, String string8) {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -32,42 +57,112 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getImages() {
-        return images;
+    public String getUsername() {
+        return username;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public User() {
+    public String getPassword() {
+        return password;
     }
 
-    public User(int id, String name,  String email, String gender, String images) {
-        this.id = id;
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        this.email = email;
-        this.gender = gender;
-        this.images = images;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getResetpasswordtoken() {
+        return resetpasswordtoken;
+    }
+
+    public void setResetpasswordtoken(String resetpasswordtoken) {
+        this.resetpasswordtoken = resetpasswordtoken;
+    }
+
+    public Date getCreateat() {
+        return createat;
+    }
+
+    public void setCreateat(Date createat) {
+        this.createat = createat;
+    }
+
+    public Date getUpdateat() {
+        return updateat;
+    }
+
+    public void setUpdateat(Date updateat) {
+        this.updateat = updateat;
+    }
+
+    public Store getStores() {
+        return stores;
+    }
+
+    public void setStores(Store stores) {
+        this.stores = stores;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
-                ", images='" + images + '\'' +
+                ", phone='" + phone + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", role='" + role + '\'' +
+                ", isActive=" + isActive +
+                ", resetpasswordtoken='" + resetpasswordtoken + '\'' +
+                ", createat=" + createat +
+                ", updateat=" + updateat +
+                ", stores=" + stores +
                 '}';
     }
 }

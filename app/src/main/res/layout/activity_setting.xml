@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="#D3C7C7"
     android:orientation="vertical"
     tools:context=".Activity.SettingActivity">
 
@@ -33,4 +33,176 @@
             android:textColor="#000000"
             android:textSize="24sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnInformation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button27"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Thông tin tài khoản"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button26"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sổ Địa Chỉ"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button25"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Tin Nhắn"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button24"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Quốc Gia"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button22"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ngôn Ngữ - Language"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tiếng Việt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button12"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Bảo mật tài khoản"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button255"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Chính Sách"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button278"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Trợ Giúp"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button289"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Phản hồi"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button21"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Đăng xuất"
+            android:textColor="#F44336"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"></LinearLayout>
 </LinearLayout>
