@@ -10,17 +10,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cozaexpress.Adapter.MallViewPagerAdapter;
 import com.example.cozaexpress.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MallFragment extends Fragment {
 
     //Hàm trả về view
     View view;
     TabLayout mTabLayout;
-    ViewPager mViewPager;
+    ViewPager2 mViewPager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,9 +35,20 @@ public class MallFragment extends Fragment {
     private void AnhXa() {
         mTabLayout = view.findViewById(R.id.tabLayoutMall);
         mViewPager = view.findViewById(R.id.view_pager_mall);
-        MallViewPagerAdapter viewPagerAdapter = new MallViewPagerAdapter(getActivity().getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        MallViewPagerAdapter viewPagerAdapter = new MallViewPagerAdapter(getActivity());
         mViewPager.setAdapter(viewPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
+            switch (position){
+                case 0:
+                    tab.setText("Xem Dạo");
+                    break;
+                case 1:
+                    tab.setText("Đã Theo Dõi");
+                    break;
+            }
+        }).attach();
     }
 
 }

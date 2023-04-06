@@ -30,15 +30,15 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cart, container, false);
-        AnhXa();
+        //AnhXa();
         return view;
     }
 
-    private void AnhXa() {
-        tabLayout = view.findViewById(R.id.tabLayoutCart);
-        viewPagerCart = view.findViewById(R.id.view_pager_cart);
-        CartAdapter viewPagerAdapter = new CartAdapter(getActivity().getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerCart.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPagerCart);
-    }
+//    private void AnhXa() {
+//        tabLayout = view.findViewById(R.id.tabLayoutCart);
+//        viewPagerCart = view.findViewById(R.id.view_pager_cart);
+//        CartAdapter viewPagerAdapter = new CartAdapter(getActivity().getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+//        viewPagerCart.setAdapter(viewPagerAdapter);
+//        tabLayout.setupWithViewPager(viewPagerCart);
+//    }
 }

@@ -60,5 +60,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:1.2.1'
 
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }
