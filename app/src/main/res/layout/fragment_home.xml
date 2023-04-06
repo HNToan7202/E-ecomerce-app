@@ -68,7 +68,9 @@
                 android:id="@+id/rc_prodcut"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tvProduct"></androidx.recyclerview.widget.RecyclerView>
+                android:layout_below="@id/tvProduct">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager_Home"
