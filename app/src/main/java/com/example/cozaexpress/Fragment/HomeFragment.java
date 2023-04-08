@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.cozaexpress.Activity.ProductDetailActivity;
+import com.example.cozaexpress.Activity.ProDetailActivity;
 import com.example.cozaexpress.Activity.SearchActivity;
 import com.example.cozaexpress.Adapter.CategoryAdapter;
 import com.example.cozaexpress.Adapter.LastProductAdapter;
@@ -208,10 +208,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productByBarcode = response.body();
                 if(productByBarcode != null){
-                    scantext.setText(productByBarcode.get(0).getName());
+                    //scantext.setText(productByBarcode.get(0).getName());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("product", productByBarcode.get(0));
-                    Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                    Intent intent = new Intent(getContext(), ProDetailActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

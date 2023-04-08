@@ -23,6 +23,8 @@ public class DataLocalManager {
     private static final String PRE_OBJECT_USER = "PRE_OBJECT_USER";
     private static final String PRE_LIST_USER = "PRE_LIST_USER";
 
+    private static final String PRE_LIST_PRODUCT = "PRE_LIST_PRODUCT";
+
     private static final String PRE_LIST_ITEM_CART = "PRE_LIST_ITEM_CART";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
@@ -46,12 +48,12 @@ public class DataLocalManager {
         return DataLocalManager.getInstance().mySharedPreferences.getBooleanVaule(PRE_FIRST_INSTALL);
     }
 
-    public static void setNameUsers(Set<String> nameUsers){
-        DataLocalManager.getInstance().mySharedPreferences.putStringSetValue(PRE_NAME_USER, nameUsers);
+    public static void setNameUsers(Set<String> nameProducts){
+        DataLocalManager.getInstance().mySharedPreferences.putStringSetValue(PRE_LIST_PRODUCT, nameProducts);
     }
 
-    public static Set<String> getNameUsers(){
-        return DataLocalManager.getInstance().mySharedPreferences.getStringSetVaule(PRE_NAME_USER);
+    public static Set<String> getNameProduct(){
+        return DataLocalManager.getInstance().mySharedPreferences.getStringSetVaule(PRE_LIST_PRODUCT);
     }
 
     //Lưu user vào datalocal
@@ -67,13 +69,6 @@ public class DataLocalManager {
         Gson gson = new Gson();
         User user = gson.fromJson(strJsonUser, User.class);
         return user;
-    }
-
-    public static void setListUser(List<User> listUser){
-        Gson gson = new Gson();
-        JsonArray jsonArray = gson.toJsonTree(listUser).getAsJsonArray(); //Tạo một json array
-        String strJsonArray = jsonArray.toString();
-        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_USER, strJsonArray);
     }
 
     public static void setListProduct(List<Product> listProduct){
@@ -115,6 +110,14 @@ public class DataLocalManager {
         }
         return productList;
     }
+
+    public static void setListUser(List<User> listUser){
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(listUser).getAsJsonArray(); //Tạo một json array
+        String strJsonArray = jsonArray.toString();
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PRE_LIST_USER, strJsonArray);
+    }
+
 
     public static List<User> getListUser(){
         String strJsonArray = DataLocalManager.getInstance()

@@ -28,6 +28,7 @@ public class ProDetailAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+
         switch (position){
             case 1:
                 return new MoTaFragment();

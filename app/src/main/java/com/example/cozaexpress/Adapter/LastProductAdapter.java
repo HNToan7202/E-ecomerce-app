@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.cozaexpress.Activity.ProductDetailActivity;
+import com.example.cozaexpress.Activity.ProDetailActivity;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 
@@ -73,7 +73,7 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putString("idProduct", id);
-                    Intent intent = new Intent(context, ProductDetailActivity.class);
+                    Intent intent = new Intent(context, ProDetailActivity.class);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }

@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/btnBack"
+            android:id="@+id/btn_back_to_home"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/back" />
 
         <TextView
-            android:id="@+id/tvNameSP"
+            android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,9 +35,9 @@
             android:textColor="#000"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-            app:layout_constraintStart_toEndOf="@+id/btnBack"
-            app:layout_constraintTop_toTopOf="@+id/btnBack"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_back_to_home"
+            app:layout_constraintStart_toEndOf="@+id/btn_back_to_home"
+            app:layout_constraintTop_toTopOf="@+id/btn_back_to_home"
             app:layout_constraintVertical_bias="0.454" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
