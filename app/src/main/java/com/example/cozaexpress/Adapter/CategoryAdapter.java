@@ -1,6 +1,7 @@
 package com.example.cozaexpress.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.cozaexpress.Activity.CategoryActivity;
 import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.R;
 import java.util.List;
@@ -62,6 +64,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                 public void onClick(View view) {
 
                     Toast.makeText(context, "Bạn đã chọn category" + tenSp.getText().toString(), Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, CategoryActivity.class));
                 }
             });
         }

@@ -1,26 +1,37 @@
 package com.example.cozaexpress.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.cozaexpress.Model.Store;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(tableName = "user")
 public class User implements Serializable {
+    @PrimaryKey()
+    @NonNull
     private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String username;
+    private String firstName = "Nguyen A";
+    private String lastName = "A";
+    private String email = "user@gamil.com";
+    private String phone = "0123456789";
+    private String username ="user01";
     private String password;// mật khẩu mã hóa
-    private String address;
+    private String address = "123 Nguyen";
     private String avatar;
     private String role;
     private Boolean isActive;
     private String resetpasswordtoken;
-    private Date createat;
-    private Date updateat;
-    private Store stores;
+
+    private String storeId;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public User(String string, String string1, String string2, String string3, String string4, String string5, String string6, String string7, String string8) {
     }
@@ -121,48 +132,27 @@ public class User implements Serializable {
         this.resetpasswordtoken = resetpasswordtoken;
     }
 
-    public Date getCreateat() {
-        return createat;
+//    public Date getCreateat() {
+//        return createat;
+//    }
+//
+//    public void setCreateat(Date createat) {
+//        this.createat = createat;
+//    }
+//
+//    public Date getUpdateat() {
+//        return updateat;
+//    }
+//
+//    public void setUpdateat(Date updateat) {
+//        this.updateat = updateat;
+//    }
+
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setCreateat(Date createat) {
-        this.createat = createat;
-    }
-
-    public Date getUpdateat() {
-        return updateat;
-    }
-
-    public void setUpdateat(Date updateat) {
-        this.updateat = updateat;
-    }
-
-    public Store getStores() {
-        return stores;
-    }
-
-    public void setStores(Store stores) {
-        this.stores = stores;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", role='" + role + '\'' +
-                ", isActive=" + isActive +
-                ", resetpasswordtoken='" + resetpasswordtoken + '\'' +
-                ", createat=" + createat +
-                ", updateat=" + updateat +
-                ", stores=" + stores +
-                '}';
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }

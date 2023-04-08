@@ -1,9 +1,14 @@
 package com.example.cozaexpress.Model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(tableName = "Product")
 public class Product implements Serializable {
+    @PrimaryKey(autoGenerate = true)
     private String id;
     private String name;
     private String desciption;
@@ -13,12 +18,19 @@ public class Product implements Serializable {
     private Integer sold;
     private Boolean isselling;
     private String listimage;
-    private Category category;
+    private String categoryId;
     private Store store;
     private Integer rating;
     private Date createat;
     private Date updateat;
     private String barcode;
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getBarcode() {
         return barcode;
@@ -79,12 +91,6 @@ public class Product implements Serializable {
     }
     public void setListimage(String listimage) {
         this.listimage = listimage;
-    }
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
     }
     public Store getStore() {
         return store;
