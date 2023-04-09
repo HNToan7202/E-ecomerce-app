@@ -25,6 +25,11 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
     Context context;
     List<Product> array;
 
+    private void setData(List<Product> products){
+        array = products;
+        notifyDataSetChanged();
+    }
+
     public LastProductAdapter(Context context, List<Product> array){
         this.array = array;
         this.context = context;

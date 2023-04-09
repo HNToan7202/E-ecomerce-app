@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.cozaexpress.Adapter.CartAdapter;
 import com.example.cozaexpress.Adapter.MallViewPagerAdapter;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
+import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 import com.google.android.material.tabs.TabLayout;
@@ -41,8 +42,9 @@ public class CartFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_cart, container, false);
         //AnhXa();
         rcCart = view.findViewById(R.id.rc_item_cart);
-        List<Product> products = DataLocalManager.getListProduct();
+        List<Product> products = UserDatabase.getInstance(getContext()).productDAO().getAll();
         CartAdapter cartAdapter = new CartAdapter(getContext(), products);
+        cartAdapter.setData(products);
 
         rcCart.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

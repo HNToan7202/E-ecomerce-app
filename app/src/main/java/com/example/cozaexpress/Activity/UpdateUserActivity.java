@@ -54,7 +54,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         }
         user.setUsername(uName);
         user.setPassword(uPass);
-        UserDatabase.getInstance(this).userDAO().update(user);
+        //UserDatabase.getInstance(this).userDAO().update(user);
         Toast.makeText(UpdateUserActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
         Intent intentResult = new Intent();
         setResult(Activity.RESULT_OK, intentResult);
