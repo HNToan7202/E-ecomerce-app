@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
+import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.Cart;
 import com.example.cozaexpress.Model.Product;
+import com.example.cozaexpress.Model.iClickListener;
 import com.example.cozaexpress.R;
 
 import java.util.List;
@@ -26,7 +28,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     List<Product> products;
 
-    int pos;
+    iClickListener listener;
+
+    public CartAdapter(iClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void setData(List<Product> products){
+        this.products = products;
+        notifyDataSetChanged();
+    }
+
+    public void loadData(){
+        products = UserDatabase.getInstance(context).productDAO().getAll();
+    }
 
 
     public CartAdapter(Context context, List<Product> products) {
@@ -46,10 +61,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.MyViewHolder holder, int position) {
         Product product = products.get(position);
-        pos = position;
         holder.tvNameItem.setText(product.getName());
-        holder.tvPrice.setText(product.getPromotionaprice().toString());
+        int gia = (int) (product.getPromotionaprice()* product.getQuantity());
+        holder.tvPrice.setText(gia+"");
+        holder.tvSoLuong.setText("x"+product.getQuantity().toString());
         Glide.with(context).load(product.getListimage()).into(holder.imgItemCart);
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserDatabase.getInstance(context).productDAO().delete(product);
+                Toast.makeText(context.getApplicationContext(),"Đã xoá", Toast.LENGTH_LONG).show();
+                products = UserDatabase.getInstance(context).productDAO().getAll();
+                setData(products);
+            }
+        });
     }
 
     @Override
@@ -59,24 +84,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgItemCart, btnDelete;
-        TextView tvNameItem, tvPrice;
+        TextView tvNameItem, tvPrice, tvSoLuong;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             btnDelete = itemView.findViewById(R.id.btnDelete);
             imgItemCart = itemView.findViewById(R.id.img_item_cart);
             tvNameItem = itemView.findViewById(R.id.tv_name_item_cart);
             tvPrice = itemView.findViewById(R.id.tvPrice_Item);
-
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    List<Product> pros = DataLocalManager.getListProduct();
-                    pros.remove(pos);
-                    DataLocalManager.setListProduct(pros);
-                    notifyDataSetChanged();
-                    Toast.makeText(itemView.getContext(), "Da Xoa", Toast.LENGTH_LONG).show();
-                }
-            });
+            tvSoLuong = itemView.findViewById(R.id.tvSoLuong);
 
         }
     }

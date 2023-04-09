@@ -1,5 +1,8 @@
 package com.example.cozaexpress.Model;
 
+import android.text.TextUtils;
+import android.util.Patterns;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,6 +11,7 @@ import com.example.cozaexpress.Model.Store;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 @Entity(tableName = "user")
 public class User implements Serializable {
@@ -154,5 +158,18 @@ public class User implements Serializable {
 
     public void setStoreId(String storeId) {
         this.storeId = storeId;
+    }
+
+    public boolean isValidEmail(){
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    //quy định luật cho password lớn hơn 6 ký tư
+    public boolean isValidPassword(){
+        return !TextUtils.isEmpty(password) && password.length() >= 6 ;
+    }
+
+    public boolean isUsername(){
+        return !TextUtils.isEmpty(password) && password.length() > 0 ;
     }
 }

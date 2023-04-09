@@ -6,12 +6,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.cozaexpress.DAO.ProductDAO;
 import com.example.cozaexpress.DAO.UserDAO;
+import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {Product.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
-    private static final String DATABASE_NAME = "user.db";
+    private static final String DATABASE_NAME = "product.db";
     private static UserDatabase instance;
 
     public static synchronized UserDatabase getInstance(Context context){
@@ -22,5 +24,5 @@ public abstract class UserDatabase extends RoomDatabase {
         }
         return instance;
     }
-    public abstract UserDAO userDAO();
+    public abstract ProductDAO productDAO();
 }

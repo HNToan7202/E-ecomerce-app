@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.room.Database;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.Adapter.ProDetailAdapter;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
+import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.api.APIService;
@@ -68,8 +70,6 @@ public class ProDetailActivity extends AppCompatActivity {
         if(id != null){
             getProductById(id);
         }
-
-
 
 
         Product product = (Product) bundle.getSerializable("product");
@@ -229,36 +229,9 @@ public class ProDetailActivity extends AppCompatActivity {
         //bắt sự kiện Dialog
         Button btnXacNhan = dialog.findViewById(R.id.btn_add_to_cart2);
 
-//        Button btnThem = dialog.findViewById(R.id.btnCong);
-//        Button btnTru = dialog.findViewById(R.id.btnTru);
-//        TextView tvCount = dialog.findViewById(R.id.tvCount);
         ImageView btnClose = dialog.findViewById(R.id.btnClose);
 
-//        if(idDialog == 1)
-//        {
-//            btnTru.setVisibility(Button.INVISIBLE);
-//        }
-//        else {
-//            btnTru.setVisibility(Button.VISIBLE);
-//        }
-//        btnThem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                idDialog++;
-//                tvCount.setText(idDialog);
-//            }
-//        });
-//
-//        btnTru.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                idDialog--;
-//                tvCount.setText(idDialog);
-//            }
-//        });
-
         EditText edtCount = dialog.findViewById(R.id.edtCount);
-        edtCount.setText("1");
 
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,14 +240,20 @@ public class ProDetailActivity extends AppCompatActivity {
                 int soluong = Integer.parseInt(edtCount.getText().toString());
                 product.setQuantity(soluong);
                 productList.add(product);
-                DataLocalManager.setListProduct(productList);
-//                DataLocalManager.setListProduct(productList);
-//                productList = DataLocalManager.getListProduct();
-//                productList.add(product);
-//                DataLocalManager.setListProduct(productList);
+                UserDatabase.getInstance(getApplicationContext()).productDAO().insertProduct(product);
                 Toast.makeText(ProDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
-                List<Product> temp = DataLocalManager.getListProduct();
-                //Toast.makeText(ProDetailActivity.this, temp.get(0).getName(), Toast.LENGTH_LONG).show();
+
+//                Product product1 = UserDatabase.getInstance(getApplicationContext()).productDAO().checkProduct(product.getId());
+//
+//                if(product1.getId() == product.getId()){
+//                   product.setQuantity(product.getQuantity() + soluong);
+//                    UserDatabase.getInstance(getApplicationContext()).productDAO().update(product);
+//                    Toast.makeText(ProDetailActivity.this, "Đã Cập Nhật Giỏ Hàng", Toast.LENGTH_LONG).show();
+//                }else {
+//                    product.setQuantity(soluong);
+//                    UserDatabase.getInstance(getApplicationContext()).productDAO().insertProduct(product);
+//                    Toast.makeText(ProDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
+//                }
 
                 dialog.dismiss();
             }

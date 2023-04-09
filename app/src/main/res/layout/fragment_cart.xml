@@ -11,7 +11,7 @@
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#0C6161"
+        android:background="@drawable/top_bar"
         android:orientation="horizontal">
 
         <ImageView

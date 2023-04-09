@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     User user ;
     ProgressBar progressBar;
+
+    TextView tvMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,9 @@ public class LoginActivity extends AppCompatActivity {
     private void GetUser() {
         String username = edtUsername.getText().toString().trim();
         String password=  edtPassword.getText().toString().trim();
+
+
+        //sử dụng MVC
         if(TextUtils.isEmpty(username)){
             edtUsername.setError("Please enter your username");
             edtUsername.requestFocus();
@@ -69,9 +74,15 @@ public class LoginActivity extends AppCompatActivity {
             edtPassword.requestFocus();
             return;
         }
+
         APIService.apiService.loginWithLocal(username,password).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
+                tvMessage.setVisibility(View.VISIBLE);
+//                tvMessage.setText("Đăng Nhập Thành Công");
+//                tvMessage.setTextColor(getResources().getColor(R.color.green_color));
+
                 progressBar.setVisibility(View.VISIBLE);
                 user = response.body();
                 if(user != null){
@@ -82,12 +93,17 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
+//                    tvMessage.setVisibility(View.VISIBLE);
+//                    tvMessage.setText("Sai tên đăng nhập hoặc mật khẩu");
+//                    tvMessage.setTextColor(getResources().getColor(R.color.red_color));
                     Toast.makeText(getApplicationContext(),"Sai tên đăng nhập hoặc mật khẩu",Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e("TAG",t.getMessage()+"");
+//                tvMessage.setVisibility(View.VISIBLE);
+//                tvMessage.setText("Sai tên đăng nhập hoặc mật khẩu");
                 Toast.makeText(getApplicationContext(),"Sai tên đăng nhập hoặc mật khẩu",Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.loginBtn);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        tvMessage = findViewById(R.id.tvMessageLogin);
     }
 
 }

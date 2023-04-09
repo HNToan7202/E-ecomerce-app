@@ -1,5 +1,6 @@
 package com.example.cozaexpress.Model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,7 +9,8 @@ import java.util.Date;
 
 @Entity(tableName = "Product")
 public class Product implements Serializable {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     private String id;
     private String name;
     private String desciption;
@@ -19,10 +21,26 @@ public class Product implements Serializable {
     private Boolean isselling;
     private String listimage;
     private String categoryId;
-    private Store store;
     private Integer rating;
-    private Date createat;
-    private Date updateat;
+    private String createat;
+    private String updateat;
+
+    public String getCreateat() {
+        return createat;
+    }
+
+    public void setCreateat(String createat) {
+        this.createat = createat;
+    }
+
+    public String getUpdateat() {
+        return updateat;
+    }
+
+    public void setUpdateat(String updateat) {
+        this.updateat = updateat;
+    }
+
     private String barcode;
     public String getCategoryId() {
         return categoryId;
@@ -92,28 +110,12 @@ public class Product implements Serializable {
     public void setListimage(String listimage) {
         this.listimage = listimage;
     }
-    public Store getStore() {
-        return store;
-    }
-    public void setStore(Store store) {
-        this.store = store;
-    }
+
     public Integer getRating() {
         return rating;
     }
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-    public Date getCreateat() {
-        return createat;
-    }
-    public void setCreateat(Date createat) {
-        this.createat = createat;
-    }
-    public Date getUpdateat() {
-        return updateat;
-    }
-    public void setUpdateat(Date updateat) {
-        this.updateat = updateat;
-    }
+
 }

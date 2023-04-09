@@ -11,6 +11,9 @@ android {
             keyPassword '123456'
         }
     }
+    dataBinding{
+        enable = true
+    }
     namespace 'com.example.cozaexpress'
     compileSdk 33
 
@@ -38,6 +41,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -69,5 +73,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:2.5.1"
     annotationProcessor "androidx.room:room-compiler:2.5.1"
+
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 
 }

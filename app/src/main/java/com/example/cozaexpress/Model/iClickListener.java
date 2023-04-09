@@ -1,5 +1,6 @@
 package com.example.cozaexpress.Model;
 
 public interface iClickListener {
-    void updateUser(User user);
+    void updateProduct(Product product);
+    void deleteProduct(Product product);
 }

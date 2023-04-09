@@ -45,80 +45,80 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         AnhXa();
-        userAdapter = new UserAdapter(new iClickListener() {
-            @Override
-            public void updateUser(User user) {
-                clickUpdateUser(user);
-            }
-        });
-        userList = new ArrayList<>();
+//        userAdapter = new UserAdapter(new iClickListener() {
+//            @Override
+//            public void updateUser(User user) {
+//                clickUpdateUser(user);
+//            }
+//        });
+//        userList = new ArrayList<>();
         //lấy ds user trong room
-        userList = UserDatabase.getInstance(this).userDAO().getAll();
-        userAdapter.setData(userList);
-        rcUser.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rcUser.setLayoutManager(layoutManager);
-        rcUser.setAdapter(userAdapter);
-        btnThem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addUser();
-            }
-        });
+//        userList = UserDatabase.getInstance(this).userDAO().getAll();
+//        userAdapter.setData(userList);
+//        rcUser.setHasFixedSize(true);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        rcUser.setLayoutManager(layoutManager);
+//        rcUser.setAdapter(userAdapter);
+//        btnThem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addUser();
+//            }
+//        });
     }
 
-    private void clickUpdateUser(User user) {
+//    private void clickUpdateUser(User user) {
+//
+//        Intent intent = new Intent(UserActivity.this,UpdateUserActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("object name", user);
+//        intent.putExtras(bundle);
+//        mActivityResultLauncher.launch(intent);
+//    }
 
-        Intent intent = new Intent(UserActivity.this,UpdateUserActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("object name", user);
-        intent.putExtras(bundle);
-        mActivityResultLauncher.launch(intent);
-    }
+//    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//        @Override
+//        public void onActivityResult(ActivityResult result) {
+//            Log.e("TAG", "onActivityResult");
+//            if(result.getResultCode()== Activity.RESULT_OK){
+//                Intent data = result.getData();
+//                if(data == null){
+//                    return;
+//                }
+//                loadData();
+//            }
+//
+//        }
+//    });
 
-    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            Log.e("TAG", "onActivityResult");
-            if(result.getResultCode()== Activity.RESULT_OK){
-                Intent data = result.getData();
-                if(data == null){
-                    return;
-                }
-                loadData();
-            }
+//    private void loadData() {
+//        //lấy danh sách user trong room
+//        userList = UserDatabase.getInstance(this).userDAO().getAll();
+//        userAdapter.setData(userList);
+//    }
 
-        }
-    });
-
-    private void loadData() {
-        //lấy danh sách user trong room
-        userList = UserDatabase.getInstance(this).userDAO().getAll();
-        userAdapter.setData(userList);
-    }
-
-    private void addUser() {
-        String username = edtUserName.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-        if(TextUtils.isEmpty(username)|| TextUtils.isEmpty(password))
-        {
-            return;
-        }
-        User user = new User(username,password);
-        if(isCheckExist(user)){
-            Toast.makeText(this, "User đã tồn tại", Toast.LENGTH_LONG).show();
-        }
-        //add vào room
-        UserDatabase.getInstance(this).userDAO().insertAll(user);
-        Toast.makeText(this, "Thêm user thành công", Toast.LENGTH_LONG).show();
-        edtPassword.setText("");
-        edtUserName.setText("");
-        hideSoftKeyboard();
-
-        userList = UserDatabase.getInstance(this).userDAO().getAll();
-        userAdapter.setData(userList);
-
-    }
+//    private void addUser() {
+//        String username = edtUserName.getText().toString().trim();
+//        String password = edtPassword.getText().toString().trim();
+//        if(TextUtils.isEmpty(username)|| TextUtils.isEmpty(password))
+//        {
+//            return;
+//        }
+//        User user = new User(username,password);
+//        if(isCheckExist(user)){
+//            Toast.makeText(this, "User đã tồn tại", Toast.LENGTH_LONG).show();
+//        }
+//        //add vào room
+//        UserDatabase.getInstance(this).userDAO().insertAll(user);
+//        Toast.makeText(this, "Thêm user thành công", Toast.LENGTH_LONG).show();
+//        edtPassword.setText("");
+//        edtUserName.setText("");
+//        hideSoftKeyboard();
+//
+//        userList = UserDatabase.getInstance(this).userDAO().getAll();
+//        userAdapter.setData(userList);
+//
+//    }
 
     private void hideSoftKeyboard() {
         try {
@@ -136,8 +136,8 @@ public class UserActivity extends AppCompatActivity {
         btnThem = findViewById(R.id.btnThem);
         rcUser = findViewById(R.id.rc_user_item);
     }
-    private boolean isCheckExist(@NotNull User user){
-        List<User> list = UserDatabase.getInstance(this).userDAO().checkUser(user.getUsername());
-        return list != null && !list.isEmpty();
-    }
+//    private boolean isCheckExist(@NotNull User user){
+//        List<User> list = UserDatabase.getInstance(this).userDAO().checkUser(user.getUsername());
+//        return list != null && !list.isEmpty();
+//    }
 }
