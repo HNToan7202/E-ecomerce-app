@@ -1,6 +1,9 @@
 package com.example.cozaexpress.api;
 
+import com.example.cozaexpress.Model.Cart;
 import com.example.cozaexpress.Model.Category;
+import com.example.cozaexpress.Model.ImageData;
+import com.example.cozaexpress.Model.ImageUpload;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.User;
 import com.google.gson.Gson;
@@ -9,13 +12,16 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface APIService {
     //public static final String BASE_URL="http://app.iotstar.vn/shoppingapp/";
@@ -47,5 +53,10 @@ public interface APIService {
     @POST("products/getId")
     @FormUrlEncoded
     Call<Product> getProductById(@Field("id") String id);
+
+    @POST("images")
+    @Multipart
+    Call<ImageData> uploadImages(@Part MultipartBody.Part image);
+
 }
 

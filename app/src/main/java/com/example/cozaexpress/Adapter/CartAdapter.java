@@ -63,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         Product product = products.get(position);
         holder.tvNameItem.setText(product.getName());
         int gia = (int) (product.getPromotionaprice()* product.getQuantity());
-        holder.tvPrice.setText(gia+"");
+        holder.tvPrice.setText(gia+"đ");
         holder.tvSoLuong.setText("x"+product.getQuantity().toString());
         Glide.with(context).load(product.getListimage()).into(holder.imgItemCart);
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tvNameItem = itemView.findViewById(R.id.tv_name_item_cart);
             tvPrice = itemView.findViewById(R.id.tvPrice_Item);
             tvSoLuong = itemView.findViewById(R.id.tvSoLuong);
-
         }
     }
 }
