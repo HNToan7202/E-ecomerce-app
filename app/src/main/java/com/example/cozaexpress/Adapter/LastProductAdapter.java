@@ -2,6 +2,7 @@ package com.example.cozaexpress.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,10 +50,14 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
         Product lastProduct = array.get(position);
         holder.tenSp.setText(lastProduct.getName());
         holder.id = lastProduct.getId();
+        holder.tvRating.setText(lastProduct.getRating().toString());
+        holder.count.setText(lastProduct.getSold().toString());
+        holder.tvGiaChuaGiam.setText(String.format( "%,.0f",lastProduct.getPrice())+ "đ");
+        holder.tvGiaChuaGiam.setPaintFlags(holder.tvGiaChuaGiam.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(context)
                 .load(lastProduct.getListimage())
                 .into(holder.images);
-        holder.tvGia.setText(lastProduct.getPrice().toString());
+        holder.tvGia.setText(String.format( "%,.0f",lastProduct.getPromotionaprice())+ "đ");
     }
 
     @Override
@@ -63,15 +68,22 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView images;
         public TextView tenSp;
-        public TextView tvGia;
+        public TextView tvGia, tvGiaChuaGiam;
 
+        TextView tvRating;
         private String id;
+
+        TextView count;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
+
             images = (ImageView) itemView.findViewById(R.id.imgProduct);
             tenSp = (TextView) itemView.findViewById(R.id.tvTenSp);
             tvGia = itemView.findViewById(R.id.tvGia);
+            tvRating = itemView.findViewById(R.id.tvSao);
+            count = itemView.findViewById(R.id.tvLuotMua);
+            tvGiaChuaGiam = itemView.findViewById(R.id.tvGiaChuaGiam);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

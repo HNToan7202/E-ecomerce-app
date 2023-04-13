@@ -19,9 +19,9 @@ import java.util.List;
 public class PhotoAdapter extends PagerAdapter {
 
     private Context mContext;
-    private List<Photo> mListPhoto;
+    private List<String> mListPhoto;
 
-    public PhotoAdapter(Context mContext, List<Photo> mListPhoto) {
+    public PhotoAdapter(Context mContext, List<String> mListPhoto) {
         this.mContext = mContext;
         this.mListPhoto = mListPhoto;
     }
@@ -43,9 +43,11 @@ public class PhotoAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_photo, container, false);
         ImageView imgPhoto = view.findViewById(R.id.img_photo);
-        Photo photo = mListPhoto.get(position);
+
+        String photo = mListPhoto.get(position);
+
         if(photo != null){
-            Glide.with(mContext).load(photo.getResourcesId()).into(imgPhoto);
+            Glide.with(mContext).load(photo).into(imgPhoto);
         }
         //add view to view group
         container.addView(view);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scanbtn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,15 +25,64 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/scanview" />
 
-        <TextView
-            android:id="@+id/tvSearch"
+        <ScrollView
+            android:layout_weight="6"
+            android:id="@+id/scrollView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="6"
-            android:text="Găng Tay Gaming"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+            android:scrollbars="none">
+
+            <LinearLayout
+
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_auto_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_margin="3dp"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="Găng Tay Gaming"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_margin="3dp"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="Áo Chống Nắng"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_margin="3dp"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="Áo Khoác Nam"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <!--Thêm các TextView cho các dòng text tại đây-->
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearch"
@@ -46,7 +96,7 @@
             android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>
-
+    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -60,7 +110,11 @@
                 android:id="@+id/rc_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvCate">
+                android:layout_below="@id/tvCate"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -68,6 +122,7 @@
                 android:id="@+id/rc_prodcut"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="@dimen/item_padding"
                 android:layout_below="@id/tvProduct">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -80,7 +135,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_background"></androidx.viewpager.widget.ViewPager>
+                android:background="@drawable/btn_background">
+
+            </androidx.viewpager.widget.ViewPager>
 
             <me.relex.circleindicator.CircleIndicator
                 android:id="@+id/indicator"
@@ -106,9 +163,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
                 android:layout_weight="1"
-
                 android:text="Loại Sản Phẩm"
-                android:textColor="#F44336"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -122,7 +178,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_weight="1"
                 android:text="Sản Phẩm"
-                android:textColor="#F44336"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </RelativeLayout>

@@ -51,8 +51,10 @@ public class AccountFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tvName);
         User user = DataLocalManager.getUser();
 
-        tvUserName.setText(user.getUsername());
-        Glide.with(getContext()).load(user.getAvatar()).into(imgProfile);
+        if(user!= null){
+            tvUserName.setText(user.getUsername());
+            Glide.with(getContext()).load(user.getAvatar()).into(imgProfile);
+        }
 
         btnSetting = view.findViewById(R.id.btn_setting_profile);
         btnLogOut = view.findViewById(R.id.btnLogOut);
@@ -81,6 +83,7 @@ public class AccountFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 //lệnh nút có
                 SharedPrefManager.getInstance(getContext()).logout();
+                //DataLocalManager.loggout();
             }
         });
         alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {

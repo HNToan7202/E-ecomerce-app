@@ -7,9 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.cozaexpress.DAO.ProductDAO;
-import com.example.cozaexpress.DAO.UserDAO;
 import com.example.cozaexpress.Model.Product;
-import com.example.cozaexpress.Model.User;
 
 @Database(entities = {Product.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
@@ -25,4 +23,5 @@ public abstract class UserDatabase extends RoomDatabase {
         return instance;
     }
     public abstract ProductDAO productDAO();
+
 }

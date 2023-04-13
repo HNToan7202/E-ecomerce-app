@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ public class CartFragment extends Fragment {
 
     RecyclerView rcCart, btnDelete;
 
+    TextView total;
+
 
     //Hàm trả về view
     @Nullable
@@ -42,15 +45,23 @@ public class CartFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_cart, container, false);
         //AnhXa();
         rcCart = view.findViewById(R.id.rc_item_cart);
+        total = view.findViewById(R.id.tvTotal_cart);
+        CartAdapter cartAdapter;
         List<Product> products = UserDatabase.getInstance(getContext()).productDAO().getAll();
-        CartAdapter cartAdapter = new CartAdapter(getContext(), products);
-        cartAdapter.setData(products);
+        Double sum = 0.0;
 
+        for(int i = 0 ; i <products.size();i++){
+            sum += products.get(i).getPromotionaprice()*products.get(i).getQuantity();
+        }
+        total.setText(String.format( "%,.0f" +"đ",sum));
+        cartAdapter = new CartAdapter(getContext(), products);
+        cartAdapter.setData(products);
         rcCart.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcCart.setLayoutManager(layoutManager);
         rcCart.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
+
 
         return view;
     }

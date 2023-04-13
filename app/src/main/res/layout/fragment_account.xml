@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/top_bar">
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:orientation="vertical">
 
                         <ImageView
@@ -165,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:orientation="vertical">
 
                         <ImageView
@@ -183,7 +183,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Chờ Vận Chuyển"
+                            android:text="Đang Xử Lý"
                             android:textColor="#000000"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -192,7 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:orientation="vertical">
 
                         <ImageView
@@ -210,7 +210,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Chờ Giao Hàng"
+                            android:text="Thành Công"
                             android:textColor="#000000"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -219,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:orientation="vertical">
 
                         <ImageView
@@ -237,34 +237,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Chưa Đánh Giá"
-                            android:textColor="#000000"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.2"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView68"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/investment" />
-
-                        <TextView
-                            android:id="@+id/textView43"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Đơn Đã Đổi Trả"
+                            android:text="Đã Huỷ"
                             android:textColor="#000000"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -434,7 +407,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/facebook_messenger" />
+                                    app:srcCompat="@drawable/baseline_remove_red_eye_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -442,7 +415,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Inbox"
+                                android:text="Đã Xem"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -473,7 +446,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/camera" />
+                                    app:srcCompat="@drawable/baseline_favorite_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -481,7 +454,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Map"
+                                android:text="Yêu Thích"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -512,7 +485,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/account" />
+                                    app:srcCompat="@drawable/baseline_star_rate_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -520,7 +493,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Chat"
+                                android:text="Đánh Giá"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -551,7 +524,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/bell_outline" />
+                                    app:srcCompat="@drawable/baseline_card_giftcard_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -559,7 +532,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Report"
+                                android:text="Đổi Quà"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -599,7 +572,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/message" />
+                                    app:srcCompat="@drawable/baseline_manage_accounts_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -607,7 +580,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Tip"
+                                android:text="Cá Nhân"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -638,7 +611,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/cart" />
+                                    app:srcCompat="@drawable/baseline_map_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -646,7 +619,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Calendar"
+                                android:text="Sổ Địa Chỉ"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -677,7 +650,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/message" />
+                                    app:srcCompat="@drawable/baseline_rule_folder_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -685,7 +658,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Tip"
+                                android:text="Quy định"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -717,7 +690,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/cart" />
+                                    app:srcCompat="@drawable/baseline_question_mark_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -725,7 +698,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Orther"
+                                android:text="Hỗ Trợ"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -738,15 +711,17 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLogOut"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="#F44336"
-                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_background"
-                android:text="Đăng Xuất" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_background"
+                android:text="Đăng Xuất"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

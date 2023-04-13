@@ -10,6 +10,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cozaexpress.Activity.FollowedFragment;
 import com.example.cozaexpress.Activity.ViewFragment;
+import com.example.cozaexpress.Fragment.MoTaFragment;
+import com.example.cozaexpress.Fragment.ThongSoFragment;
 
 public class MallViewPagerAdapter extends FragmentStateAdapter {
 
@@ -24,6 +26,10 @@ public class MallViewPagerAdapter extends FragmentStateAdapter {
         switch (position){
             case 1:
                 return new FollowedFragment();
+            case 2:
+                return new MoTaFragment();
+            case 3:
+                return new ThongSoFragment();
             case 0 :
             default:
                 return new ViewFragment();
@@ -32,9 +38,7 @@ public class MallViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 4;
     }
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.cozaexpress.DataLocal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.util.HashSet;
@@ -38,6 +39,7 @@ public class MySharedPreferences {
         editor.putString(key, vaule);
         editor.apply();
     }
+
 
     public String getStringVaule(String key){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARED_PREFERENCES,

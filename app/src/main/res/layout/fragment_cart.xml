@@ -7,6 +7,17 @@
     android:background="#ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/empty_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="center"
+        android:src="@drawable/cartempty"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="empty_list.json"
+        app:lottie_loop="true" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint"
         android:layout_width="match_parent"
@@ -106,34 +117,34 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/tvTotal_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="0 đ"
+            android:layout_marginStart="3dp"
+            android:text="9.999.999đ"
             android:textColor="#F44336"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnAddToCart"
-            app:layout_constraintEnd_toStartOf="@+id/btnAddToCart"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="@+id/btnAddToCart" />
 
         <TextView
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="Tổng Cộng :"
+            android:layout_marginStart="8dp"
+            android:text="Total :"
             android:textColor="#000"
-            app:layout_constraintBottom_toBottomOf="@+id/textView26"
-            app:layout_constraintEnd_toStartOf="@+id/textView26"
-            app:layout_constraintTop_toTopOf="@+id/textView26" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvTotal_cart"
+            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+            app:layout_constraintTop_toTopOf="@+id/tvTotal_cart" />
 
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:text="Tất cả"
             app:layout_constraintBottom_toBottomOf="@+id/textView27"
             app:layout_constraintStart_toStartOf="parent"

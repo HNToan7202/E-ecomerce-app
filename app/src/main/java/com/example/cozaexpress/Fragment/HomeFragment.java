@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +33,12 @@ import com.example.cozaexpress.Activity.SearchActivity;
 import com.example.cozaexpress.Adapter.CategoryAdapter;
 import com.example.cozaexpress.Adapter.LastProductAdapter;
 import com.example.cozaexpress.Adapter.PhotoAdapter;
+import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
+import com.example.cozaexpress.Utils.MyItemDecoration;
 import com.example.cozaexpress.api.APIService;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -57,7 +64,7 @@ public class HomeFragment extends Fragment {
 
     RecyclerView rcCate;
 
-    List<Photo> mListPhoto;
+    List<String> mListPhoto;
 
     private Timer mTimer;
 
@@ -75,7 +82,11 @@ public class HomeFragment extends Fragment {
 
     ImageView btnSCan;
 
-    TextView scantext;
+    TextView tvAutoSlide;
+
+    ScrollView scrollView;
+
+    LinearLayout linearLayout;
 
     @Nullable
     @Override
@@ -95,10 +106,11 @@ public class HomeFragment extends Fragment {
                     productList = response.body();
                     productAdapter = new LastProductAdapter(getContext(),productList);
                     rcProduct.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
                     rcProduct.setLayoutManager(layoutManager);
                     rcProduct.setAdapter(productAdapter);
                     productAdapter.notifyDataSetChanged();
+                    //Toast.makeText(getContext(), "Đã Load Product", Toast.LENGTH_LONG).show();
                 }
                 else {
                     int statusCode = response.code();
@@ -107,7 +119,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-
+                //Toast.makeText(getContext(), "Load Thất Bại", Toast.LENGTH_LONG).show();
+                Log.e("TAG", t.getMessage());
             }
         });
     }
@@ -136,13 +149,23 @@ public class HomeFragment extends Fragment {
     }
 
     private void AnhXa() {
+
+        scrollView =view.findViewById(R.id.scrollView);
+        linearLayout = view.findViewById(R.id.linearLayout);
+
+        DongChuChay();
+
         btnSCan = view.findViewById(R.id.scanbtn2);
         rcProduct = view.findViewById(R.id.rc_prodcut);
+
         rcCate = view.findViewById(R.id.rc_category);
         viewPager = view.findViewById(R.id.viewPager_Home);
         circleIndicator =view.findViewById(R.id.indicator);
         mListPhoto = getListPhoto();
+
+
         photoAdapter = new PhotoAdapter(getContext(), mListPhoto);
+
         viewPager.setAdapter(photoAdapter);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         btnSearch = view.findViewById(R.id.btnSearch);
@@ -163,6 +186,39 @@ public class HomeFragment extends Fragment {
         autoSlideImage();
     }
 
+    private void DongChuChay() {
+        // Tạo danh sách các dòng text
+        List<String> textList = new ArrayList<>();
+        textList.add("Dòng 1");
+        textList.add("Dòng 2");
+        textList.add("Dòng 3");
+
+        // Thêm các TextView cho các dòng text vào trong LinearLayout
+        for (String text : textList) {
+            TextView textView = new TextView(getContext());
+            textView.setText(text);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            linearLayout.addView(textView);
+        }
+
+        // Sử dụng Handler để cuộn ScrollView tự động
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            int i = 0;
+            @Override
+            public void run() {
+                if (i == linearLayout.getChildCount()) {
+                    i = 0;
+                }
+                scrollView.smoothScrollTo(0, linearLayout.getChildAt(i).getTop());
+                i++;
+                handler.postDelayed(this, 1500); // thiết lập thời gian giữa mỗi lần cuộn
+            }
+        };
+        handler.postDelayed(runnable, 500);
+
+    }
+
     private void scanCode() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volunm up to flash on");
@@ -174,12 +230,11 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<Photo> getListPhoto() {
-        List<Photo> photos = new ArrayList<>();
-        photos.add(new Photo(R.drawable.hinh1));
-        photos.add(new Photo(R.drawable.hinh2));
-        photos.add(new Photo(R.drawable.hinh3));
-        photos.add(new Photo(R.drawable.hinh4));
+    private List<String> getListPhoto() {
+        List<String> photos = new ArrayList<>();
+        photos.add("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        photos.add("https://ecomserver.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
+        photos.add("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
         return photos;
     }
 

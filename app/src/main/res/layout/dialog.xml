@@ -19,16 +19,17 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add_to_cart2"
-        android:layout_width="280dp"
+        style="@android:style/Widget.Button"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@id/btnXacNhan"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_background2"
+        android:background="@drawable/btn_background"
         android:text="Thêm Vào Giỏ Hàng"
         android:textColor="#ffffff"
         android:textSize="14sp"
@@ -39,40 +40,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnXacNhan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/img_hinhSP"
-            android:layout_width="135dp"
-            android:layout_height="160dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/img" />
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_price_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="50000đ"
+            android:layout_marginStart="8dp"
+            android:text="9.999.999đ"
             android:textColor="#F44336"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_hinhSP"
-            app:layout_constraintTop_toTopOf="@+id/img_hinhSP" />
+            app:layout_constraintStart_toEndOf="@+id/img_hinh_sp"
+            app:layout_constraintTop_toTopOf="@+id/img_hinh_sp" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:text="Số lượng"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/img_hinhSP"
-            app:layout_constraintTop_toBottomOf="@+id/img_hinhSP" />
+            app:layout_constraintStart_toStartOf="@+id/img_hinh_sp"
+            app:layout_constraintTop_toBottomOf="@+id/img_hinh_sp"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/edtCount"
@@ -86,6 +78,27 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+        <ImageView
+            android:id="@+id/img_hinh_sp"
+            android:layout_width="215dp"
+            android:layout_height="122dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sofa" />
+
+        <TextView
+            android:id="@+id/tv_price_real"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="9.999.999đ"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_price_dialog"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_dialog" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

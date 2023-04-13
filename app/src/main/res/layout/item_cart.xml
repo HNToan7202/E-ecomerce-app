@@ -2,118 +2,98 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_cart"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/btnDelete"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_delete_24" />
-
-    <ImageView
-        android:id="@+id/img_item_cart"
-        android:layout_width="62dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img" />
-
-    <TextView
-        android:id="@+id/tvNhanHangItem"
+        android:id="@+id/btn_delete_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="LANEIGE"
-        android:textColor="#0E4A45"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/img_item_cart"
-        app:layout_constraintTop_toTopOf="@+id/img_item_cart" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="44dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:background="#fff"
-        android:text="-"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/img_item_cart"
-        app:layout_constraintStart_toEndOf="@+id/img_item_cart"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_item_cart" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="#000"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
-        android:layout_width="44dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="5dp"
-        android:background="#fff"
-        android:text="+"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/img_item_cart"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_close_24" />
 
     <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/cBCheck"
+        android:layout_width="29dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_item_cart" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/tv_name_item_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginEnd="8dp"
-        android:text="Sửa rữa mặt Simple giúp da sạch thoáng"
-        android:textColor="#000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvNhanHangItem"
-        app:layout_constraintTop_toBottomOf="@+id/tvNhanHangItem" />
-
-    <TextView
-        android:id="@+id/tvPrice_Item"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="99000đ"
-        android:textStyle="bold"
-        android:textColor="#F44336"
-        app:layout_constraintEnd_toStartOf="@+id/tvSoLuong"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
-
-    <TextView
-        android:id="@+id/tvSoLuong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="x1"
-        android:textColor="#000000"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvPrice_Item" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_product_cart"
+            android:layout_width="165dp"
+            android:layout_height="86dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/sofa"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <TextView
+            android:id="@+id/tv_name_cart"
+            android:layout_width="146dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="8dp"
+            android:text="Sofa Combo góc phải da Bali 520"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/img_product_cart"
+            app:layout_constraintTop_toTopOf="@+id/img_product_cart" />
+
+        <TextView
+            android:id="@+id/tv_price_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="9.999.999đ"
+            android:textColor="#F44336"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_cart"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_cart" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_count_item"
+            app:layout_constraintStart_toEndOf="@+id/tv_count_item"
+            app:layout_constraintTop_toTopOf="@+id/tv_count_item"
+            app:srcCompat="@drawable/add_product" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_price_cart"
+            app:layout_constraintStart_toEndOf="@+id/tv_price_cart"
+            app:layout_constraintTop_toTopOf="@+id/tv_price_cart"
+            app:srcCompat="@drawable/minus" />
+
+        <TextView
+            android:id="@+id/tv_count_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="1"
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

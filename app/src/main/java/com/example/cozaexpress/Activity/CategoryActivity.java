@@ -53,7 +53,7 @@ public class CategoryActivity extends AppCompatActivity {
                     productList = response.body();
                     productAdapter = new LastProductAdapter(CategoryActivity.this,productList);
                     rcProduct.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CategoryActivity.this,3);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CategoryActivity.this,2);
                     rcProduct.setLayoutManager(layoutManager);
                     rcProduct.setAdapter(productAdapter);
                     productAdapter.notifyDataSetChanged();

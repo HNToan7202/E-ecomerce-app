@@ -93,7 +93,14 @@ public class SettingActivity extends AppCompatActivity {
 //        btnLogOut = findViewById(R.id.btnLogOut);
 
         User user = DataLocalManager.getUser();
-        Glide.with(getApplicationContext()).load(user.getAvatar()).into(imgProfle);
+        if(user != null)
+        {
+            Glide.with(getApplicationContext()).load(user.getAvatar()).into(imgProfle);
+        }
+        else {
+            startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+        }
+
 
 
         //init progess
@@ -151,19 +158,17 @@ public class SettingActivity extends AppCompatActivity {
 //
 //           }
 //       });
-
         APIService.apiService.uploadImages(partAvatar).enqueue(new Callback<ImageData>() {
             @Override
             public void onResponse(Call<ImageData> call, Response<ImageData> response) {
                 mProgressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Thành Công", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingActivity.this, "Thành Công", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<ImageData> call, Throwable t) {
-                Log.d("TAG", t.getMessage());
                 mProgressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Thất Bại", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingActivity.this, "Thất Bại", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -178,7 +183,7 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         //xin cấp phép thành công
-        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
             openGallery();// mở gallery
         }else{
             //nếu ko tạo cục bộ và xin cấp phép

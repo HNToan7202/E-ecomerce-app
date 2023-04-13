@@ -5,6 +5,9 @@
     <string name="action_message">Tin Nhắn</string>
     <string name="action_cart">Giỏ Hàng</string>
     <string name="action_account">Tài Khoản</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="view_fragment">Xem Dạo</string>
     <string name="followed_fragment">Đã Theo Dõi</string>
@@ -42,9 +45,24 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="slide_1_title">Exclusive Products</string>
+    <string name="slide_1_desc">Get products which are unique and only available at our shops !</string>
+
+    <string name="slide_2_title">Cheap Rates</string>
+    <string name="slide_2_desc">Products at such an affordable rates !</string>
+
+    <string name="slide_3_title">Hassle Free Payments</string>
+    <string name="slide_3_desc">With various pay options , you can easily pay in a minute !</string>
+
+    <string name="slide_4_title">Fast Delivery</string>
+    <string name="slide_4_desc">Blazing fast order delivery within time !</string>
+
+    <string name="register">Register</string>
+    <string name="forgot">Forgot Password</string>
+    <string name="login_now">Login Now</string>
+
 </resources>

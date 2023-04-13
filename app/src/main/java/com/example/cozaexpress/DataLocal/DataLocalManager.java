@@ -1,6 +1,7 @@
 package com.example.cozaexpress.DataLocal;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.cozaexpress.Model.Product;

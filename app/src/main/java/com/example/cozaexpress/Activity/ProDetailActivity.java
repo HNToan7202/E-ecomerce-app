@@ -9,11 +9,16 @@ import androidx.room.Database;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +27,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.Adapter.ProDetailAdapter;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
@@ -33,6 +39,7 @@ import com.example.cozaexpress.api.APIService;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +48,6 @@ public class ProDetailActivity extends AppCompatActivity {
 
     ImageView imgProduct;
     TextView tvPrice, tvDesciption, tvGiaChuaGiam, tvNameSp, tvHangSP;
-
     List<Product> productList = new ArrayList<>();
 
     ImageView btnBackToHome;
@@ -58,6 +64,12 @@ public class ProDetailActivity extends AppCompatActivity {
 
     Product product;
 
+    @BindView(R.id.add_to_wishlist)
+    LottieAnimationView addToWishlist;
+
+    @BindView(R.id.wishlist_red)
+    ImageView wishlist_red;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,18 +83,19 @@ public class ProDetailActivity extends AppCompatActivity {
             getProductById(id);
         }
 
-
         Product product = (Product) bundle.getSerializable("product");
 
         AnhXa();
+
         if(product != null){
-            tvNameSp.setText(product.getName());
             Glide.with(getApplicationContext())
                     .load(product.getListimage())
                     .into(imgProduct);
             tvGiaChuaGiam.setText(product.getPrice().toString());
             tvPrice.setText(product.getPromotionaprice().toString());
             tvDesciption.setText(product.getDesciption());
+            tvNameSp.setText(product.getName());
+            Log.d("TAG", product.getName());
         }
         registerForContextMenu(btnPopup);
         btnPopup.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +121,10 @@ public class ProDetailActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(product.getListimage())
                         .into(imgProduct);
-                tvGiaChuaGiam.setText(product.getPrice().toString());
-                tvPrice.setText(product.getPromotionaprice().toString());
+                tvGiaChuaGiam.setText(String.format( "%,.0f",product.getPrice())+"đ");
+                tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
                 tvDesciption.setText(product.getDesciption());
+                tvNameSp.setText(product.getName());
             }
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
@@ -118,6 +132,19 @@ public class ProDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void shareProduct(View view) {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "Found amazing " + product.getName() + "on CozaExpress App";
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
+    public void addToWishList(View view) {
+    }
+
+
     private void AnhXa() {
         btnBack = findViewById(R.id.btn_back_to_prodetail);
         btnCart = findViewById(R.id.btn_cart);
@@ -125,12 +152,14 @@ public class ProDetailActivity extends AppCompatActivity {
         imgProduct = findViewById(R.id.img_product_detail);
         tvPrice = findViewById(R.id.tvGiaDaGiam);
         tvGiaChuaGiam = findViewById(R.id.tv_Gia_Da_Giam);
+        tvGiaChuaGiam.setPaintFlags(tvGiaChuaGiam.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         tvDesciption = findViewById(R.id.tvmota);
         tvNameSp = findViewById(R.id.tvnamedetail);
         tvHangSP = findViewById(R.id.tvHang_SP_detail);
 
         btnBackToHome = findViewById(R.id.btn_back_to_prodetail);
         btnThemVaoGio = findViewById(R.id.btn_add_to_cart);
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +251,12 @@ public class ProDetailActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog);
         dialog.setCanceledOnTouchOutside(false);
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
         //ánh xạ
 //        EditText editText1 = (EditText)
 //                dialog.findViewById(R.id.editTextTextPersonName);
@@ -233,13 +268,27 @@ public class ProDetailActivity extends AppCompatActivity {
 
         EditText edtCount = dialog.findViewById(R.id.edtCount);
 
+        TextView tvPrice = dialog.findViewById(R.id.tv_price_dialog);
+
+        TextView tvPriceReal = dialog.findViewById(R.id.tv_price_real);
+
+        ImageView imgae = dialog.findViewById(R.id.img_hinh_sp);
+
+        tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
+
+        tvPriceReal.setText(String.format( "%,.0f",product.getPrice())+"đ");
+
+        Glide.with(getApplicationContext())
+                .load(product.getListimage())
+                .into(imgae);
+
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productList = DataLocalManager.getListProduct();
+                //productList = DataLocalManager.getListProduct();
                 int soluong = Integer.parseInt(edtCount.getText().toString());
                 product.setQuantity(soluong);
-                productList.add(product);
+                //productList.add(product);
                 UserDatabase.getInstance(getApplicationContext()).productDAO().insertProduct(product);
                 Toast.makeText(ProDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
 

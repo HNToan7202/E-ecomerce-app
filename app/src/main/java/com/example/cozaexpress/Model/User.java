@@ -1,43 +1,84 @@
 package com.example.cozaexpress.Model;
 
-import android.text.TextUtils;
-import android.util.Patterns;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.example.cozaexpress.Model.Store;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.regex.Pattern;
 
-@Entity(tableName = "user")
+@Entity(tableName = "User")
 public class User implements Serializable {
-    @PrimaryKey()
+    @PrimaryKey
     @NonNull
-    private String id;
-    private String firstName = "Nguyen A";
-    private String lastName = "A";
-    private String email = "user@gamil.com";
-    private String phone = "0123456789";
-    private String username ="user01";
+    private String  id;
+
+    private String fullName;
+    private String email;
+    private String phone;
+    private String username;
     private String password;// mật khẩu mã hóa
-    private String address = "123 Nguyen";
+    private String address;
     private String avatar;
     private String role;
     private Boolean isActive;
     private String resetpasswordtoken;
 
-    private String storeId;
+//    private Date createat;
+//    private Date updaeat;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    // private Store stores;
+
+//    public Date getCreateat() {
+//        return createat;
+//    }
+//
+//    public void setCreateat(Date createat) {
+//        this.createat = createat;
+//    }
+//
+//    public Date getUpdaeat() {
+//        return updaeat;
+//    }
+//
+//    public void setUpdaeat(Date updaeat) {
+//        this.updaeat = updaeat;
+//    }
+
+//    public Store getStores() {
+//        return stores;
+//    }
+//
+//    public void setStores(Store stores) {
+//        this.stores = stores;
+//    }
+
+
+    public User() {
     }
 
-    public User(String string, String string1, String string2, String string3, String string4, String string5, String string6, String string7, String string8) {
+    public User(@NonNull String id, String fullName, String email, String phone, String username, String password, String address, String avatar, String role, Boolean isActive, String resetpasswordtoken) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.avatar = avatar;
+        this.role = role;
+        this.isActive = isActive;
+        this.resetpasswordtoken = resetpasswordtoken;
+        //this.createat = createat;
+        //this.updaeat = updaeat;
+        // this.stores = stores;
+    }
+
+    public User(String id, String username, String pass) {
+        this.id = id;
+        this.username = username;
+        this.password = pass;
     }
 
     public String getId() {
@@ -48,20 +89,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -136,40 +169,4 @@ public class User implements Serializable {
         this.resetpasswordtoken = resetpasswordtoken;
     }
 
-//    public Date getCreateat() {
-//        return createat;
-//    }
-//
-//    public void setCreateat(Date createat) {
-//        this.createat = createat;
-//    }
-//
-//    public Date getUpdateat() {
-//        return updateat;
-//    }
-//
-//    public void setUpdateat(Date updateat) {
-//        this.updateat = updateat;
-//    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
-    }
-
-    public boolean isValidEmail(){
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    //quy định luật cho password lớn hơn 6 ký tư
-    public boolean isValidPassword(){
-        return !TextUtils.isEmpty(password) && password.length() >= 6 ;
-    }
-
-    public boolean isUsername(){
-        return !TextUtils.isEmpty(password) && password.length() > 0 ;
-    }
 }

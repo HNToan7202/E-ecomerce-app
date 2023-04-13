@@ -19,12 +19,37 @@
         android:text="@string/Sign_up"
         android:textAppearance="@style/sing_in"
         android:lineSpacingExtra="-1sp" />
+    <RelativeLayout
+        android:layout_below="@id/sign_up"
+        android:gravity="center"
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilepic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/user"/>
+
+        <ImageView
+            android:id="@+id/uploadpic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:elevation="4dp"
+            android:layout_alignBottom="@+id/profilepic"
+            android:layout_alignRight="@+id/profilepic"
+            android:src="@drawable/uploadpic"/>
+
+    </RelativeLayout>
 
     <EditText
+
         android:id="@+id/username01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sign_up"
+        android:layout_below="@id/img"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -88,7 +113,7 @@
         android:layout_below="@id/progressBarSignUp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:layout_width="374dp"

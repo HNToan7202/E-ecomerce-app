@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.cozaexpress.Adapter.UserAdapter;
+
 import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.Model.iClickListener;
@@ -37,7 +37,6 @@ public class UserActivity extends AppCompatActivity {
     EditText edtUserName, edtPassword;
     Button btnThem;
     RecyclerView rcUser;
-    UserAdapter userAdapter;
     private List<User> userList;
 
     @Override

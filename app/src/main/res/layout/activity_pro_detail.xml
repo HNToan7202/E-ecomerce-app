@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".Activity.ProductDetailActivity">
+    tools:context=".Activity.ProDetailActivity">
 
 
     <ScrollView
@@ -23,14 +23,55 @@
             <ImageView
                 android:id="@+id/img_product_detail"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="230dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/img" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F44336"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+                    android:text="SuperDeals"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#ffffff"
+                    android:textAlignment="viewEnd"
+                    android:textSize="16sp"
+                    android:text="Ends: Apr 17, 13:59ICT" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:background="@color/grey_light"
+                tools:ignore="MissingConstraints" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#BDB0B0">
+                android:background="#FFFFFF">
 
                 <TextView
                     android:id="@+id/tvGiaDaGiam"
@@ -38,10 +79,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="401.000 đ"
-                    android:textColor="#F44336"
-                    android:textSize="20sp"
+                    android:layout_marginBottom="16dp"
+                    android:text="đ401.000"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,32 +92,42 @@
                     android:id="@+id/tv_Gia_Da_Giam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="535.000 đ"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/tvGiaDaGiam"
-                    app:layout_constraintTop_toBottomOf="@+id/tvGiaDaGiam" />
+                    android:layout_marginStart="8dp"
+                    android:text="đ535.000"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvGiaDaGiam"
+                    app:layout_constraintStart_toEndOf="@+id/tvGiaDaGiam"
+                    app:layout_constraintTop_toTopOf="@+id/tvGiaDaGiam" />
 
                 <TextView
                     android:id="@+id/tvDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:background="#F44336"
-                    android:text="-25%"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_Gia_Da_Giam"
-                    app:layout_constraintStart_toEndOf="@+id/tvGiaDaGiam"
+                    android:layout_marginStart="16dp"
+                    android:text="75% off"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_Gia_Da_Giam"
                     app:layout_constraintTop_toTopOf="@+id/tvGiaDaGiam"
                     app:layout_constraintVertical_bias="0.0" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvnamedetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Sáp Dưỡng Môi Vaseline Hồng Xinh 7g Lip Therapy Rosy Lip"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvHang_SP_detail"
@@ -87,16 +140,143 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvnamedetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Sáp Dưỡng Môi Vaseline Hồng Xinh 7g Lip Therapy Rosy Lip"
-                    android:textColor="#000000"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:background="@color/grey_light"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:id="@+id/layout_action1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="shareProduct"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/share" />
+
+                    <TextView
+                        android:id="@+id/text_action1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="Share"
+                        android:textColor="@color/gen_black"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/view_width_small"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey_light" />
+
+                <LinearLayout
+                    android:id="@+id/layout_action2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="similarProduct"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/similar" />
+
+                    <TextView
+                        android:id="@+id/text_action2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="Similar"
+                        android:textColor="@color/gen_black"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/view_width_small"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey_light" />
+
+                <LinearLayout
+                    android:id="@+id/layout_action3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="addToWishList"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/add_to_wishlist"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:foregroundGravity="center"
+                            android:src="@drawable/cartempty"
+                            android:visibility="visible"
+                            app:lottie_fileName="heart.json" />
+
+                        <ImageButton
+                            android:id="@+id/wishlist_red"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/red_heart_icon"
+                            android:visibility="gone" />
+
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/text_action3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="Wishlist"
+                        android:textColor="@color/gen_black"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <View android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:background="@color/grey_light"
+                android:layout_marginTop="8dp"
+                tools:ignore="MissingConstraints" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,6 +304,12 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
+            <View android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:background="@color/grey_light"
+                android:layout_marginTop="8dp"
+                tools:ignore="MissingConstraints" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,6 +464,11 @@
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint"
         android:layout_width="match_parent"
@@ -316,80 +507,62 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/cricle_backgorund"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnMoreOption"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_shopping_cart_24" />
+            app:srcCompat="@drawable/cart2" />
 
         <ImageView
             android:id="@+id/btnMoreOption"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/cricle_backgorund"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/more_vert" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:weightSum="2"
         android:id="@+id/addtocart"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="2dp"
         android:background="#ffffff">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="42dp"
-                android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_message_24" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="center"
-                android:text="Chat"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_to_cart3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_background"
+            android:text="Mua Ngay"
+            android:textColor="#000000"
+            style="@android:style/Widget.Button"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_to_cart"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/btn_background2"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_background"
             android:text="Thêm Vào Giỏ Hàng"
+            style="@android:style/Widget.Button"
             android:textColor="#ffffff"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

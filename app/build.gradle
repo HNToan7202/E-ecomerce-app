@@ -1,8 +1,10 @@
 plugins {
     id 'com.android.application'
+
 }
 
 android {
+
     signingConfigs {
         myconfig {
             storeFile file('/Users/hoangtoannguyen/Desktop/TestKeyStore')
@@ -21,7 +23,7 @@ android {
         applicationId "com.example.cozaexpress"
         minSdk 24
         //noinspection ExpiredTargetSdkVersion
-        targetSdk 30
+        targetSdk 29
         versionCode 1
         versionName "1.0"
 
@@ -47,6 +49,8 @@ android {
 
 dependencies {
 
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -59,6 +63,7 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
 
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
@@ -67,7 +72,6 @@ dependencies {
     // Network & Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
 
     //bo goc tron cho image view
     implementation 'de.hdodenhof:circleimageview:1.2.1'
@@ -79,5 +83,15 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.5.1"
 
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
+
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
 
 }

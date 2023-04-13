@@ -62,9 +62,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull CartAdapter.MyViewHolder holder, int position) {
         Product product = products.get(position);
         holder.tvNameItem.setText(product.getName());
-        int gia = (int) (product.getPromotionaprice()* product.getQuantity());
-        holder.tvPrice.setText(gia+"đ");
-        holder.tvSoLuong.setText("x"+product.getQuantity().toString());
+        holder.tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
+        holder.tvSoLuong.setText(product.getQuantity().toString());
         Glide.with(context).load(product.getListimage()).into(holder.imgItemCart);
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +86,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         TextView tvNameItem, tvPrice, tvSoLuong;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
-            imgItemCart = itemView.findViewById(R.id.img_item_cart);
-            tvNameItem = itemView.findViewById(R.id.tv_name_item_cart);
-            tvPrice = itemView.findViewById(R.id.tvPrice_Item);
-            tvSoLuong = itemView.findViewById(R.id.tvSoLuong);
+            btnDelete = itemView.findViewById(R.id.btn_delete_item);
+            imgItemCart = itemView.findViewById(R.id.img_product_cart);
+            tvNameItem = itemView.findViewById(R.id.tv_name_cart);
+            tvPrice = itemView.findViewById(R.id.tv_price_cart);
+            tvSoLuong = itemView.findViewById(R.id.tv_count_item);
         }
     }
 }

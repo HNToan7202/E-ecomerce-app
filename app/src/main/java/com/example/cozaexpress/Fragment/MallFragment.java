@@ -33,22 +33,11 @@ public class MallFragment extends Fragment {
     }
 
     private void AnhXa() {
-        mTabLayout = view.findViewById(R.id.tabLayoutMall);
+        //mTabLayout = view.findViewById(R.id.tabLayoutMall);
         mViewPager = view.findViewById(R.id.view_pager_mall);
         MallViewPagerAdapter viewPagerAdapter = new MallViewPagerAdapter(getActivity());
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-
-        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
-            switch (position){
-                case 0:
-                    tab.setText("Xem Dạo");
-                    break;
-                case 1:
-                    tab.setText("Đã Theo Dõi");
-                    break;
-            }
-        }).attach();
     }
 
 }
