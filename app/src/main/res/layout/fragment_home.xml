@@ -4,99 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scanbtn"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="8dp"
         android:background="@drawable/background_search"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/scanbtn2"
-            android:layout_width="2dp"
+            android:layout_width="40dp"
             android:layout_height="49dp"
             android:layout_margin="3dp"
-            android:layout_weight="3"
             android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/scanview" />
 
-        <ScrollView
-            android:layout_weight="6"
-            android:id="@+id/scrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_auto_selected"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_margin="3dp"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:text="Găng Tay Gaming"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_margin="3dp"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:text="Áo Chống Nắng"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_margin="3dp"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:text="Áo Khoác Nam"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-
-                <!--Thêm các TextView cho các dòng text tại đây-->
-
-            </LinearLayout>
-
-        </ScrollView>
-
-
+        <com.tomer.fadingtextview.FadingTextView
+            android:id="@+id/fadingTextView"
+            style="@style/headingfonts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+            app:layout_constraintStart_toEndOf="@+id/scanbtn2"
+            app:texts="@array/examples"
+            app:timeout="500" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearch"
             style="@android:style/Widget.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/btn_background"
             android:text="Tìm Kiếm"
             android:textColor="#ffffff"
-            android:textSize="14sp" />
-    </LinearLayout>
-    
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -122,8 +81,8 @@
                 android:id="@+id/rc_prodcut"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/item_padding"
-                android:layout_below="@id/tvProduct">
+                android:layout_below="@id/tvProduct"
+                android:padding="@dimen/item_padding">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -181,6 +140,7 @@
                 android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold" />
+
         </RelativeLayout>
     </ScrollView>
 

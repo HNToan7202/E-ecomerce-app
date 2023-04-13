@@ -150,11 +150,6 @@ public class HomeFragment extends Fragment {
 
     private void AnhXa() {
 
-        scrollView =view.findViewById(R.id.scrollView);
-        linearLayout = view.findViewById(R.id.linearLayout);
-
-        DongChuChay();
-
         btnSCan = view.findViewById(R.id.scanbtn2);
         rcProduct = view.findViewById(R.id.rc_prodcut);
 
@@ -186,38 +181,7 @@ public class HomeFragment extends Fragment {
         autoSlideImage();
     }
 
-    private void DongChuChay() {
-        // Tạo danh sách các dòng text
-        List<String> textList = new ArrayList<>();
-        textList.add("Dòng 1");
-        textList.add("Dòng 2");
-        textList.add("Dòng 3");
 
-        // Thêm các TextView cho các dòng text vào trong LinearLayout
-        for (String text : textList) {
-            TextView textView = new TextView(getContext());
-            textView.setText(text);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            linearLayout.addView(textView);
-        }
-
-        // Sử dụng Handler để cuộn ScrollView tự động
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int i = 0;
-            @Override
-            public void run() {
-                if (i == linearLayout.getChildCount()) {
-                    i = 0;
-                }
-                scrollView.smoothScrollTo(0, linearLayout.getChildAt(i).getTop());
-                i++;
-                handler.postDelayed(this, 1500); // thiết lập thời gian giữa mỗi lần cuộn
-            }
-        };
-        handler.postDelayed(runnable, 500);
-
-    }
 
     private void scanCode() {
         ScanOptions options = new ScanOptions();

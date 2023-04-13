@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
         //session =new UserSession(SplashActivity.this);
 
-        appname= findViewById(R.id.appname);
+        appname = findViewById(R.id.appname);
 
 
 //        Typeface typeface = ResourcesCompat.getFont(this, R.font.);
