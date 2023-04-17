@@ -2,6 +2,7 @@ package com.example.cozaexpress.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +24,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     Context context;
     List<Category> array;
+
+    Category category;
 
     public CategoryAdapter(Context context, List<Category> array) {
         this.context = context;
@@ -38,10 +42,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Category category = array.get(position);
+        category = array.get(position);
         holder.tenSp.setText(category.getName());
         Glide.with(context).load(category.getImage()).into(holder.images);
-
     }
 
     @Override
@@ -54,6 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         public TextView tenSp;
 
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             images = (ImageView) itemView.findViewById(R.id.image_product);
@@ -62,9 +66,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(context, CategoryActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("object_category", category);
+                    intent.putExtras(bundle);
                     Toast.makeText(context, "Bạn đã chọn category" + tenSp.getText().toString(), Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, CategoryActivity.class));
+                    context.startActivity(intent);
                 }
             });
         }

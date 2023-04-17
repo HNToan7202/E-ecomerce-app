@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Database;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -29,17 +32,25 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Adapter.ProDetailAdapter;
+import com.example.cozaexpress.Adapter.ReviewAdapter;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.Database.UserDatabase;
+import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
+import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.api.APIService;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
+import me.relex.circleindicator.CircleIndicator3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,28 +75,60 @@ public class ProDetailActivity extends AppCompatActivity {
 
     Product product;
 
+    EditText edtDanhGia;
+    AppCompatButton btnSubmit;
+
     @BindView(R.id.add_to_wishlist)
     LottieAnimationView addToWishlist;
 
     @BindView(R.id.wishlist_red)
     ImageView wishlist_red;
 
+    NotificationBadge badge;
+
+    ViewPager2 mViewPager2;
+
+    CircleIndicator3 mCircleIndicator3;
+
+
+    RecyclerView rcReview;
+    List<Review> mListReview;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_detail);
 
+
+        //Nhận từ tìm kiếm
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         id = bundle.getString("idProduct");
+        badge = findViewById(R.id.menu_sl);
 
+
+        //Tìm sản phẩm theo id
         if(id != null){
             getProductById(id);
         }
 
+
         Product product = (Product) bundle.getSerializable("product");
 
         AnhXa();
+
+
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtDanhGia.getText().toString()== ""){
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đánh giá", Toast.LENGTH_LONG).show();
+                }
+                SubmitDanGia();
+            }
+        });
 
         if(product != null){
             Glide.with(getApplicationContext())
@@ -111,6 +154,54 @@ public class ProDetailActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void GetReviews(Product p) {
+        APIService.apiService.getReviewByProduct(p).enqueue(new Callback<List<Review>>() {
+            @Override
+            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+                mListReview = response.body();
+                ReviewAdapter reviewAdapter = new ReviewAdapter(ProDetailActivity.this, mListReview);
+                rcReview.setHasFixedSize(true);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                rcReview.setLayoutManager(layoutManager);
+                rcReview.setAdapter(reviewAdapter);
+                reviewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Review>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Lỗi"+ t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void SubmitDanGia() {
+        Review review = new Review();
+        review.setContent(edtDanhGia.getText().toString());
+        review.setProduct(product);
+        Random random = new Random();
+        int randomNumber = random.nextInt(5) + 1;
+        review.setRating(randomNumber);
+        APIService.apiService.insertReview(review).enqueue(new Callback<Review>() {
+            @Override
+            public void onResponse(Call<Review> call, Response<Review> response) {
+                if(response.isSuccessful()){
+                    Review review1 = response.body();
+                    Toast.makeText(getApplicationContext(), "Thành Công", Toast.LENGTH_LONG).show();
+                    GetReviews(product);
+                    edtDanhGia.setText("");
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Thất Bại", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Review> call, Throwable t) {
+                Log.e("ERR", t.getMessage());
+            }
+        });
     }
 
     private void getProductById(String id) {
@@ -118,13 +209,20 @@ public class ProDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 product = response.body();
-                Glide.with(getApplicationContext())
-                        .load(product.getListimage())
-                        .into(imgProduct);
                 tvGiaChuaGiam.setText(String.format( "%,.0f",product.getPrice())+"đ");
                 tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
                 tvDesciption.setText(product.getDesciption());
                 tvNameSp.setText(product.getName());
+
+                List<Photo> photoList = new ArrayList<>();
+
+                photoList = product.getListPhoto();
+
+                PhotoAdapter photoAdapter = new PhotoAdapter(ProDetailActivity.this, photoList);
+                mViewPager2.setAdapter(photoAdapter);
+                mCircleIndicator3.setViewPager(mViewPager2);
+
+                GetReviews(product);
             }
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
@@ -141,6 +239,12 @@ public class ProDetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
+    public void onStartCart(View view) {
+        startActivity(new Intent(ProDetailActivity.this, CartActivity.class));
+    }
+
+
+
     public void addToWishList(View view) {
     }
 
@@ -149,7 +253,6 @@ public class ProDetailActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back_to_prodetail);
         btnCart = findViewById(R.id.btn_cart);
         btnPopup = findViewById(R.id.btnMoreOption);
-        imgProduct = findViewById(R.id.img_product_detail);
         tvPrice = findViewById(R.id.tvGiaDaGiam);
         tvGiaChuaGiam = findViewById(R.id.tv_Gia_Da_Giam);
         tvGiaChuaGiam.setPaintFlags(tvGiaChuaGiam.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -157,9 +260,18 @@ public class ProDetailActivity extends AppCompatActivity {
         tvNameSp = findViewById(R.id.tvnamedetail);
         tvHangSP = findViewById(R.id.tvHang_SP_detail);
 
+        //Đánh giá
+        edtDanhGia = findViewById(R.id.edtDanhGia);
+        btnSubmit = findViewById(R.id.btn_submit_danhgia);
+
         btnBackToHome = findViewById(R.id.btn_back_to_prodetail);
         btnThemVaoGio = findViewById(R.id.btn_add_to_cart);
 
+        mViewPager2 = findViewById(R.id.view_page_2);
+        mCircleIndicator3 = findViewById(R.id.indicator_3);
+
+
+        rcReview = findViewById(R.id.rc_item_review);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,17 +391,17 @@ public class ProDetailActivity extends AppCompatActivity {
         tvPriceReal.setText(String.format( "%,.0f",product.getPrice())+"đ");
 
         Glide.with(getApplicationContext())
-                .load(product.getListimage())
+                .load(product.getListPhoto().get(0).getResources())
                 .into(imgae);
-
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //productList = DataLocalManager.getListProduct();
+                productList = DataLocalManager.getListProduct();
                 int soluong = Integer.parseInt(edtCount.getText().toString());
                 product.setQuantity(soluong);
-                //productList.add(product);
+                productList.add(product);
                 UserDatabase.getInstance(getApplicationContext()).productDAO().insertProduct(product);
+
                 Toast.makeText(ProDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
 
 //                Product product1 = UserDatabase.getInstance(getApplicationContext()).productDAO().checkProduct(product.getId());
@@ -302,7 +414,9 @@ public class ProDetailActivity extends AppCompatActivity {
 //                    product.setQuantity(soluong);
 //                    UserDatabase.getInstance(getApplicationContext()).productDAO().insertProduct(product);
 //                    Toast.makeText(ProDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
+//
 //                }
+//                badge.setText(UserDatabase.getInstance(getApplicationContext()).productDAO().getAll().size()+"");
 
                 dialog.dismiss();
             }

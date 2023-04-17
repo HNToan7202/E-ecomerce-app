@@ -1,63 +1,52 @@
 package com.example.cozaexpress.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.Fragment.HomeFragment;
+import com.example.cozaexpress.Fragment.PhotoFragment;
 import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.R;
 
 import java.util.List;
 
-public class PhotoAdapter extends PagerAdapter {
+public class PhotoAdapter extends FragmentStateAdapter {
 
-    private Context mContext;
-    private List<String> mListPhoto;
-
-    public PhotoAdapter(Context mContext, List<String> mListPhoto) {
-        this.mContext = mContext;
-        this.mListPhoto = mListPhoto;
-    }
-
-    @Override
-    public int getCount() {
-        if(mListPhoto != null)
-            return mListPhoto.size();
-        return 0;
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+    private List<Photo> mListPhoto;
+    public PhotoAdapter(@NonNull FragmentActivity fragmentActivity, List<Photo> photos) {
+        super(fragmentActivity);
+        mListPhoto = photos;
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_photo, container, false);
-        ImageView imgPhoto = view.findViewById(R.id.img_photo);
+    public Fragment createFragment(int position) {
+        Photo photo = mListPhoto.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_photo", photo);
 
-        String photo = mListPhoto.get(position);
+        //set Dữ liệu cho fragment
+        PhotoFragment photoFragment = new PhotoFragment();
+        photoFragment.setArguments(bundle);
 
-        if(photo != null){
-            Glide.with(mContext).load(photo).into(imgPhoto);
-        }
-        //add view to view group
-        container.addView(view);
-
-        return view;
+        return photoFragment;
     }
 
     @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        //remove view
-        container.removeView((View) object);
+    public int getItemCount() {
+        if(mListPhoto != null)
+            return mListPhoto.size();
+        return 0;
     }
 }

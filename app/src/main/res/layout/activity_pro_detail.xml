@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".Activity.ProDetailActivity">
 
+    <View android:layout_width="match_parent"
+        android:layout_height="@dimen/view_width_small"
+        android:layout_below="@id/constraint"
+        android:background="@color/grey_light"
+        android:layout_marginTop="8dp"
+        tools:ignore="MissingConstraints" />
 
     <ScrollView
         android:layout_below="@id/constraint"
@@ -19,14 +25,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/img_product_detail"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/img" />
+                android:layout_height="250dp">
 
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_page_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator_3"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    app:ci_drawable="@drawable/custom_indicator"
+                    android:layout_height="48dp"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,31 +50,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:text="SuperDeals"
+                    android:textColor="#ffffff"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:textColor="#ffffff"
+                    android:text="Ends: Apr 17, 13:59ICT"
                     android:textAlignment="viewEnd"
-                    android:textSize="16sp"
-                    android:text="Ends: Apr 17, 13:59ICT" />
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -148,6 +164,13 @@
                 android:layout_height="@dimen/view_width_small"
                 android:background="@color/grey_light"
                 tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -461,67 +484,145 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtDanhGia"
+                        android:hint="Viết đánh giá"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_submit_danhgia"
+                        android:layout_width="match_parent"
+                        android:text="Đánh Giá"
+                        android:textColor="@color/white"
+                        android:background="@drawable/btn_background"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/Danhgia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đánh Giá Sản Phẩm"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_item_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="3"
+                    android:layout_below="@id/tvCate"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/top_bar"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        app:title="Chi tiết sảo phẩm"
+        app:titleTextColor="#000000">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:gravity="center"
+            android:text="Chi Tiết Sản Phẩm"
+            android:textColor="@color/black"
+            android:textSize="16sp">
+
+        </TextView>
+
+
 
         <ImageView
             android:id="@+id/btn_back_to_prodetail"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/white_setting" />
+            app:srcCompat="@drawable/back" />
 
-        <TextView
-            android:id="@+id/tv_name_sp"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Thông tin sản phẩm"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_back_to_prodetail"
-            app:layout_constraintStart_toEndOf="@+id/btn_back_to_prodetail"
-            app:layout_constraintTop_toTopOf="@+id/btn_back_to_prodetail"
-            app:layout_constraintVertical_bias="0.454" />
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="10dp"
+            android:onClick="onStartCart">
 
-        <ImageView
-            android:id="@+id/btn_cart"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnMoreOption"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cart2" />
+            <ImageView
+                android:id="@+id/btn_cart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnMoreOption"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/shopping_cart" />
+
+            <com.nex3z.notificationbadge.NotificationBadge
+                android:id="@+id/menu_sl"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="13dp" />
+
+
+        </FrameLayout>
+
 
         <ImageView
             android:id="@+id/btnMoreOption"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/more_vert" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:srcCompat="@drawable/more" />
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:weightSum="2"

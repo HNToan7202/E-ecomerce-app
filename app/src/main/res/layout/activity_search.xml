@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="#FFFFFF"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".Activity.SearchActivity">
 
     <LinearLayout
@@ -32,19 +33,18 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearch1"
+            style="@android:style/Widget.Button"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:background="@drawable/btn_background"
             android:text="Tìm Kiếm"
-            style="@android:style/Widget.Button"
             android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>

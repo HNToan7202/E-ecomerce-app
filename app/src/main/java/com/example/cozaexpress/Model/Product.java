@@ -5,7 +5,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Entity(tableName = "Product")
 public class Product implements Serializable {
@@ -25,6 +28,29 @@ public class Product implements Serializable {
     private String createat;
     private String updateat;
     private String barcode;
+
+//    private Category category;
+//
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
+
+    public List<Photo> getListPhoto() {
+
+        String listimg = getListimage();
+        List<String> photos = Arrays.asList(listimg.split(","));
+        List<Photo> photoList = new ArrayList<>();
+        for(String w:photos){
+            Photo photo = new Photo(w);
+            photoList.add(photo);
+        }
+        return photoList;
+
+    }
 
     @NonNull
     public String getId() {

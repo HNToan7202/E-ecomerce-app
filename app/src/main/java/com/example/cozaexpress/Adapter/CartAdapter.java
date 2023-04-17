@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.Database.UserDatabase;
@@ -29,6 +31,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     List<Product> products;
 
     iClickListener listener;
+
+    public Double sum = 0.0;
+
 
     public CartAdapter(iClickListener listener) {
         this.listener = listener;
@@ -64,7 +69,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.tvNameItem.setText(product.getName());
         holder.tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
         holder.tvSoLuong.setText(product.getQuantity().toString());
-        Glide.with(context).load(product.getListimage()).into(holder.imgItemCart);
+        Glide.with(context).load(product.getListPhoto().get(0).getResources()).into(holder.imgItemCart);
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +89,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgItemCart, btnDelete;
         TextView tvNameItem, tvPrice, tvSoLuong;
+
+        CheckBox cbCheck;
+
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             btnDelete = itemView.findViewById(R.id.btn_delete_item);
@@ -91,6 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tvNameItem = itemView.findViewById(R.id.tv_name_cart);
             tvPrice = itemView.findViewById(R.id.tv_price_cart);
             tvSoLuong = itemView.findViewById(R.id.tv_count_item);
+            cbCheck = itemView.findViewById(R.id.cBCheck);
         }
     }
 }

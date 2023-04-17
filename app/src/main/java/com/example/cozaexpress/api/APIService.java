@@ -5,6 +5,7 @@ import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.ImageData;
 import com.example.cozaexpress.Model.ImageUpload;
 import com.example.cozaexpress.Model.Product;
+import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +17,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -57,6 +59,18 @@ public interface APIService {
     @POST("images")
     @Multipart
     Call<ImageData> uploadImages(@Part MultipartBody.Part image);
+
+    @POST("reviews/add")
+    Call<Review> insertReview(@Body Review review);
+
+    @POST("reviews/product")
+    Call<List<Review>> getReviewByProduct(@Body Product product);
+
+    @POST("products/category")
+    Call<List<Product>> getProductByCate(@Body Category category);
+
+    @POST("products/insert")
+    Call<Product> insertProduct(@Body Product product);
 
 }
 

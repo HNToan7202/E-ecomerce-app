@@ -86,19 +86,17 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.viewpager.widget.ViewPager
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager_Home"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_background">
+                android:layout_marginBottom="8dp">
+            </androidx.viewpager2.widget.ViewPager2>
 
-            </androidx.viewpager.widget.ViewPager>
-
-            <me.relex.circleindicator.CircleIndicator
+            <me.relex.circleindicator.CircleIndicator3
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="13dp"
@@ -108,10 +106,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="367dp"
                 android:layout_marginTop="16dp"
+                app:ci_drawable="@drawable/custom_indicator"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="199dp">
-
-            </me.relex.circleindicator.CircleIndicator>
+            </me.relex.circleindicator.CircleIndicator3>
 
             <TextView
                 android:id="@+id/tvCate"

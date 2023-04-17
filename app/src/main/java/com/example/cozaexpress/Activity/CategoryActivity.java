@@ -1,14 +1,20 @@
 package com.example.cozaexpress.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.example.cozaexpress.Adapter.LastProductAdapter;
+import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.api.APIService;
@@ -29,6 +35,8 @@ public class CategoryActivity extends AppCompatActivity {
 
     ImageView btnBack;
 
+    AppCompatButton btnInsert;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +50,41 @@ public class CategoryActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getProducts();
+        getCategory();
+
     }
 
-    private void getProducts() {
-        APIService.apiService.getProducts().enqueue(new Callback<List<Product>>() {
+    private void getCategory() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        Category category = (Category) bundle.getSerializable("object_category");
+        APIService.apiService.getProductByCate(category).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if(response.isSuccessful()){
                     productList = response.body();
-                    productAdapter = new LastProductAdapter(CategoryActivity.this,productList);
-                    rcProduct.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CategoryActivity.this,2);
-                    rcProduct.setLayoutManager(layoutManager);
-                    rcProduct.setAdapter(productAdapter);
-                    productAdapter.notifyDataSetChanged();
+                    if(productList != null || productList.size() != 0){
+                        productAdapter = new LastProductAdapter(CategoryActivity.this,productList);
+                        rcProduct.setHasFixedSize(true);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CategoryActivity.this,2);
+                        rcProduct.setLayoutManager(layoutManager);
+                        rcProduct.setAdapter(productAdapter);
+                        productAdapter.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(), "Thanh Cong", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
-                    int statusCode = response.code();
+                    Toast.makeText(getApplicationContext(), "That Bai", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "Loi", Toast.LENGTH_LONG).show();
+                Log.e("ERR", t.getMessage());
             }
         });
+
     }
+
 }

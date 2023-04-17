@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.cozaexpress.Activity.ProDetailActivity;
+import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 
@@ -54,8 +55,9 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
         holder.count.setText(lastProduct.getSold().toString());
         holder.tvGiaChuaGiam.setText(String.format( "%,.0f",lastProduct.getPrice())+ "đ");
         holder.tvGiaChuaGiam.setPaintFlags(holder.tvGiaChuaGiam.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        Photo img = lastProduct.getListPhoto().get(0);
         Glide.with(context)
-                .load(lastProduct.getListimage())
+                .load(img.getResources())
                 .into(holder.images);
         holder.tvGia.setText(String.format( "%,.0f",lastProduct.getPromotionaprice())+ "đ");
     }
@@ -92,7 +94,7 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
                     bundle.putString("idProduct", id);
                     Intent intent = new Intent(context, ProDetailActivity.class);
                     intent.putExtras(bundle);
-                    context.startActivity(intent);
+                    context.startActivity (intent);
                 }
             });
 

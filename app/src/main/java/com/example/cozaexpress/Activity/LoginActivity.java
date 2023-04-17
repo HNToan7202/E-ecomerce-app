@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cozaexpress.DataLocal.DataLocalManager;
-import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.api.APIService;
@@ -38,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sing_up = findViewById(R.id.sign_up_change);
+
 //        AnhXa();
 //        if(user!=null){
 //            if(isCheckExist(user)){
@@ -52,14 +53,14 @@ public class LoginActivity extends AppCompatActivity {
 //                GetUser();
 //            }
 //        });
-//        sing_up.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        sing_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 
