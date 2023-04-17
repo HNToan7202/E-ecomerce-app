@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -29,12 +30,23 @@ import com.example.cozaexpress.Model.ImageData;
 import com.example.cozaexpress.Model.ImageUpload;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
+import com.example.cozaexpress.Utils.CheckInternetConnection;
 import com.example.cozaexpress.Utils.RealPathUtil;
 import com.example.cozaexpress.api.APIService;
+import com.google.android.material.snackbar.Snackbar;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -43,173 +55,106 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
-    ImageView btnBackAccount;
+    private ImageView changeprofilepic;
 
-    AppCompatButton btnCapNhat;
+    private Uri mainImageURI = null;
 
-    ImageView imgProfle;
+    CircleImageView primage;
+    boolean IMAGE_STATUS = false;
 
-    int MY_REQUEST_CODE = 10;
-
-    private Uri mUri;
-
-    ProgressDialog mProgressDialog;
-
-    Call<String> response;
-
-
-    public static final String TAG = SettingActivity.class.getName();
-
-    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            Log.d(TAG, "onActivityResult");
-            if(result.getResultCode() == Activity.RESULT_OK){
-                Intent data = result.getData();
-                if(data == null){
-                    return;
-                }
-                Uri uri = data.getData();
-                mUri = uri;
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    imgProfle.setImageBitmap(bitmap);
-                }catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        AnhXa();
 
-        btnBackAccount = findViewById(R.id.btnBackAccount);
-        imgProfle = findViewById(R.id.img_user_profile);
-//        btnLogOut = findViewById(R.id.btnLogOut);
-
-        User user = DataLocalManager.getUser();
-        if(user != null)
-        {
-            Glide.with(getApplicationContext()).load(user.getAvatar()).into(imgProfle);
-        }
-        else {
-            startActivity(new Intent(SettingActivity.this, LoginActivity.class));
-        }
-
-
-
-        //init progess
-        mProgressDialog = new ProgressDialog(this );
-        mProgressDialog.setMessage("Vui lòng đợi ...");
-        btnBackAccount.setOnClickListener(new View.OnClickListener() {
+        changeprofilepic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onClick(final View view) {
+
+                Dexter.withContext(SettingActivity.this)
+                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                // check if all permissions are granted
+                                if (report.areAllPermissionsGranted()) {
+                                    // do you work now
+                                    bringImagePicker();
+                                }
+
+                                // check for permanent denial of any permission
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    // permission is denied permenantly, navigate user to app settings
+                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
+                                            .setAction("Allow", null).show();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        })
+                        .onSameThread()
+                        .check();
+
             }
         });
 
-        btnCapNhat = findViewById(R.id.btn_update_profile);
-        btnCapNhat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mUri != null){
-                    callAPIUpload();
-                }
-            }
-        });
-
-        imgProfle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickRequestPermission();
-            }
-        });
 
     }
 
-    private void callAPIUpload() {
-        mProgressDialog.show();
-
-        String strRealPath = RealPathUtil.getRealPath(this, mUri); //lấy đường dẫn thực
-
-        Log.e("TAG", strRealPath);
-        File file = new File(strRealPath);
-
-        RequestBody requestBodyAvt = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part partAvatar = MultipartBody.Part.createFormData("image", file.getName(),requestBodyAvt);
-//       APIService.apiService.uploadImages(partAvatar).enqueue(new Callback<ImageUpload>() {
-//           @Override
-//           public void onResponse(Call<ImageUpload> call, Response<ImageUpload> response) {
-//               mProgressDialog.dismiss();
-//
-//               ImageUpload imageUpload = response.body();
-//               imageUpload.getAvatar();
-//               Toast.makeText(SettingActivity.this, "Thành Công"+ imageUpload.getAvatar(), Toast.LENGTH_LONG).show();
-//           }
-//           @Override
-//           public void onFailure(Call<ImageUpload> call, Throwable t) {
-//               mProgressDialog.dismiss();
-//               Toast.makeText(SettingActivity.this, "Thất Bại", Toast.LENGTH_LONG).show();
-//
-//           }
-//       });
-        APIService.apiService.uploadImages(partAvatar).enqueue(new Callback<ImageData>() {
-            @Override
-            public void onResponse(Call<ImageData> call, Response<ImageData> response) {
-                mProgressDialog.dismiss();
-                Toast.makeText(SettingActivity.this, "Thành Công", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<ImageData> call, Throwable t) {
-                mProgressDialog.dismiss();
-                Toast.makeText(SettingActivity.this, "Thất Bại", Toast.LENGTH_LONG).show();
-
-            }
-        });
-    }
-
-    private void onClickRequestPermission() {
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-            //ko cần cấp phép
-            openGallery();
-            return;
-        }
-
-        //xin cấp phép thành công
-        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            openGallery();// mở gallery
-        }else{
-            //nếu ko tạo cục bộ và xin cấp phép
-            String[] permission = {
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            };
-            requestPermissions(permission, MY_REQUEST_CODE);
-        }
-    }
-
-    //Lắng nghe người dùng từ chối hoặc đồng ý
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == MY_REQUEST_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //nếu ko thoả -> người dùng từ chối
-                openGallery();
+    protected void onResume() {
+        super.onResume();
+        //check Internet Connection
+        new CheckInternetConnection(this).checkConnection();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+
+                mainImageURI = result.getUri();
+                primage.setImageURI(mainImageURI);
+
+                IMAGE_STATUS = true;
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                Exception error = result.getError();
+
             }
         }
     }
 
-    private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        mActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+    private void AnhXa() {
+        changeprofilepic = findViewById(R.id.changeprofilepic);
+        primage = findViewById(R.id.profilepic);
     }
+
+    private void bringImagePicker() {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1,1)
+                .start(SettingActivity.this);
+
+    }
+
+
+
+
 }

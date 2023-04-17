@@ -1,6 +1,7 @@
 package com.example.cozaexpress.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.cozaexpress.Adapter.CartAdapter;
 import com.example.cozaexpress.Adapter.MallViewPagerAdapter;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
+//import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
@@ -37,6 +40,7 @@ public class CartFragment extends Fragment {
 
     TextView total;
 
+    private LottieAnimationView emptycart;
 
     //Hàm trả về view
     @Nullable
@@ -46,8 +50,15 @@ public class CartFragment extends Fragment {
         //AnhXa();
         rcCart = view.findViewById(R.id.rc_item_cart);
         total = view.findViewById(R.id.tvTotal_cart);
+        emptycart = view.findViewById(R.id.empty_cart);
         CartAdapter cartAdapter;
+
         List<Product> products = UserDatabase.getInstance(getContext()).productDAO().getAll();
+
+        if(products.size() == 0){
+            emptycart.setVisibility(View.VISIBLE);
+        }
+
         Double sum = 0.0;
 
         for(int i = 0 ; i <products.size();i++){
@@ -61,8 +72,6 @@ public class CartFragment extends Fragment {
         rcCart.setLayoutManager(layoutManager);
         rcCart.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
-
-
         return view;
     }
 }

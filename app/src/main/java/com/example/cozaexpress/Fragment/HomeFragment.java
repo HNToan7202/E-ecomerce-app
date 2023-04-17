@@ -1,14 +1,10 @@
 package com.example.cozaexpress.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -27,29 +22,28 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cozaexpress.Activity.ProDetailActivity;
 import com.example.cozaexpress.Activity.SearchActivity;
 import com.example.cozaexpress.Adapter.CategoryAdapter;
 import com.example.cozaexpress.Adapter.LastProductAdapter;
 import com.example.cozaexpress.Adapter.PhotoAdapter;
-import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
-import com.example.cozaexpress.Utils.MyItemDecoration;
 import com.example.cozaexpress.api.APIService;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import me.relex.circleindicator.CircleIndicator3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,14 +51,14 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
 
     //Hàm trả về view
-    ViewPager viewPager;
-    CircleIndicator circleIndicator;
+    ViewPager2 viewPager;
+    CircleIndicator3 circleIndicator;
     PhotoAdapter photoAdapter;
     View view;
 
     RecyclerView rcCate;
 
-    List<String> mListPhoto;
+    List<Photo> mListPhoto;
 
     private Timer mTimer;
 
@@ -87,6 +81,8 @@ public class HomeFragment extends Fragment {
     ScrollView scrollView;
 
     LinearLayout linearLayout;
+
+    ImageView imgprofile;
 
     @Nullable
     @Override
@@ -154,16 +150,21 @@ public class HomeFragment extends Fragment {
         rcProduct = view.findViewById(R.id.rc_prodcut);
 
         rcCate = view.findViewById(R.id.rc_category);
+
         viewPager = view.findViewById(R.id.viewPager_Home);
         circleIndicator =view.findViewById(R.id.indicator);
+
         mListPhoto = getListPhoto();
 
-
-        photoAdapter = new PhotoAdapter(getContext(), mListPhoto);
+        photoAdapter = new PhotoAdapter(getActivity(), mListPhoto);
 
         viewPager.setAdapter(photoAdapter);
-        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+        circleIndicator.setViewPager(viewPager);
+
+
         btnSearch = view.findViewById(R.id.btnSearch);
+
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,11 +195,14 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<String> getListPhoto() {
-        List<String> photos = new ArrayList<>();
-        photos.add("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
-        photos.add("https://ecomserver.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
-        photos.add("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+    private List<Photo> getListPhoto() {
+        List<Photo> photos = new ArrayList<>();
+        Photo pt1 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        Photo pt2 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
+        Photo pt3 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        photos.add(pt1);
+        photos.add(pt2);
+        photos.add(pt3);
         return photos;
     }
 

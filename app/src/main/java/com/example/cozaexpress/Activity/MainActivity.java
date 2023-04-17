@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,7 +19,10 @@ import android.widget.Toast;
 
 import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Adapter.ViewPagerAdapter;
+import com.example.cozaexpress.DAO.ProductDAO;
+import com.example.cozaexpress.Database.UserDatabase;
 import com.example.cozaexpress.Model.Photo;
+import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
