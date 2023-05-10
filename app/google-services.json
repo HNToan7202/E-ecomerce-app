@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "885045701501",
+    "firebase_url": "https://ecomapp-411ab-default-rtdb.firebaseio.com",
+    "project_id": "ecomapp-411ab",
+    "storage_bucket": "ecomapp-411ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885045701501:android:2374ab467c5ba25876fa14",
+        "android_client_info": {
+          "package_name": "com.example.cozaexpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885045701501-ovqoiq935pk7otiqekughoqld8evomg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cozaexpress",
+            "certificate_hash": "65a802be9341ba919f28b4deb028afa9939d27fe"
+          }
+        },
+        {
+          "client_id": "885045701501-tq5np2vvh7avonummim45m77699eefj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWSnU19Cwsmnql7ozcZ5V2IaEkP-7jRDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885045701501-tq5np2vvh7avonummim45m77699eefj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

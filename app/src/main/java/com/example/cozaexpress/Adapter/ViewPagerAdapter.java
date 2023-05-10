@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.cozaexpress.Fragment.AccountFragment;
 import com.example.cozaexpress.Fragment.HomeFragment;
-import com.example.cozaexpress.Fragment.LiveFragment;
+import com.example.cozaexpress.Fragment.MessageFragment;
 import com.example.cozaexpress.Fragment.MallFragment;
 import com.example.cozaexpress.Fragment.CartFragment;
 
@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new MallFragment();
             case 2:
-                return new LiveFragment();
+                return new MessageFragment();
             case 3:
                 return new CartFragment();
             case 4:

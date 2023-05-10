@@ -3,10 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_light"
     android:orientation="vertical">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager_mall"
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/grey_light"
+        android:iconifiedByDefault="false"
+        android:queryHint="Tìm kiếm ..."/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_Category"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"/>
 </LinearLayout>

@@ -83,6 +83,8 @@
                 android:background="@color/grey_light"
                 tools:ignore="MissingConstraints" />
 
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
@@ -172,76 +174,66 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:weightSum="3">
 
-                <LinearLayout
-                    android:id="@+id/layout_action1"
+                <LinearLayout android:id="@+id/layout_action1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:onClick="shareProduct"
                     android:orientation="horizontal"
-                    android:weightSum="2">
-
+                    android:weightSum="2"
+                    android:onClick="shareProduct">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/share" />
-
-                    <TextView
-                        android:id="@+id/text_action1"
+                        android:src="@drawable/share"/>
+                    <TextView android:id="@+id/text_action1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:gravity="left"
+                        android:layout_marginLeft="8dp"
                         android:text="Share"
+                        android:textSize="12dp"
                         android:textColor="@color/gen_black"
-                        android:textSize="12dp" />
+                        android:gravity="left"/>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="@dimen/view_width_small"
+                <View android:layout_width="@dimen/view_width_small"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_light" />
+                    android:background="@color/grey_light"/>
 
-                <LinearLayout
-                    android:id="@+id/layout_action2"
+                <LinearLayout android:id="@+id/layout_action2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:onClick="similarProduct"
                     android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <ImageView
-                        android:layout_width="30dp"
+                    android:weightSum="2"
+                    android:onClick="similarProduct">
+                    <ImageView android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/similar" />
-
-                    <TextView
-                        android:id="@+id/text_action2"
+                        android:src="@drawable/similar"/>
+                    <TextView android:id="@+id/text_action2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:gravity="left"
+                        android:layout_marginLeft="8dp"
                         android:text="Similar"
+                        android:textSize="12dp"
                         android:textColor="@color/gen_black"
-                        android:textSize="12dp" />
+                        android:gravity="left"/>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="@dimen/view_width_small"
+                <View android:layout_width="@dimen/view_width_small"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_light" />
+                    android:background="@color/grey_light"/>
 
                 <LinearLayout
                     android:id="@+id/layout_action3"
@@ -542,9 +534,9 @@
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
+        android:background="@color/black"
         app:title="Chi tiết sảo phẩm"
-        app:titleTextColor="#000000">
+        app:titleTextColor="#ffffff">
 
         <TextView
             android:layout_width="wrap_content"
@@ -555,7 +547,7 @@
             android:layout_marginStart="50dp"
             android:gravity="center"
             android:text="Chi Tiết Sản Phẩm"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp">
 
         </TextView>
@@ -573,16 +565,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <FrameLayout
+            android:layout_alignParentTop="true"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_gravity="right"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="35dp"
-            android:layout_marginRight="10dp"
-            android:onClick="onStartCart">
+            android:id="@+id/onStartCart"
+            android:layout_marginRight="10dp">
 
             <ImageView
                 android:id="@+id/btn_cart"
@@ -590,11 +584,11 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:background="@color/white"
+                android:background="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnMoreOption"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shopping_cart" />
+                app:srcCompat="@drawable/cart2" />
 
             <com.nex3z.notificationbadge.NotificationBadge
                 android:id="@+id/menu_sl"
@@ -602,12 +596,12 @@
                 android:layout_height="28dp"
                 android:layout_gravity="top|right"
                 android:layout_marginTop="13dp" />
-
-
         </FrameLayout>
 
 
         <ImageView
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:id="@+id/btnMoreOption"
             android:layout_width="30dp"
             android:layout_height="30dp"

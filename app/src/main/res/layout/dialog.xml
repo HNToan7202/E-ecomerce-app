@@ -17,12 +17,64 @@
         android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/baseline_close_24" />
 
+    <LinearLayout
+        android:id="@+id/bg_soluong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnXacNhan"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="Số lượng: "
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/decrementQuantity"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#eeeeee"
+            android:onClick="decrement"
+            android:text="-"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/quantityProductPage"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            tools:text="1" />
+
+        <Button
+            android:id="@+id/incrementQuantity"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#eeeeee"
+            android:onClick="increment"
+            android:text="+"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add_to_cart2"
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/btnXacNhan"
+        android:layout_below="@id/bg_soluong"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
@@ -53,31 +105,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/img_hinh_sp"
             app:layout_constraintTop_toTopOf="@+id/img_hinh_sp" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Số lượng"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/img_hinh_sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_hinh_sp"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/edtCount"
-            android:layout_width="51dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="16dp"
-            android:ems="10"
-            android:inputType="number"
-            android:text="1"
-            android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/textView14"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="@+id/textView14" />
 
         <ImageView
             android:id="@+id/img_hinh_sp"

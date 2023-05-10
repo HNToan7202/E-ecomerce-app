@@ -16,9 +16,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/empty_profile"
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogin"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/tvContent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_background"
+                    android:text="Đăng Nhập / Đăng Ký"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#000000"
+                    android:text="Đăng nhập đột phá mọi trải nghiệm !"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:id="@+id/layout_profile"
+                android:visibility="gone"
                 android:layout_height="120dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -82,15 +115,6 @@
                     app:layout_constraintTop_toTopOf="@+id/textView5"
                     app:layout_constraintVertical_bias="1.0" />
 
-                <ImageView
-                    android:id="@+id/btn_setting_profile"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_profile_account"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/img_profile_account"
-                    app:srcCompat="@drawable/hexagon_out" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +159,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView">
 
                     <LinearLayout
+                        android:id="@+id/action_cho_xac_nhan"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -156,7 +181,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Chờ Thanh Toán"
+                            android:text="Chờ Xác Nhận"
                             android:textColor="#000000"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -183,7 +208,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Đang Xử Lý"
+                            android:text="Đang Giao"
                             android:textColor="#000000"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -423,6 +448,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layout_wishlist"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"
@@ -435,7 +461,7 @@
                                 android:background="@drawable/white_radius">
 
                                 <ImageView
-                                    android:id="@+id/imageView233"
+                                    android:id="@+id/wishList"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
@@ -718,6 +744,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_background"
                 android:text="Đăng Xuất"
+                android:visibility="invisible"
                 android:textColor="#000000"
                 android:textSize="14sp" />
 

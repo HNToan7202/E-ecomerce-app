@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#FFFFFF"
     tools:context=".Activity.LoginActivity">
 
     <TextView
@@ -29,11 +29,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#30ffffff"
+        android:background="#E1DEDE"
         android:drawableLeft="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Username"
-
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -47,7 +46,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#30ffffff"
+        android:background="#E1DEDE"
         android:drawableLeft="@drawable/ic_baseline_info_24"
         android:drawablePadding="20dp"
         android:hint="Password"
@@ -67,13 +66,14 @@
         android:layout_width="374dp"
         android:layout_height="63dp"
         android:gravity="center"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:backgroundTint="@color/black"
         android:text="@string/login" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_below="@id/password"
         style="?android:attr/progressBarStyle"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
