@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_name_cart" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/increase_product"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
             app:srcCompat="@drawable/plus" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/decrease_product"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="16dp"
@@ -89,11 +89,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="1"
+            android:inputType="number"
             android:textColor="#000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
-            app:layout_constraintTop_toTopOf="@+id/imageView8" />
+            app:layout_constraintBottom_toBottomOf="@+id/decrease_product"
+            app:layout_constraintStart_toEndOf="@+id/decrease_product"
+            app:layout_constraintTop_toTopOf="@+id/decrease_product" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

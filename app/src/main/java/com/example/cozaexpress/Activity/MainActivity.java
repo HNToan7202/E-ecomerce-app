@@ -4,37 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Adapter.ViewPagerAdapter;
-import com.example.cozaexpress.DAO.ProductDAO;
-import com.example.cozaexpress.Database.UserDatabase;
-import com.example.cozaexpress.Model.Photo;
-import com.example.cozaexpress.Model.Product;
-import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity {
 

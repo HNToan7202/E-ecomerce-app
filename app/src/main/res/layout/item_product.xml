@@ -18,6 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <RelativeLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSoNguoiDanhGia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSoNguoiDanhGia"/>
+
         <TextView
             android:id="@+id/tvTenSp"
             android:layout_width="match_parent"
@@ -76,15 +85,16 @@
             android:id="@+id/tvLuotMua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             android:drawableStart="@drawable/baseline_shopping_cart_24"
             android:text="2048"
             android:textColor="#000000"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSoNguoiDanhGia"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvSoNguoiDanhGia"
             app:layout_constraintTop_toTopOf="@+id/tvSoNguoiDanhGia" />
+
+
 
         <ImageView
             android:id="@+id/imgProduct"

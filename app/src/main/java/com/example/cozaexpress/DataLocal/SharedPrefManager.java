@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.example.cozaexpress.Activity.LoginActivity;
+import com.example.cozaexpress.Activity.MainActivity;
+import com.example.cozaexpress.Fragment.AccountFragment;
 import com.example.cozaexpress.Model.User;
+import com.google.gson.Gson;
 
 
 public class SharedPrefManager {
@@ -15,6 +18,7 @@ public class SharedPrefManager {
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_EMAIL = "keyemail";
     private static final String KEY_ID = "keyid";
+    private static final String KEY_USER = "userlogin";
     private static final String KEY_IMAGES = "keyimages";
     private static final String KEY_FIRSTNAME = "keyfirstname";
     private static final String KEY_LASTNAME = "keylastname";
@@ -51,9 +55,25 @@ public class SharedPrefManager {
         editor.apply();
     }
 
+    public User getUser(){
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String strJsonUser = sharedPreferences.getString(KEY_USER, null);
+        Gson gson = new Gson();
+        User user = gson.fromJson(strJsonUser, User.class);
+        return user;
+    }
+    public void setUser(User user){
+        Gson gson = new Gson();
+        String strJsonUser = gson.toJson(user);
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_USER, strJsonUser);
+        editor.apply();
+    }
+
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = ctx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_USERNAME, null) != null;
+        return sharedPreferences.getString(KEY_USER, null) != null;
     }
 
     //    public User getUser(){
@@ -76,7 +96,7 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
-        ctx.startActivity(new Intent(ctx, LoginActivity.class));
+        //ctx.startActivity(new Intent(ctx, AccountFragment.class));
     }
 
 }

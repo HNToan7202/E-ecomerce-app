@@ -3,14 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/holo_green_dark">
-    <com.tomer.fadingtextview.FadingTextView
-        android:layout_width="wrap_content"
-        android:textColor="#ecf0f1"
-        app:timeout="500"
-        style="@style/headingfonts"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        app:texts="@array/examples"
-        android:layout_weight="7"/>
+    android:background="@android:color/white">
+    <include layout="@layout/app_bar_with_back"
+        android:id="@+id/app_bar"/>
+
+    <TextView
+        android:id="@+id/tvChatWithAdmin"
+        android:background="@color/grey_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/account"
+        android:text="Chat với người bán"
+        android:textSize="16sp" />
+
 </RelativeLayout>

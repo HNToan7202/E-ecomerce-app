@@ -1,4 +1,4 @@
-package com.example.cozaexpress.Fragment;
+package com.example.cozaexpress.StatusOrderFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cozaexpress.R;
 
-public class LiveFragment extends Fragment {
+public class ThanhCongFragment extends Fragment {
 
-    //Hàm trả về view
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_live, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_thanhcong, container, false );
+
     }
 }

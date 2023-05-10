@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:textColorHint="@color/black"
+            android:layout_height="wrap_content"
+            android:id="@+id/pincode"
+            android:textColor="#000"
+            android:hint="Mã bưu chính*"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:textColor="#000"
+            android:layout_height="70dp"
+            android:textColorHint="@color/black"
+            android:hint="Địa chỉ nhà... Căn hộ*"
+            android:id="@+id/houseName"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textColor="#000"
+            android:textColorHint="@color/black"
+            android:hint="Đường*"
+            android:id="@+id/area"
+            />
+        <LinearLayout
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Thành Phố*"
+                android:id="@+id/city"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:layout_weight="50"
+                android:layout_marginRight="5dp"
+                />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quận*"
+                android:id="@+id/state"
+                android:layout_weight="50"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:layout_marginLeft="5dp"
+                />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Landmark (Optional)"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:id="@+id/landmark"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="10dp"
+            android:background="#E8EAED"
+            />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Người nhận*"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:id="@+id/name"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại người nhận*"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="phone"
+            android:id="@+id/phoneNumber"
+            />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số thứ 2 (Không bắt buộc)"
+            android:id="@+id/altPhoneNumber"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:inputType="phone"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="10dp"
+            android:background="#E8EAED"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ nhận hàng"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textAddressType"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addressType"
+            >
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ nhà"
+                android:textColor="@color/black"
+                android:id="@+id/homeAddress"
+                />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nơi làm việc/Văn Phòng"
+                android:id="@+id/workAdress"
+                android:textColor="@color/black"
+                />
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Tiếp tục"
+            android:backgroundTint="@color/black"
+            android:id="@+id/submitContinue"
+            />
+
+
+    </LinearLayout>
+
+</ScrollView>

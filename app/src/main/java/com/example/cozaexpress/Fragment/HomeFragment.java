@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()){
                     productList = response.body();
                     productAdapter = new LastProductAdapter(getContext(),productList);
-                    rcProduct.setHasFixedSize(true);
+                    rcProduct.setHasFixedSize(false);
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
                     rcProduct.setLayoutManager(layoutManager);
                     rcProduct.setAdapter(productAdapter);
@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()){
                     categoryList = response.body();
                     categoryAdapter = new CategoryAdapter(getContext(), categoryList);
-                    rcCate.setHasFixedSize(true);
+                    rcCate.setHasFixedSize(false);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                     rcCate.setLayoutManager(layoutManager);
                     rcCate.setAdapter(categoryAdapter);
@@ -178,7 +178,6 @@ public class HomeFragment extends Fragment {
                 scanCode();
             }
         });
-
         autoSlideImage();
     }
 
@@ -197,9 +196,9 @@ public class HomeFragment extends Fragment {
 
     private List<Photo> getListPhoto() {
         List<Photo> photos = new ArrayList<>();
-        Photo pt1 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
-        Photo pt2 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
-        Photo pt3 = new Photo("https://ecomserver.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        Photo pt1 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        Photo pt2 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
+        Photo pt3 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
         photos.add(pt1);
         photos.add(pt2);
         photos.add(pt3);

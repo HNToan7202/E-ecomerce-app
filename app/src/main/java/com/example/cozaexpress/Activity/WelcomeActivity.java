@@ -33,19 +33,15 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
 
-    //private UserSession prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        // Checking for first time launch - before calling setContentView()
-        //prefManager = new UserSession(this);
-//        if (DataLocalManager.getFirstInstall()) {
-//            launchHomeScreen();
-//            finish();
-//        }
+        if (DataLocalManager.getFirstInstall()) {
+            launchHomeScreen();
+            finish();
+        }
 
         //UserSession userSession = new UserSession(this);
 
@@ -130,14 +126,15 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        DataLocalManager.setFirstInstall(false);
-//        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()) {
-//            Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-//            startActivity(i);
-//        }else{
-//            Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
-//            startActivity(i);
-//        }
+        DataLocalManager.setFirstInstall(true);
+
+        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()) {
+            Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
 
         Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(i);
@@ -219,7 +216,6 @@ public class WelcomeActivity extends AppCompatActivity {
         public void onPageScrollStateChanged(int state) {
 
         }
-
 
     };
 }

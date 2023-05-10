@@ -49,7 +49,6 @@ public class Product implements Serializable {
             photoList.add(photo);
         }
         return photoList;
-
     }
 
     @NonNull
@@ -142,8 +141,10 @@ public class Product implements Serializable {
     }
 
     public String getCreateat() {
+
         return createat;
     }
+
 
     public void setCreateat(String createat) {
         this.createat = createat;

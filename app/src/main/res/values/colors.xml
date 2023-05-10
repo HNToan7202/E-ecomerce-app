@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="myColor1">#1b1c25</color>
+    <color name="barColor">#05dfd7</color>
     <color name="accent">@color/colorAccent</color>
     <color name="colorAccentPink">#FF4081</color>
     <color name="colorPrimary">#e67e22</color>
@@ -8,7 +10,8 @@
     <color name="darkWhite">#cfd8dc</color>
     <color name="black_overlay">#66000000</color>
     <color name="light_grey">#cccccc</color>
-
+    <color name="selected_item_color">#000000</color>
+    <color name="default_item_color">#FFFFFF</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

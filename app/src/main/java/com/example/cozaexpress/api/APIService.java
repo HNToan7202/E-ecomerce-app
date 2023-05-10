@@ -1,17 +1,18 @@
 package com.example.cozaexpress.api;
 
-import com.example.cozaexpress.Model.Cart;
 import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.ImageData;
-import com.example.cozaexpress.Model.ImageUpload;
+import com.example.cozaexpress.Model.Order;
+import com.example.cozaexpress.Model.OrderItem;
 import com.example.cozaexpress.Model.Product;
+import com.example.cozaexpress.Model.ResponseOrder;
 import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.Model.User;
+import com.example.cozaexpress.Model.Wishlist;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -27,7 +28,11 @@ import retrofit2.http.Part;
 
 public interface APIService {
     //public static final String BASE_URL="http://app.iotstar.vn/shoppingapp/";
-    public static final String BASE_URL="https://ecomserver.up.railway.app/";
+    public static final String BASE_URL="https://ecomserver1.up.railway.app/";
+
+//    public static final String BASE_URL="http://192.168.1.2:8080/";
+
+
     Gson gson = new GsonBuilder().setDateFormat("yyyy MM dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -72,5 +77,27 @@ public interface APIService {
     @POST("products/insert")
     Call<Product> insertProduct(@Body Product product);
 
+    @POST("user/addWishlist")
+    Call<Wishlist> insertWishlist(@Body Wishlist product);
+
+
+    @POST("products/categoryName")
+    @FormUrlEncoded
+    Call<List<Product>> ListProductByCate(@Field("name") Object name);
+
+    @POST("order/add")
+    Call<Order> createOrder(@Body Order order);
+
+    @POST("orderItem/addOrderItem")
+    Call<List<OrderItem>> addOrderItem(@Body List<OrderItem> orderItems) ;
+
+   @POST("orderItem/add")
+    Call<OrderItem> addOrderItems(@Body OrderItem orderItem);
+
+   @POST("order/userOders")
+    Call<ResponseOrder> getOrderByUser(@Body User user);
+
+   @POST("orderItem/getByOrder")
+    Call<List<OrderItem>> getOrderItemByOrder(@Body Order order);
 }
 
