@@ -1,5 +1,9 @@
 <resources>
+    <string name="textOTP">verify +toan**********</string>
     <string name="app_name">CozaExpress</string>
+    <string name="textOtpMessage">Enter the OTP code to verify your email</string>
+    <string name="str_please_white_0_second_for_send_again">Please white 0 second for send again.</string>
+    <string name="btnContinue">continue</string>
     <string name="action_home">Trang Chủ</string>
     <string name="action_mall">Bảng Tin</string>
     <string name="action_message">Tin Nhắn</string>
@@ -24,7 +28,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="orderdetails">Your Order has been Placed Succesfully. \n Here is your Unique Order Id !</string>
+    <string name="str_img_otp">img otp</string>
+
+    <string name="orderdetails">Đặt Hàng Thành Công !. \n Đây là mã vận đơn của bạn !</string>
     <string name="welcome_bac">
         Welcome Back!
     </string>
@@ -68,5 +74,16 @@
     <string name="register_now">Register Now</string>
 
     <string name="noconnection">Kindly connect to a WIFI network or enable Mobile Data</string>
+
+    <string name="str_username">Username</string>
+    <string name="str_password">Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="str_full_name">Full Name</string>
+    <string name="str_phone_number_password">Phone number, password</string>
+    <string name="str_phone_number">Phone Number</string>
+    <string name="str_e_mail_address">E-mail Address</string>
+    <string name="str_confirmation_password">Confirmation Password</string>
+    <string name="str_create_account">Create Account</string>
+    <string name="str_already_a_member_login_here">Already a Member? Login Here</string>
 
 </resources>

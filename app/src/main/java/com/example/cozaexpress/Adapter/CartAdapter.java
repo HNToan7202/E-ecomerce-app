@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.example.cozaexpress.Fragment.CartFragment;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.iClickListener;
 import com.example.cozaexpress.R;
+import com.example.cozaexpress.Utils.Utils;
+import com.google.common.eventbus.EventBus;
 
 import java.util.List;
 
@@ -42,6 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public Double sum = 0.0;
 
     private OnItemClickListener mListener;
+
 
     public interface OnItemClickListener {
         void onItemClick(int position, Double sum);
@@ -102,6 +106,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 Toast.makeText(context.getApplicationContext(),"Đã xoá", Toast.LENGTH_LONG).show();
                 products = ProductDatabase.getInstance(context).productDAO().getAll();
                 setData(products);
+            }
+        });
+
+        holder.cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    Utils.manggiohang.add(product);
+                    EventBus.getDefault().postSticky(new MessageEvent(Utils.manggiohang));
+                }else {
+                    for(int i = 0; i< Utils.manggiohang.size(); i++){
+                        if(Utils.manggiohang.get(i).getId() == product.getId()){
+                            Utils.manggiohang.remove(i);
+                        }
+                    }
+                }
             }
         });
 
@@ -168,6 +188,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tvNameItem = itemView.findViewById(R.id.tv_name_cart);
             tvPrice = itemView.findViewById(R.id.tv_price_cart);
             tvSoLuong = itemView.findViewById(R.id.tv_count_item);
+            cbCheck = itemView.findViewById(R.id.cBCheck);
             cbCheck = itemView.findViewById(R.id.cBCheck);
         }
     }

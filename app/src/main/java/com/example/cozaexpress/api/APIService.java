@@ -9,6 +9,8 @@ import com.example.cozaexpress.Model.ResponseOrder;
 import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.Model.Wishlist;
+import com.example.cozaexpress.Model.WishlistRequest;
+import com.example.cozaexpress.Model.WishlistResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -28,9 +31,9 @@ import retrofit2.http.Part;
 
 public interface APIService {
     //public static final String BASE_URL="http://app.iotstar.vn/shoppingapp/";
-    public static final String BASE_URL="https://ecomserver1.up.railway.app/";
+//    public static final String BASE_URL="https://ecomserver1.up.railway.app/";
 
-//    public static final String BASE_URL="http://192.168.1.2:8080/";
+    public static final String BASE_URL="http://192.168.1.2:8080/";
 
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy MM dd HH:mm:ss").create();
@@ -78,8 +81,7 @@ public interface APIService {
     Call<Product> insertProduct(@Body Product product);
 
     @POST("user/addWishlist")
-    Call<Wishlist> insertWishlist(@Body Wishlist product);
-
+    Call<WishlistResponse> addWishlist(@Body Wishlist wishlist);
 
     @POST("products/categoryName")
     @FormUrlEncoded
@@ -99,5 +101,8 @@ public interface APIService {
 
    @POST("orderItem/getByOrder")
     Call<List<OrderItem>> getOrderItemByOrder(@Body Order order);
+
+   @POST("user/deleteWishlist")
+    Call<String> removeProductFromWishlist(@Body WishlistRequest wishlistRequest);
 }
 

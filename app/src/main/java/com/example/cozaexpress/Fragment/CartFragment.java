@@ -18,14 +18,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.cozaexpress.Activity.CheckoutActivity;
+import com.example.cozaexpress.Activity.MainActivity;
 import com.example.cozaexpress.Adapter.CartAdapter;
 //import com.example.cozaexpress.Database.ProductDatabase;
 import com.example.cozaexpress.Database.ProductDatabase;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
+import com.example.cozaexpress.Utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -62,6 +65,8 @@ public class CartFragment extends Fragment {
         return data;
     }
 
+    Double tongTiensp = 0.0;
+
     private void setData(List<Product> products) {
         cartAdapter.setData(products);
     }
@@ -71,6 +76,14 @@ public class CartFragment extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         if(products == null){
             loaddata(sum);
+        }
+    }
+
+    private void tinhTongTien(){
+        for(int i = 0;i < Utils.manggiohang.size();i++){
+            tongTiensp += Utils.manggiohang.get(i).getPromotionaprice()*Utils.manggiohang.get(i).getQuantity();
+            DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+            total.setText(decimalFormat.format(tongTiensp) + "đ");
         }
     }
 

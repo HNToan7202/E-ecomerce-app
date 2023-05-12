@@ -62,6 +62,8 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
 
     Order order;
 
+    String orderId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +143,7 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
         orderItem.setCount(productList.get(0).getQuantity());
         orderItem.setProduct(productList.get(0));
 
+
         continueToPayment.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -164,6 +167,7 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
                                 @Override
                                 public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
                                     if (response.isSuccessful()){
+                                        orderId = response.body().get(0).getOrder().getId();
                                         Toast.makeText(getContext(), "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
                                         ProductDatabase.getInstance(getContext()).productDAO().deleteAll();
                                         List<OrderItem> orderItems1 = response.body();
@@ -230,8 +234,11 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
 
             options.put("prefill", preFill);
 
+            Bundle bundle = new Bundle();
+            bundle.putString("orderId", orderId);
+
             //co.open(requireActivity(), options);
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_summaryFragment_to_paymentFragment2);
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_summaryFragment_to_paymentFragment2, bundle);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();

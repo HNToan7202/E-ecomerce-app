@@ -2,7 +2,9 @@ package com.example.cozaexpress.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.cozaexpress.Adapter.ViewPagerAdapter;
+import com.example.cozaexpress.Fragment.CartFragment;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +43,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void navigateToCartFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Tạo một instance của CartFragment
+        CartFragment cartFragment = new CartFragment();
+
+        // Thay thế Fragment hiện tại bằng CartFragment
+        fragmentTransaction.replace(R.id.action_message, cartFragment);
+
+        // Hoàn thành FragmentTransaction
+        fragmentTransaction.commit();
+    }
+
+    public void navigateToMessageFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Tạo một instance của CartFragment
+        CartFragment cartFragment = new CartFragment();
+
+        // Thay thế Fragment hiện tại bằng CartFragment
+        fragmentTransaction.replace(R.id.action_message, cartFragment);
+
+        // Hoàn thành FragmentTransaction
+        fragmentTransaction.commit();
+    }
+
     private void setUpNavigationView() {
         mBottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -51,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_mall:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.action_live:
+                    case R.id.action_message:
                         mViewPager.setCurrentItem(2);
                         break;
-                    case R.id.action_notification:
+                    case R.id.action_cart:
                         mViewPager.setCurrentItem(3);
                         break;
                     case R.id.action_account:
@@ -92,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
                         mBottom_nav.getMenu().findItem(R.id.action_mall).setChecked(true);
                         break;
                     case 2 :
-                        mBottom_nav.getMenu().findItem(R.id.action_live).setChecked(true);
+                        mBottom_nav.getMenu().findItem(R.id.action_message).setChecked(true);
                         break;
                     case 3 :
-                        mBottom_nav.getMenu().findItem(R.id.action_notification).setChecked(true);
+                        mBottom_nav.getMenu().findItem(R.id.action_cart).setChecked(true);
                         break;
                     case 4 :
                         mBottom_nav.getMenu().findItem(R.id.action_account).setChecked(true);

@@ -5,20 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.bumptech.glide.Glide;
-import com.example.cozaexpress.Activity.FollowedFragment;
-import com.example.cozaexpress.Activity.ViewFragment;
 import com.example.cozaexpress.Fragment.DanhGiaFragment;
-import com.example.cozaexpress.Fragment.HDSDFragment;
+import com.example.cozaexpress.Fragment.LoginFragment;
 import com.example.cozaexpress.Fragment.MoTaFragment;
 import com.example.cozaexpress.Fragment.ThongSoFragment;
 import com.example.cozaexpress.Fragment.TongQuangFragment;
-import com.example.cozaexpress.Model.Product;
-import com.example.cozaexpress.api.APIService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProDetailAdapter extends FragmentStateAdapter {
     public ProDetailAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -35,7 +26,7 @@ public class ProDetailAdapter extends FragmentStateAdapter {
             case 2:
                 return new ThongSoFragment();
             case 3:
-                return new HDSDFragment();
+                return new LoginFragment();
             case 4:
                 return new DanhGiaFragment();
             case 0 :

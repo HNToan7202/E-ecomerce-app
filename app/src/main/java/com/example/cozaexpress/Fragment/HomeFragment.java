@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -48,7 +49,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     //Hàm trả về view
     ViewPager2 viewPager;
@@ -146,6 +149,9 @@ public class HomeFragment extends Fragment {
 
     private void AnhXa() {
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh_home);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         btnSCan = view.findViewById(R.id.scanbtn2);
         rcProduct = view.findViewById(R.id.rc_prodcut);
 
@@ -160,7 +166,6 @@ public class HomeFragment extends Fragment {
 
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
-
 
         btnSearch = view.findViewById(R.id.btnSearch);
 
@@ -286,5 +291,18 @@ public class HomeFragment extends Fragment {
             mTimer.cancel();
             mTimer = null;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        getProducts();
+        getCategories();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 }
