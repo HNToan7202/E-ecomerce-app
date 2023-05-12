@@ -20,14 +20,14 @@ public interface WishlistDAO {
     @Insert
     void insertProduct(WishListModel wishlist);
 
-//    @Query("SELECT * FROM wishlist WHERE id = :id")
-//    Product checkProduct(String id);
+    @Query("SELECT * FROM wishlistmodel WHERE products = :products")
+    WishListModel checkWishlist(String products);
 
     @Delete
     void delete(WishListModel wishlist);
 
-//    @Query("DELETE FROM Wishlist")
-//    void deleteAll();;
+    @Query("DELETE FROM wishlistmodel")
+    void deleteAll();;
 
     @Update
     void update(WishListModel wishlist);

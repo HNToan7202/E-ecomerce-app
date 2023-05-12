@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     User user ;
     ProgressBar progressBar;
+
+    TextView tv_forgot_password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 GetUser();
+            }
+        });
+        tv_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, OTPActivity.class));
+                finish();
             }
         });
     }
@@ -128,15 +137,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void AnhXa() {
 
-//        List<User> userList =UserDatabase.getInstance(getApplicationContext()).usersDao().getAll();
-//        if(!userList.isEmpty() && userList.size()>0){
-//            user = UserDatabase.getInstance(getApplicationContext()).usersDao().getAll().get(0);
-//        }
         edtUsername = findViewById(R.id.username);
         edtPassword = findViewById(R.id.password);
         login = findViewById(R.id.loginBtn);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        tv_forgot_password = findViewById(R.id.tv_forgot_password);
     }
 
 }

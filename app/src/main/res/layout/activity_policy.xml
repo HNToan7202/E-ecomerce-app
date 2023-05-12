@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/top_bar"
+        android:background="@drawable/top_bar">
+
+    <ImageView
+        android:id="@+id/btnBackAccount"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/white_setting" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Quy định chung"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBackAccount"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:text="Quy định cho ứng dụng bán đồ nội thất"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/general_rules_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quy định chung:"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/general_rules_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="• Ứng dụng bán đồ nội thất này nhằm tạo điều kiện thuận lợi cho người mua và người bán kết nối và thực hiện giao dịch mua bán đồ nội thất.\n• Tất cả người dùng đều phải đồng ý và tuân thủ các điều khoản và quy định được quy định trong ứng dụng.\n• Mọi hành vi gian lận, gây hại hoặc vi phạm pháp luật đều không được chấp nhận và có thể dẫn đến hậu quả pháp lý.\n• Ứng dụng không chịu trách nhiệm đối với bất kỳ tổn thất hoặc tranh chấp nào giữa người mua và người bán. Người dùng chịu trách nhiệm hoàn toàn về các giao dịch của mình."
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/product_rules_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quy định về sản phẩm:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/product_rules_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="• Tất cả sản phẩm đăng bán trên ứng dụng phải là đồ nội thất chất lượng và đáp ứng các tiêu chuẩn an toàn, bền vững và hợp pháp.\n• Người bán chịu trách nhiệm hoàn toàn về mô tả chính xác các sản phẩm và giá cả của chúng.\n• Người bán phải đảm bảo rằng sản phẩm được giao cho người mua là giống như mô tả trên ứng dụng và đáp ứng các tiêu chuẩn an toàn, bền vững và hợp pháp.\n• Nếu sản phẩm không đáp ứng được các tiêu chuẩn trên hoặc có vấn đề về chất lượng, người mua có quyền trả lại sản phẩm và yêu cầu hoàn tiền hoặc đổi trả sản phẩm khác.\n• Mọi vi phạm quy định về sản phẩm đều bị cấm và có thể dẫn đến hậu quả pháp lý."
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:id="@+id/payment_rules_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quy định về thanh toán:"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/payment_rules_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="• Tất cả các giao dịch thanh toán phải được thực hiện qua ứng dụng bán đồ nội thất này.\n• Người mua phải đảm bảo rằng tài khoản và phương thức thanh toán của họ đủ để thực hiện giao dịch.\n• Người bán chỉ được nhận thanh toán khi sản phẩm đã được giao cho người mua và người mua xác nhận rằng sản phẩm đáp ứng yêu cầu của họ.\n• Mọi tranh chấp liên quan đến thanh toán phải được giải quyết trực tiếp giữa người mua và người bán.\n• Mọi vi phạm quy định về thanh toán đều bị cấm và có thể dẫn đến hậu quả pháp lý."
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2"/>
+</LinearLayout>
+    </ScrollView>
+</LinearLayout>

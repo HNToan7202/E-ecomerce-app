@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="blue">#038AF4</color>
+    <color name="gray_10">#DDDDDD</color>
     <color name="myColor1">#1b1c25</color>
     <color name="barColor">#05dfd7</color>
     <color name="accent">@color/colorAccent</color>
@@ -12,7 +14,6 @@
     <color name="light_grey">#cccccc</color>
     <color name="selected_item_color">#000000</color>
     <color name="default_item_color">#FFFFFF</color>
-
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -25,6 +26,7 @@
     <color name="green_color">#009688</color>
     <color name="grey_light">#E0E0E0</color>
     <color name="gen_black">#000000</color>
+    <color name="background_muasam">#F0F0F0</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#3498db</color>

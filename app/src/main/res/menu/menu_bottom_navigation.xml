@@ -11,12 +11,12 @@
         android:icon="@drawable/shopping_outline">
     </item>
 
-    <item android:id="@+id/action_live"
+    <item android:id="@+id/action_message"
         android:title="@string/action_message"
         android:icon="@drawable/facebook_messenger">
     </item>
 
-    <item android:id="@+id/action_notification"
+    <item android:id="@+id/action_cart"
         android:title="@string/action_cart"
         android:icon="@drawable/cart">
     </item>

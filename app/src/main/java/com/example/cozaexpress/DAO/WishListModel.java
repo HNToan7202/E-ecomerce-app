@@ -22,6 +22,7 @@ public class WishListModel implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
+
     //private User user;
     private String products;
 

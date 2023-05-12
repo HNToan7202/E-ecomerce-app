@@ -1,7 +1,10 @@
 package com.example.cozaexpress.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +24,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.cozaexpress.Activity.HelpActivity;
 import com.example.cozaexpress.Activity.LoginActivity;
+import com.example.cozaexpress.Activity.PolicyActivity;
 import com.example.cozaexpress.Activity.ProfileActivity;
+import com.example.cozaexpress.Activity.SignInActivity;
 import com.example.cozaexpress.Activity.StatusOrderActivity;
 import com.example.cozaexpress.Activity.WhishlistActivity;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
@@ -30,7 +37,7 @@ import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.Activity.SettingActivity;
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements View.OnClickListener {
     View view;
 
     ImageView btnSetting, wishList;
@@ -46,6 +53,8 @@ public class AccountFragment extends Fragment {
     RelativeLayout empty_profile;
 
     LinearLayout action_cho_xac_nhan, action_dang_giao, action_bi_huy, action_thanh_cong;
+
+    LinearLayout action_policy, action_help, action_message;
 
 
     //Hàm trả về view
@@ -67,6 +76,19 @@ public class AccountFragment extends Fragment {
         User user = SharedPrefManager.getInstance(getContext()).getUser();
         wishList = view.findViewById(R.id.wishList);
         btnLogin = view.findViewById(R.id.btnLogin);
+
+        //Chính sách mua hàng
+        action_policy = view.findViewById(R.id.action_policy);
+        action_policy.setOnClickListener(this);
+
+        //Trợ giúp
+        action_help = view.findViewById(R.id.action_help);
+        action_help.setOnClickListener(this);
+
+        //Chat với fanpage
+        action_message = view.findViewById(R.id.action_message);
+        action_message.setOnClickListener(this);
+
 
         constraint_profile = view.findViewById(R.id.layout_profile);
         empty_profile = view.findViewById(R.id.empty_profile);
@@ -95,7 +117,7 @@ public class AccountFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), LoginActivity.class));
+                startActivity(new Intent(getContext(), SignInActivity.class));
             }
         });
 
@@ -155,5 +177,43 @@ public class AccountFragment extends Fragment {
         });
         alert.show();
     }
-    
+
+    private void openFacebookMessenger(Context context) {
+        String packageName = "com.facebook.orca"; // Gói của ứng dụng Facebook Messenger
+
+        try {
+            // Kiểm tra xem ứng dụng Messenger đã được cài đặt hay chưa
+            PackageManager packageManager = context.getPackageManager();
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+
+            // Nếu đã cài đặt, mở ứng dụng Messenger
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://m.me/hoangtoan.nguyen.370")); // Đặt URI cho chat với người dùng bất kỳ
+            intent.setPackage(packageName);
+            context.startActivity(intent);
+        } catch (PackageManager.NameNotFoundException e) {
+            // Nếu ứng dụng Messenger chưa được cài đặt, hãy thông báo cho người dùng
+            Toast.makeText(context, "Ứng dụng Facebook Messenger chưa được cài đặt", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+            switch (view.getId()){
+                    case R.id.action_policy:
+                        startActivity(new Intent(getContext(), PolicyActivity.class));
+                        break;
+                    case R.id.action_help:
+                        startActivity(new Intent(getContext(), HelpActivity.class));
+                        break;
+                    case R.id.action_message:
+                        openFacebookMessenger(getContext());
+                        break;
+
+
+
+            }
+    }
 }

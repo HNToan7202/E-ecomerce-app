@@ -35,7 +35,6 @@ public class WhishlistActivity extends AppCompatActivity {
         for (int i = 0 ; i < wishListModels.size(); i++){
             products.addAll(wishListModels.get(i).getStringToProduct());
         }
-        //products = wishListModels.get(0).getStringToProduct();
 
         wishlistAdapter = new WishlistAdapter(this, products);
         rc_whishlist.setHasFixedSize(true);

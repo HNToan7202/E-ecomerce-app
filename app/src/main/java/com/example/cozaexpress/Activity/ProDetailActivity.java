@@ -36,6 +36,7 @@ import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Adapter.ProDetailAdapter;
 import com.example.cozaexpress.Adapter.ReviewAdapter;
 import com.example.cozaexpress.DAO.WishListModel;
+import com.example.cozaexpress.DAO.WishlistDAO;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.DataLocal.SharedPrefManager;
 import com.example.cozaexpress.Database.ProductDatabase;
@@ -46,6 +47,8 @@ import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.Model.Wishlist;
+import com.example.cozaexpress.Model.WishlistRequest;
+import com.example.cozaexpress.Model.WishlistResponse;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.UserSession.UserSession;
 import com.example.cozaexpress.api.APIService;
@@ -58,6 +61,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
@@ -87,7 +91,7 @@ public class ProDetailActivity extends AppCompatActivity {
     Product product;
 
     EditText edtDanhGia;
-    AppCompatButton btnSubmit;
+
 
     EditText quantity;
 
@@ -99,7 +103,6 @@ public class ProDetailActivity extends AppCompatActivity {
     CircleIndicator3 mCircleIndicator3;
 
 
-    RecyclerView rcReview;
     List<Review> mListReview;
 
     @BindView(R.id.add_to_wishlist)
@@ -118,90 +121,6 @@ public class ProDetailActivity extends AppCompatActivity {
     private UserSession session;
 
     FrameLayout onStartCart;
-    public void addToWishList(View view) {
-
-        final KProgressHUD progressDialog=  KProgressHUD.create(ProDetailActivity.this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Please wait")
-                .setCancellable(false)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f)
-                .show();
-
-        Wishlist wishlist1 = new Wishlist();
-        User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
-        if(user != null){
-            wishlist1.setUser(user);
-        }
-        List<Product> products1 = new ArrayList<>();
-        products1.add(product);
-        wishlist1.setProducts(products1);
-
-
-
-        APIService.apiService.insertWishlist(wishlist1).enqueue(new Callback<Wishlist>() {
-            @Override
-            public void onResponse(Call<Wishlist> call, Response<Wishlist> response) {
-                progressDialog.dismiss();
-                Wishlist wishlist = response.body();
-
-                WishListModel wishListModel = new WishListModel();
-                wishListModel.setId(wishlist.getId());
-                //wishListModel.setUserId(wishlist.getUser().getId());
-                wishListModel.convertProductToString(wishlist.getProducts());
-
-                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(wishListModel);
-
-                Toasty.success(ProDetailActivity.this,"Added to your Wishlist",2000).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                addToWishlist.clearAnimation();
-                                addToWishlist.setVisibility(View.GONE);
-                                wishlist_red.setVisibility(View.VISIBLE);
-
-                            }
-                        },500);
-                //WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(product);
-                Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_LONG).show();
-
-
-            }
-            @Override
-            public void onFailure(Call<Wishlist> call, Throwable t) {
-                Toasty.error(ProDetailActivity.this,"Failed to add.",2000).show();
-            }
-        });
-
-
-
-    }
-    public void similarProduct(View view) {
-        finish();
-    }
-
-    private boolean checkExistWishlist() {
-        List<WishListModel> wishListModels = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().getAll();
-        List<Product> mProducts = new ArrayList<>();
-        for(int i = 0; i < wishListModels.size(); i++){
-            mProducts.addAll(wishListModels.get(i).getStringToProduct());
-        }
-        for(Product p : mProducts){
-            if(p.getId().equals(product.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private Product getProductObject() {
-        if(product != null)
-            return product;
-        return null;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,9 +133,12 @@ public class ProDetailActivity extends AppCompatActivity {
         id = bundle.getString("idProduct");
         badge = findViewById(R.id.menu_sl);
         //Khởi tạo username
-        User uer = SharedPrefManager.getInstance(getApplicationContext()).getUser();
-        username = uer.getUsername();
-        usermobile = uer.getFullName();
+        User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+        if(user != null){
+            username = user.getUsername();
+            usermobile = user.getFullName();
+            useremail = user.getEmail();
+        }
 
         //Tìm sản phẩm theo id
         if(id != null){
@@ -226,15 +148,6 @@ public class ProDetailActivity extends AppCompatActivity {
 
         AnhXa();
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(edtDanhGia.getText().toString()== ""){
-                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đánh giá", Toast.LENGTH_LONG).show();
-                }
-                SubmitDanGia();
-            }
-        });
 
 
 
@@ -253,6 +166,61 @@ public class ProDetailActivity extends AppCompatActivity {
             }
         });
 
+        wishlist_red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final KProgressHUD progressDialog=  KProgressHUD.create(ProDetailActivity.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("Please wait")
+                        .setCancellable(false)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                        .show();
+                User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+                WishlistRequest wishlistRequest = new WishlistRequest();
+                wishlistRequest.setProduct(product);
+                wishlistRequest.setUser(user);
+
+                APIService.apiService.removeProductFromWishlist(wishlistRequest).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        progressDialog.dismiss();
+                            String message = response.body();
+                            wishlist_red.setVisibility(View.GONE);
+                            addToWishlist.setVisibility(View.VISIBLE);
+                            Toasty.success(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                            List<Product> products = new ArrayList<>();
+                            products.add(product);
+                            WishListModel wishListModel = new WishListModel();
+                            wishListModel.convertProductToString(products);
+                            String productID = wishListModel.getProducts();
+                            WishListModel wModel = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().checkWishlist(productID);
+                            if(wishListModel != null){
+                                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().delete(wModel);
+                                Toasty.error(getApplicationContext(), "Đã xoá" +products.get(0).getName(), Toast.LENGTH_SHORT).show();
+                            }
+                            //WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().delete();
+
+                            //Toasty.error(getApplicationContext(), "Đã xảy ra lỗi, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+
+
+                WishListModel wishListModel = new WishListModel();
+                //wishListModel = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().checkWishlist()
+                //APIService.apiService.removeWishlist()
+
+            }
+        });
+
+
+
 
 
         Product product = (Product) bundle.getSerializable("product");
@@ -261,6 +229,125 @@ public class ProDetailActivity extends AppCompatActivity {
         }
 
     }
+    public void addToWishList(View view) {
+
+        final KProgressHUD progressDialog=  KProgressHUD.create(ProDetailActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
+        Wishlist wishlist1 = new Wishlist();
+        User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+        if(user != null){
+            wishlist1.setUser(user);
+        }
+        List<Product> products1 = new ArrayList<>();
+        products1.add(product);
+        wishlist1.setProducts(products1);
+        String message = "Toan";
+        WishlistResponse wishlistResponse = new WishlistResponse(message, user, product);
+
+        APIService.apiService.addWishlist(wishlist1).enqueue(new Callback<WishlistResponse>() {
+            @Override
+            public void onResponse(Call<WishlistResponse> call, Response<WishlistResponse> response) {
+
+                progressDialog.dismiss();
+                WishlistResponse wishlistResponse1 = response.body();
+                Product productWishlist = response.body().getProduct();
+                WishListModel wishListModel = new WishListModel();
+
+                List<Product> productList1 = new ArrayList<>();
+                productList1.add(productWishlist);
+                wishListModel.setId(UUID.randomUUID().toString().split("-")[0]);
+                wishListModel.convertProductToString(products1);
+                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(wishListModel);
+
+                Toasty.success(ProDetailActivity.this,"Added to your Wishlist",2000).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        addToWishlist.playAnimation();
+                        addToWishlist.setVisibility(View.GONE);
+                        wishlist_red.setVisibility(View.VISIBLE);
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onFailure(Call<WishlistResponse> call, Throwable t) {
+
+            }
+        });
+
+//        APIService.apiService.insertWishlist(wishlist1).enqueue(new Callback<Wishlist>() {
+//            @Override
+//            public void onResponse(Call<Wishlist> call, Response<Wishlist> response) {
+//                progressDialog.dismiss();
+//                Wishlist wishlist = response.body();
+//
+//
+//                WishListModel wishListModel = new WishListModel();
+//                wishListModel.setId(wishlist.getId());
+//                //wishListModel.setUserId(wishlist.getUser().getId());
+//                wishListModel.convertProductToString(wishlist.getProducts());
+//
+//                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(wishListModel);
+//
+//                Toasty.success(ProDetailActivity.this,"Added to your Wishlist",2000).show();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        addToWishlist.clearAnimation();
+//                        addToWishlist.setVisibility(View.GONE);
+//                        wishlist_red.setVisibility(View.VISIBLE);
+//
+//                    }
+//                },500);
+//                //WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(product);
+//                Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_LONG).show();
+//
+//
+//            }
+//            @Override
+//            public void onFailure(Call<Wishlist> call, Throwable t) {
+//                Toasty.error(ProDetailActivity.this,"Failed to add.",2000).show();
+//            }
+//        });
+
+
+
+    }
+    public void similarProduct(View view) {
+        finish();
+    }
+
+    private boolean checkExistWishlist() {
+        List<WishListModel> wishListModelList = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().getAll();
+        List<Product> products = new ArrayList<>();
+        for (WishListModel wishListModel : wishListModelList) {
+            products = wishListModel.getStringToProduct();
+            for (Product product : products) {
+                if (product.getId().equals(id)) {
+                    addToWishlist.setVisibility(View.GONE);
+                    wishlist_red.setVisibility(View.VISIBLE);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    private Product getProductObject() {
+        if(product != null)
+            return product;
+        return null;
+    }
+
 
     private void GetProductByBarcode(Product product) {
         List<Photo> photoList = new ArrayList<>();
@@ -278,23 +365,25 @@ public class ProDetailActivity extends AppCompatActivity {
 
 
     private void GetReviews(Product p) {
-        APIService.apiService.getReviewByProduct(p).enqueue(new Callback<List<Review>>() {
-            @Override
-            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
-                mListReview = response.body();
-                ReviewAdapter reviewAdapter = new ReviewAdapter(ProDetailActivity.this, mListReview);
-                rcReview.setHasFixedSize(false);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                rcReview.setLayoutManager(layoutManager);
-                rcReview.setAdapter(reviewAdapter);
-                reviewAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<Review>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Lỗi"+ t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        //Lấy danh sách đánh giá
+//        APIService.apiService.getReviewByProduct(p).enqueue(new Callback<List<Review>>() {
+//            @Override
+//            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+//                mListReview = response.body();
+//                ReviewAdapter reviewAdapter = new ReviewAdapter(ProDetailActivity.this, mListReview);
+//                rcReview.setHasFixedSize(false);
+//                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//                rcReview.setLayoutManager(layoutManager);
+//                rcReview.setAdapter(reviewAdapter);
+//                reviewAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Review>> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Lỗi"+ t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     private void SubmitDanGia() {
@@ -380,9 +469,6 @@ public class ProDetailActivity extends AppCompatActivity {
         addToWishlist = findViewById(R.id.add_to_wishlist);
         wishlist_red = findViewById(R.id.wishlist_red);
 
-        //Đánh giá
-        edtDanhGia = findViewById(R.id.edtDanhGia);
-        btnSubmit = findViewById(R.id.btn_submit_danhgia);
 
         btnBackToHome = findViewById(R.id.btn_back_to_prodetail);
         btnThemVaoGio = findViewById(R.id.btn_add_to_cart);
@@ -398,8 +484,6 @@ public class ProDetailActivity extends AppCompatActivity {
             }
         });
 
-
-        rcReview = findViewById(R.id.rc_item_review);
 
         //wishList
         wishList = findViewById(R.id.text_action3);

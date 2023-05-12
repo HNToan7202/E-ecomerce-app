@@ -1,5 +1,6 @@
 package com.example.cozaexpress.CheckOutFragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.cozaexpress.Activity.CheckoutActivity;
+import com.example.cozaexpress.Activity.MainActivity;
+import com.example.cozaexpress.Activity.StatusOrderActivity;
+import com.example.cozaexpress.Fragment.CartFragment;
 import com.example.cozaexpress.R;
 
 public class PaymentFragment extends Fragment {
@@ -22,6 +30,10 @@ public class PaymentFragment extends Fragment {
     View personalTosummary,summaryTopayment;
 
     TextView detailsNumber;
+
+    AppCompatButton submitContinue, btn_next_to_order;
+
+    TextView orderId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,34 @@ public class PaymentFragment extends Fragment {
         personalTosummary.setBackgroundColor(Color.parseColor("#11FF0A"));
         payment.setBackground(getActivity().getDrawable(R.drawable.shape_completed));
         summaryTopayment.setBackgroundColor(Color.parseColor("#11FF0A"));
+
+        submitContinue = view.findViewById(R.id.btn_continue_shopping);
+        orderId = view.findViewById(R.id.orderid);
+
+        btn_next_to_order = view.findViewById(R.id.btn_next_to_order);
+
+        String orderid = getArguments().getString("orderid");
+        orderId.setText(orderid);
+
+        submitContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                if (mainActivity != null) {
+                    mainActivity.navigateToCartFragment();
+                }
+            }
+        });
+
+        btn_next_to_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), StatusOrderActivity.class);
+                startActivity(intent);
+                ((CheckoutActivity)getActivity()).finish();
+            }
+        });
+
     }
 
     @Override

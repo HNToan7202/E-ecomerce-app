@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00BCD4"
+    android:id="@+id/swipeRefresh_account"
     android:orientation="vertical">
 
     <ScrollView
@@ -527,6 +528,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/action_message"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"
@@ -550,7 +552,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/baseline_card_giftcard_24" />
+                                    app:srcCompat="@drawable/baseline_message_24" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -558,7 +560,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Đổi Quà"
+                                android:text="Chat với Coza"
                                 android:textAlignment="center"
                                 android:textColor="#2e3d6d"
                                 android:textSize="14sp"
@@ -653,6 +655,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/action_policy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"
@@ -692,6 +695,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/action_help"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
@@ -751,4 +755,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
