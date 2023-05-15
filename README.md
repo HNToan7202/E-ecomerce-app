@@ -41,14 +41,13 @@ a[href="#top"]:hover {
 
 ## Prerequisites
 
-Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên máy đã cài đặt:
-        - compileSdk 33
-        - minSdk 24
-        - //noinspection ExpiredTargetSdkVersion
-        - targetSdk 29
-        - versionCode 1
-        - versionName "1.0"
-
+Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên máy đã cài đặt
+* compileSdk 33
+* minSdk 24
+* //noinspection ExpiredTargetSdkVersion
+* targetSdk 29
+* versionCode 1
+* versionName "1.0"
 * Công cụ hỗ trợ lập trình: Android Studio (khuyên dùng), hoặc bất kì công cụ khác có tích hợp môi trường phát triển Java (IDE) khác.
 * Phần mềm web server: Spring Tool Suite 
 * Hệ quản trị cơ sở dữ liệu: MongoDB NoSQL (khuyên dùng).
