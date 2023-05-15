@@ -12,8 +12,7 @@
 | Ngô Diệp Quang Huy      | 20110650 |                      |
 | Nguyễn Hoàng Toàn       | 20110739 |                      |
 
-
-# Xây dựng phần mềm bán đồ nội thất coza express
+<h1 align="center">Xây dựng phần mềm bán đồ nội thất coza express</h1>
 
 # Mô tả dự án:
 
