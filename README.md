@@ -76,4 +76,4 @@ a[href="#top"]:hover {
 
 ![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
 
-<p align="right"><a href="#top">back to top</a></p>
+<p align="right">(<a href="#top">back to top</a>)</p>
