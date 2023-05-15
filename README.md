@@ -35,6 +35,14 @@ a[href="#top"]:hover {
 
 <h1 align="center">Xây dựng phần mềm bán đồ nội thất coza express</h1>
 
+### Prerequisites
+
+Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên máy đã cài đặt:
+
+* Công cụ hỗ trợ lập trình: Android Studio (khuyên dùng), hoặc bất kì công cụ khác có tích hợp môi trường phát triển Java (IDE) khác.
+* Phần mềm web server: Spring Tool Suite 
+* Hệ quản trị cơ sở dữ liệu: MongoDB NoSQL (khuyên dùng).
+
 # Mô tả dự án:
 
 ### 1. Chức năng chính:
