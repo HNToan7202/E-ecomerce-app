@@ -2,25 +2,6 @@
   <img src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-news.png" alt="Example Image">
 </p>
 
-<style>
-a[href="#top"] {
-    display: inline-block;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    text-decoration: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    border-radius: 5px;
-}
-
-a[href="#top"]:hover {
-    background-color: #333;
-}
-</style>
-
-
 <h1 align="center">Group 14 Mobile programming</h1>
 <h2 align="right">GVHD : Nguyễn Hữu Trung</h2>
 
