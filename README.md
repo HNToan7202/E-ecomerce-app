@@ -30,6 +30,7 @@ a[href="#top"]:hover {
 <!-- Nội dung README.md tiếp theo -->
 
 # Member
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 | Họ và tên               | Mssv     | Description          |
 | :--------               | :------- | :--------------------|
@@ -49,6 +50,7 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 ## Mô tả dự án:
 
 ### 1. Chức năng chính:
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 - Đăng nhập và đăng ký: Người dùng có thể tạo tài khoản mới hoặc đăng nhập vào ứng dụng.
 - Hiển thị danh sách sản phẩm: Ứng dụng hiển thị danh sách các sản phẩm nội thất có sẵn để mua.
@@ -59,17 +61,20 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 - Quản lý đơn hàng: Người dùng có thể xem và quản lý các đơn hàng đã đặt.
 
 ### 2. Công nghệ sử dụng:
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 - Backend/API: Sử dụng Spring Boot để xây dựng các API cung cấp dữ liệu và chức năng cho ứng dụng. Sử dụng MongoDB để lưu trữ dữ liệu.
 - Frontend: Sử dụng Android Studio và Java để phát triển ứng dụng di động Android. Sử dụng các thư viện và giao thức như Retrofit, OkHttp, Gson để giao tiếp với các API từ phía backend.
 
 ### 3. Kiến trúc hệ thống:
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 - Backend/API: Sử dụng kiến trúc RESTful để thiết kế các API, cho phép người dùng truy cập và tương tác với các tài nguyên thông qua các yêu cầu HTTP.
 - Frontend: Phát triển ứng dụng di động Android với mô hình kiến trúc MVVM (Model-View-ViewModel) để tách biệt logic xử lý và giao diện người dùng.
 - Cơ sở dữ liệu: Sử dụng MongoDB làm cơ sở dữ liệu NoSQL để lưu trữ thông tin về sản phẩm, người dùng và đơn hàng.
 
 ### 4. Tính năng bổ sung (tùy chọn):
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 - Đánh giá và nhận xét: Cho phép người dùng đánh giá và viết nhận xét về sản phẩm đã Đặt hàng
 - Theo dõi đơn hàng: Người dùng có thể đặt hàng và theo dõi trạng thái đơn hàng của mình, từ khi đặt hàng cho đến khi nhận hàng.
@@ -84,6 +89,7 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 - Dự án bán đồ nội thất sử dụng công nghệ Spring Boot và MongoDB cho phép người dùng trải nghiệm mua sắm thuận tiện và dễ dàng trên nền tảng di động Android, với việc sử dụng cơ sở dữ liệu NoSQL linh hoạt và khả năng mở rộng cao của MongoDB.
 
 ### Kiến trúc trong môi truong phát triển ứng dụng
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
 ### SCREEN SHOT
