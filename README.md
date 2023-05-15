@@ -35,7 +35,7 @@ a[href="#top"]:hover {
 
 <h1 align="center">Xây dựng phần mềm bán đồ nội thất coza express</h1>
 
-### Prerequisites
+## Prerequisites
 
 Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên máy đã cài đặt:
 
