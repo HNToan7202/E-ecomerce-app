@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvNameAddress"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nguyễn Hoàng Toàn" />
+
+    <TextView
+        android:textSize="16sp"
+        android:id="@+id/tvPhone_Address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0974734350" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:lines="3"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="55/10/20 Đường 160 Tăng Nhơn Phú A, Quận 9, Thủ Đức" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_gravity="end"
+        android:layout_width="100dp"
+        android:backgroundTint="@color/black"
+        android:layout_height="wrap_content"
+        android:text="Sửa" />
+
+
+</LinearLayout>

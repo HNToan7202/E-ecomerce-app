@@ -1,7 +1,10 @@
 package com.example.cozaexpress.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Review implements Serializable {
 
@@ -10,8 +13,10 @@ public class Review implements Serializable {
     private Product product;
     private String content;
     private Integer rating;
-    private Date createat;
-    private Date updateat;
+    private String createat;
+    private String updateat;
+
+    private String listimage;
 
     public String getId() {
         return id;
@@ -53,20 +58,39 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public Date getCreateat() {
+    public String getCreateat() {
         return createat;
     }
 
-    public void setCreateat(Date createat) {
+    public void setCreateat(String createat) {
         this.createat = createat;
     }
 
-    public Date getUpdateat() {
+    public String getUpdateat() {
         return updateat;
     }
 
-    public void setUpdateat(Date updateat) {
+    public void setUpdateat(String updateat) {
         this.updateat = updateat;
     }
 
+    public String getListimage() {
+        return listimage;
+    }
+
+    public void setListimage(String listimage) {
+        this.listimage = listimage;
+    }
+
+    public List<Photo> getListPhoto() {
+
+        String listimg = getListimage();
+        List<String> photos = Arrays.asList(listimg.split(","));
+        List<Photo> photoList = new ArrayList<>();
+        for(String w:photos){
+            Photo photo = new Photo(w);
+            photoList.add(photo);
+        }
+        return photoList;
+    }
 }

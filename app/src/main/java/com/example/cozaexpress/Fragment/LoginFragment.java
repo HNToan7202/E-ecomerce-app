@@ -2,19 +2,23 @@ package com.example.cozaexpress.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.cozaexpress.Activity.LoginActivity;
 import com.example.cozaexpress.Activity.MainActivity;
+import com.example.cozaexpress.Activity.SendMailActivity;
 import com.example.cozaexpress.Activity.SignInActivity;
 import com.example.cozaexpress.DataLocal.SharedPrefManager;
 import com.example.cozaexpress.Model.User;
@@ -33,6 +37,10 @@ public class LoginFragment extends Fragment {
 
     User user ;
 
+    TextView tvForgotPassword;
+
+    private String check;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +49,17 @@ public class LoginFragment extends Fragment {
         edtUsername = view.findViewById(R.id.etUsername);
         edtPassword = view.findViewById(R.id.etPassword);
         login = view.findViewById(R.id.btnSignIn);
+        tvForgotPassword = view.findViewById(R.id.tvForgotPassword);
+
+        edtUsername.addTextChangedListener(usernameWatcher);
+        edtPassword.addTextChangedListener(passwordWatcher);
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SendMailActivity.class);
+                startActivity(intent);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +69,51 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    TextWatcher usernameWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() < 4 || check.length() > 20) {
+                edtUsername.setError("Tên phải từ 4 đến 20 ký tự");
+            }
+        }
+
+    };
+
+    TextWatcher passwordWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() < 4 || check.length() > 20) {
+                edtPassword.setError("Mật Khẩu phải từ 4 đến 20 ký tự");
+            }
+        }
+
+    };
     private void GetUser() {
         String username = edtUsername.getText().toString().trim();
         String password=  edtPassword.getText().toString().trim();
@@ -63,6 +127,7 @@ public class LoginFragment extends Fragment {
             edtPassword.requestFocus();
             return;
         }
+
         APIService.apiService.loginWithLocal(username,password).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

@@ -2,6 +2,7 @@ package com.example.cozaexpress.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -30,16 +31,22 @@ import com.example.cozaexpress.Activity.SearchActivity;
 import com.example.cozaexpress.Adapter.CategoryAdapter;
 import com.example.cozaexpress.Adapter.LastProductAdapter;
 import com.example.cozaexpress.Adapter.PhotoAdapter;
+import com.example.cozaexpress.Adapter.ProductAdapter;
+import com.example.cozaexpress.Adapter.ProductSaleAdapter;
+import com.example.cozaexpress.Adapter.StatusSignInAdapter;
 import com.example.cozaexpress.Model.Category;
 import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.api.APIService;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,9 +56,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment {
 
-    SwipeRefreshLayout swipeRefreshLayout;
+    //SwipeRefreshLayout swipeRefreshLayout;
 
     //Hàm trả về view
     ViewPager2 viewPager;
@@ -87,6 +94,19 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     ImageView imgprofile;
 
+    ViewPager2 viewPager2_xuhuong_muasam;
+
+    ProductSaleAdapter productSaleAdapter;
+    RecyclerView rc_flashsale;
+
+    TabLayout tabLayoutXH;
+
+    ProductAdapter producFlashSaleAdapter;
+
+    List<Product> listFlashSale;
+
+    TextView tvCountdown;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,7 +114,32 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         AnhXa();
         getCategories();
         getProducts();
+        SetFlashSale();
         return view;
+    }
+
+    private void SetFlashSale() {
+
+        long flashSaleDurationInMillis = 600000; // Thời gian flash sale (vd: 10 phút) 600000
+        long intervalInMillis = 1000; // Khoảng thời gian giữa các tick (vd: 1 giây)
+
+        CountDownTimer countDownTimer = new CountDownTimer(flashSaleDurationInMillis, intervalInMillis) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long hours = (millisUntilFinished / (60 * 60 * 1000)) % 24;
+                long minutes = (millisUntilFinished / (60 * 1000)) % 60;
+                long seconds = (millisUntilFinished / 1000) % 60;
+                String countdownText = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+                tvCountdown.setText(countdownText);
+            }
+            @Override
+            public void onFinish() {
+                // Thực hiện các hành động sau khi flash sale kết thúc
+            }
+        };
+
+// Bắt đầu đếm ngược
+        countDownTimer.start();
     }
 
     private void getProducts() {
@@ -125,32 +170,33 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void getCategories() {
-        APIService.apiService.getCategories().enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if(response.isSuccessful()){
-                    categoryList = response.body();
-                    categoryAdapter = new CategoryAdapter(getContext(), categoryList);
-                    rcCate.setHasFixedSize(false);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-                    rcCate.setLayoutManager(layoutManager);
-                    rcCate.setAdapter(categoryAdapter);
-                    categoryAdapter.notifyDataSetChanged();
-
-                }
+        productSaleAdapter = new ProductSaleAdapter(getActivity());
+        viewPager2_xuhuong_muasam.setAdapter(productSaleAdapter);
+        new TabLayoutMediator(tabLayoutXH, viewPager2_xuhuong_muasam, (tab, position) -> {
+            switch (position){
+                case 0:
+                    tab.setText("Xu hướng");
+                    break;
+                case 1:
+                    tab.setText("Mẫu mới");
+                    break;
             }
+        }).attach();
 
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-
-            }
-        });
     }
 
     private void AnhXa() {
+        rc_flashsale = view.findViewById(R.id.rc_xuhuong_flashsale);
+        tvCountdown = view.findViewById(R.id.txtGio);
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh_home);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        getFlashSale();
+
+        tabLayoutXH = view.findViewById(R.id.tabLayoutXH);
+
+//        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh_home);
+//        swipeRefreshLayout.setOnRefreshListener(this);
+
+        viewPager2_xuhuong_muasam = view.findViewById(R.id.viewPager2_xuhuong_muasam);
 
         btnSCan = view.findViewById(R.id.scanbtn2);
         rcProduct = view.findViewById(R.id.rc_prodcut);
@@ -186,6 +232,25 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         autoSlideImage();
     }
 
+    private void getFlashSale() {
+        APIService.apiService.getTop5discount().enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                listFlashSale = response.body();
+                producFlashSaleAdapter = new ProductAdapter(getContext(), listFlashSale);
+                rc_flashsale.setHasFixedSize(false);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+                rc_flashsale.setLayoutManager(layoutManager);
+                rc_flashsale.setAdapter(producFlashSaleAdapter);
+                producFlashSaleAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+
+            }
+        });
+    }
 
 
     private void scanCode() {
@@ -291,18 +356,5 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             mTimer.cancel();
             mTimer = null;
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        getProducts();
-        getCategories();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }, 2000);
     }
 }

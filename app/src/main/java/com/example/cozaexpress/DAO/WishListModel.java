@@ -34,6 +34,7 @@ public class WishListModel implements Serializable {
         this.id = id;
     }
 
+
 //    public User getUser() {
 //        return user;
 //    }
@@ -61,6 +62,7 @@ public class WishListModel implements Serializable {
     public List<Product> getStringToProduct(){
 
         List<Product> productList = new ArrayList<>();
+        products = "";
         try {
             JSONArray jsonArray = new JSONArray(this.products);
             JSONObject jsonObject;

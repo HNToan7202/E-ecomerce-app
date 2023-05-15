@@ -5,27 +5,18 @@
     android:id="@+id/btnSanPham"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     android:background="#ffffff">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:background="@drawable/bg_background1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <RelativeLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSoNguoiDanhGia"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvSoNguoiDanhGia"/>
 
         <TextView
             android:id="@+id/tvTenSp"
@@ -36,6 +27,7 @@
             android:layout_marginEnd="8dp"
             android:singleLine="true"
             android:text="Nước Tẩy Trang L'Oreal"
+            android:maxLength="24"
             android:textColor="#000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvGia"
@@ -85,21 +77,21 @@
             android:id="@+id/tvLuotMua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:drawableStart="@drawable/baseline_shopping_cart_24"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/cart"
             android:text="2048"
+            android:gravity="center"
             android:textColor="#000000"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSoNguoiDanhGia"
-            app:layout_constraintStart_toEndOf="@+id/tvSoNguoiDanhGia"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvSoNguoiDanhGia" />
-
-
 
         <ImageView
             android:id="@+id/imgProduct"
-            android:layout_width="0dp"
-            android:layout_height="141dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
@@ -108,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/img" />
+            tools:srcCompat="@drawable/baseline_delete_24" />
 
         <TextView
             android:id="@+id/tvGia"

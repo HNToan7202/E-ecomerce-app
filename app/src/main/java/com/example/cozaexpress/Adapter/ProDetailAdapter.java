@@ -9,7 +9,7 @@ import com.example.cozaexpress.Fragment.DanhGiaFragment;
 import com.example.cozaexpress.Fragment.LoginFragment;
 import com.example.cozaexpress.Fragment.MoTaFragment;
 import com.example.cozaexpress.Fragment.ThongSoFragment;
-import com.example.cozaexpress.Fragment.TongQuangFragment;
+import com.example.cozaexpress.Fragment.ProductSaleFragment;
 
 public class ProDetailAdapter extends FragmentStateAdapter {
     public ProDetailAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -31,7 +31,7 @@ public class ProDetailAdapter extends FragmentStateAdapter {
                 return new DanhGiaFragment();
             case 0 :
             default:
-                return new TongQuangFragment();
+                return new ProductSaleFragment();
         }
     }
 
@@ -40,21 +40,4 @@ public class ProDetailAdapter extends FragmentStateAdapter {
         return 5;
     }
 
-//    private void getProductById(String id) {
-//        APIService.apiService.getProductById(id).enqueue(new Callback<Product>() {
-//            @Override
-//            public void onResponse(Call<Product> call, Response<Product> response) {
-//                Product product = response.body();
-//                Glide.with(getApplicationContext())
-//                        .load(product.getListimage())
-//                        .into(imgProduct);
-//                tvPrice.setText(product.getPrice().toString());
-//                tvDesciption.setText(product.getDesciption());
-//            }
-//            @Override
-//            public void onFailure(Call<Product> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 }

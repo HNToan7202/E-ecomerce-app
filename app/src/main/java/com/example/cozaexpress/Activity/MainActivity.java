@@ -10,6 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -18,6 +20,20 @@ import com.example.cozaexpress.Fragment.CartFragment;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Locale;
+
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.Label;
+import jxl.write.WriteException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +47,64 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView mBottom_nav;
     ViewPager mViewPager;
 
+    private void exportToExcel() {
+        // Create a WorkbookSettings object to customize the Workbook
+        WorkbookSettings workbookSettings = new WorkbookSettings();
+        workbookSettings.setLocale(new Locale("en", "EN"));
+
+        // Get the external storage directory
+        File externalStorageDir = Environment.getExternalStorageDirectory();
+
+        // Create the Excel file
+        String filePath = externalStorageDir.getAbsolutePath() + "/doanhthu.xls";
+        WritableWorkbook workbook;
+        try {
+            workbook = Workbook.createWorkbook(new File(filePath), workbookSettings);
+
+            // Create a new sheet
+            WritableSheet sheet = workbook.createSheet("Doanh thu", 0);
+
+            // Data: products and revenues
+            String[] products = {"Sản phẩm A", "Sản phẩm B", "Sản phẩm C"};
+            double[] revenues = {1000.0, 2000.0, 1500.0};
+
+            // Add headers
+            sheet.addCell(new Label(0, 0, "Sản phẩm"));
+            sheet.addCell(new Label(1, 0, "Doanh thu"));
+
+            // Add data
+            for (int i = 0; i < products.length; i++) {
+                sheet.addCell(new Label(0, i + 1, products[i]));
+                sheet.addCell(new jxl.write.Number(1, i + 1, revenues[i]));
+            }
+
+            // Write the workbook
+            workbook.write();
+            workbook.close();
+
+            //String filePath = externalStorageDir.getAbsolutePath() + "/doanhthu.xls";
+            File excelFile = new File(filePath);
+
+            Log.d("ExportToExcel", "File path: " + filePath);
+
+            if (excelFile.exists()) {
+                // Tệp Excel đã được lưu thành công
+                Log.d("ExportToExcel", "Excel file saved successfully.");
+            } else {
+                // Không thể lưu tệp Excel
+                Log.d("ExportToExcel", "Failed to save Excel file.");
+            }
+        } catch (IOException | WriteException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //FirstInstall();
+        //exportToExcel();
         AnhXa();
         setUpViewPager();
         setUpNavigationView();

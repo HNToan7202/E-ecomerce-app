@@ -122,11 +122,11 @@
             android:text="Total :"
             android:textColor="#000"
             app:layout_constraintBottom_toBottomOf="@+id/tvTotal_cart"
-            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+            app:layout_constraintStart_toEndOf="@+id/checkAll"
             app:layout_constraintTop_toTopOf="@+id/tvTotal_cart" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -28,17 +28,23 @@ import com.example.cozaexpress.Activity.HelpActivity;
 import com.example.cozaexpress.Activity.LoginActivity;
 import com.example.cozaexpress.Activity.PolicyActivity;
 import com.example.cozaexpress.Activity.ProfileActivity;
+import com.example.cozaexpress.Activity.ReviewsActivity;
+import com.example.cozaexpress.Activity.ShipperActivity;
 import com.example.cozaexpress.Activity.SignInActivity;
 import com.example.cozaexpress.Activity.StatusOrderActivity;
+import com.example.cozaexpress.Activity.ViewCurrentActivity;
 import com.example.cozaexpress.Activity.WhishlistActivity;
 import com.example.cozaexpress.DataLocal.DataLocalManager;
 import com.example.cozaexpress.DataLocal.SharedPrefManager;
+import com.example.cozaexpress.Model.StatusOrder;
 import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.Activity.SettingActivity;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
     View view;
+
+    TextView tvViewAllOrder;
 
     ImageView btnSetting, wishList;
 
@@ -52,7 +58,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     RelativeLayout empty_profile;
 
-    LinearLayout action_cho_xac_nhan, action_dang_giao, action_bi_huy, action_thanh_cong;
+    LinearLayout action_cho_xac_nhan, action_dang_giao, action_bi_huy, action_thanh_cong,action_rate, action_viewcurrent, action_profile, action_address;
 
     LinearLayout action_policy, action_help, action_message;
 
@@ -69,7 +75,15 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private void AnhXa() {
 
+        tvViewAllOrder = view.findViewById(R.id.tvViewAllOrder);
         action_cho_xac_nhan = view.findViewById(R.id.action_cho_xac_nhan);
+        action_dang_giao = view.findViewById(R.id.action_dang_giao);
+        action_bi_huy = view.findViewById(R.id.action_da_huy);
+        action_thanh_cong = view.findViewById(R.id.action_thanh_cong);
+        action_rate = view.findViewById(R.id.action_rate);
+        action_viewcurrent = view.findViewById(R.id.action_viewcurrent);
+        action_profile = view.findViewById(R.id.action_profile);
+        action_address = view.findViewById(R.id.action_address);
 
         imgProfile = view.findViewById(R.id.img_profile_account);
         tvUserName = view.findViewById(R.id.tvName);
@@ -93,13 +107,127 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         constraint_profile = view.findViewById(R.id.layout_profile);
         empty_profile = view.findViewById(R.id.empty_profile);
 
-        action_cho_xac_nhan.setOnClickListener(new View.OnClickListener() {
+        tvViewAllOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), StatusOrderActivity.class);
                 startActivity(i);
             }
         });
+
+        action_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), ShipperActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+        action_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), ProfileActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+        action_viewcurrent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), ViewCurrentActivity.class);
+                startActivity(i);
+            }
+        });
+        action_rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), ReviewsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        action_cho_xac_nhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), StatusOrderActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        action_dang_giao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), StatusOrderActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("status", String.valueOf(StatusOrder.DANGGIAO));
+                    i.putExtras(bundle);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        action_thanh_cong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), StatusOrderActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("status", String.valueOf(StatusOrder.DANGGIAO));
+                    i.putExtras(bundle);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        action_bi_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!= null){
+                    Intent i = new Intent(getContext(), StatusOrderActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("status", String.valueOf(StatusOrder.DANGGIAO));
+                    i.putExtras(bundle);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để xem",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
 
         if(user!= null){
             Log.d("FULL", user.getFullName());
@@ -211,8 +339,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     case R.id.action_message:
                         openFacebookMessenger(getContext());
                         break;
-
-
 
             }
     }

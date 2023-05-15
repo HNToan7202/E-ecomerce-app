@@ -33,16 +33,6 @@
                 android:textColor="#424242" />
 
 
-            <TextView
-                android:id="@+id/orderid"
-                style="@style/headingfonts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/borderfile"
-                android:gravity="center"
-                android:text="FVF1FF12T"
-                android:textColor="@color/colorPrimaryDark" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_continue_shopping"

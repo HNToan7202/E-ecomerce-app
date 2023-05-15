@@ -17,18 +17,14 @@ import com.example.cozaexpress.R;
 import java.util.List;
 
 public class OrderSumaryAdapter extends  RecyclerView.Adapter<OrderSumaryAdapter.MyViewHolder>{
-
-
     Context context;
 
     List<Product> products;
-
 
     public OrderSumaryAdapter(Context context, List<Product> products) {
         this.context = context;
         this.products = products;
     }
-
 
     @NonNull
     @Override

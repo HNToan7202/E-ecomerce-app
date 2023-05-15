@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +38,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     Context context;
     List<Category> array;
     private OnItemClickListener listener;
+
+    private int selectedItem = -1;
 
     Category category;
 
@@ -66,6 +69,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         category = array.get(position);
 
+        if (position == selectedItem) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_item_color));
+            holder.tenSp.setTextColor(ContextCompat.getColor(context, R.color.white));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            holder.tenSp.setTextColor(ContextCompat.getColor(context, R.color.black));
+        }
+
         holder.tenSp.setText(category.getName());
         Glide.with(context).load(category.getImage()).into(holder.images);
     }
@@ -88,7 +99,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Bạn đã chọn category" + tenSp.getText().toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Bạn đã chọn category" + tenSp.getText().toString(), Toast.LENGTH_SHORT).show();
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {

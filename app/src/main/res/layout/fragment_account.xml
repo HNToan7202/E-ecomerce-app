@@ -138,7 +138,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tvViewAllOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -188,6 +188,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/action_dang_giao"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -215,6 +216,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/action_thanh_cong"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -242,6 +244,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/action_da_huy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -410,6 +413,7 @@
                         android:layout_marginBottom="16dp">
 
                         <LinearLayout
+                            android:id="@+id/action_viewcurrent"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"
@@ -489,6 +493,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/action_rate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"
@@ -577,6 +582,7 @@
                         android:layout_marginBottom="16dp">
 
                         <LinearLayout
+                            android:id="@+id/action_profile"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
@@ -616,6 +622,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/action_address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.25"

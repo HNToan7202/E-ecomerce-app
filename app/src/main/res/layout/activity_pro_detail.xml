@@ -107,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_Gia_Da_Giam"
+                    android:id="@+id/tv_GiaChuaGiam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -127,7 +127,7 @@
                     android:textColor="#000000"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_Gia_Da_Giam"
+                    app:layout_constraintStart_toEndOf="@+id/tv_GiaChuaGiam"
                     app:layout_constraintTop_toTopOf="@+id/tvGiaDaGiam"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -302,7 +302,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtRate"
+                    android:id="@+id/tvNameSp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mô tả sản phẩm"
@@ -372,106 +372,6 @@
                             android:textColor="#000000"
                             android:textSize="14sp" />
                     </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/textView192"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Thương Hiệu"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvThuongHieu"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="BIODERMA"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/textView119"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Xuất xứ"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvXuatXu"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Pháp"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvloaida1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Loại Da"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvLoaiDa"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Mọi Loại Da"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvgioitinh1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Giới tính"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvGioiTinh"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:padding="10dp"
-                            android:text="Nam, nữ"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-                    </TableRow>
                 </TableLayout>
 
             </LinearLayout>
@@ -483,6 +383,8 @@
                 android:layout_marginTop="10dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
+                android:visibility="gone"
+                android:id="@+id/action_rating"
                 android:background="@color/white">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -505,6 +407,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/total_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="(20)"
@@ -522,6 +425,7 @@
                         android:paddingEnd="5dp">
 
                         <TextView
+                            android:id="@+id/tvSeeAll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Xem tất cả"
@@ -558,6 +462,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tvAvgRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.85"
@@ -571,7 +476,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:isIndicator="false"
+                            android:isIndicator="true"
                             android:numStars="5"
                             android:progressTint="#F4D300"
                             android:rating="4.6"
@@ -593,22 +498,6 @@
                     android:nestedScrollingEnabled="false">
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xem thêm"
-                        android:textColor="@color/black"
-                        android:textSize="13dp" />
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/next" />
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -619,7 +508,19 @@
                 android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
-
+                <TextView
+                    android:id="@+id/textView20"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Có thể bạn cũng thích" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/rc_productsame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
         </LinearLayout>

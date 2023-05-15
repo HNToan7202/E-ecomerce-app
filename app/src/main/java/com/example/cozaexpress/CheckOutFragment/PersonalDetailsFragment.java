@@ -32,6 +32,8 @@ public class PersonalDetailsFragment extends Fragment {
     private FragmentPersonalDetailsBinding binding;
     CheckoutActivity checkOutActivity ;
 
+    public static final String GET_CART_ITEMS = "get_cart_items";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +119,7 @@ public class PersonalDetailsFragment extends Fragment {
                 &&!binding.phoneNumber.getText().toString().isEmpty()&&!(binding.addressType.getCheckedRadioButtonId() == -1)){
 
             Bundle bundle = new Bundle();
+            bundle.putSerializable(GET_CART_ITEMS, checkOutActivity.getCartItems());
             bundle.putString("pincode",binding.pincode.getText().toString());
             bundle.putString("houseName",binding.houseName.getText().toString());
             bundle.putString("area",binding.area.getText().toString());
@@ -124,6 +127,10 @@ public class PersonalDetailsFragment extends Fragment {
             bundle.putString("state",binding.state.getText().toString());
             bundle.putString("name",binding.name.getText().toString());
             bundle.putString("phoneNumber",binding.phoneNumber.getText().toString());
+
+//            if (binding.home.isChecked())
+//                bundle.putString("addressType",binding.home.getText().toString());
+
             if (!binding.altPhoneNumber.getText().toString().isEmpty())
                 bundle.putString("altPhoneNumber",binding.altPhoneNumber.getText().toString());
             if (!binding.landmark.getText().toString().isEmpty())
