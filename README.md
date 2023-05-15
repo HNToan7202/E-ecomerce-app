@@ -49,8 +49,8 @@ Phát triển và triển khai:
 - Phát triển frontend: Sử dụng Android Studio và Java để phát triển ứng dụng di động Android, kết hợp các thư viện hỗ trợ giao tiếp với API.
 Triển khai ứng dụng:
 - Dự án bán đồ nội thất sử dụng công nghệ Spring Boot và MongoDB cho phép người dùng trải nghiệm mua sắm thuận tiện và dễ dàng trên nền tảng di động Android, với việc sử dụng cơ sở dữ liệu NoSQL linh hoạt và khả năng mở rộng cao của MongoDB.
-
-
+### Kiến trúc trong môi truong phát triển ứng dụng 
+![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
 
 
 
