@@ -43,7 +43,7 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 * Phần mềm web server: Spring Tool Suite 
 * Hệ quản trị cơ sở dữ liệu: MongoDB NoSQL (khuyên dùng).
 
-# Mô tả dự án:
+## Mô tả dự án:
 
 ### 1. Chức năng chính:
 
