@@ -83,5 +83,8 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 ### Kiến trúc trong môi truong phát triển ứng dụng
 
 ![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
+### SCREEN SHOT
+![z4348266903856_aac4bdd53b3c7c237717de6815153342](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/98fd21a0-5398-4751-bc83-25c2e498849a)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
