@@ -1,19 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_rate_reivew"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Bình luận 1"/>
-    <TextView
-        android:id="@+id/tv_sao_review"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvNameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="t***n"
+                android:textColor="#000"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/rate"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressTint="#F4D300"
+                android:rating="5"
+                android:stepSize="1" />
+
+            <TextView
+                android:id="@+id/tvDateFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="04/24/2023"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Vải mềm mại và thoáng khí, giúp tôi cảm thấy rất thoải mái khi mặc. Đường may và chất lượng sản phẩm rất tốt, không có chi tiết nào bị lỗi hay hỏng hóc. Áo có màu sắc rất đẹp và sống động, giống hệt như trong hình ảnh quảng cáo."
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="5 sao"
-        android:textColor="#000000"
-        />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/imgFeedBack"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:weightSum="3"
+            android:visibility="visible"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgFeedback1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/sofa" />
+
+            <ImageView
+                android:id="@+id/imgFeedback2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/sofa" />
+
+            <ImageView
+                android:id="@+id/imgFeedback3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/sofa" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+
+                android:id="@+id/imgLike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/img_icon_like" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="Hữu ích ("
+                android:textColor="#000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="2"
+                android:textColor="#000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text=")"
+                android:textColor="#000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="2dp"
+                android:text="..."
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black" />
+    </LinearLayout>
 </LinearLayout>

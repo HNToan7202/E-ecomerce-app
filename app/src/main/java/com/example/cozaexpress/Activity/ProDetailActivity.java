@@ -1,9 +1,12 @@
 package com.example.cozaexpress.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -26,12 +29,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.example.cozaexpress.Adapter.LastProductAdapter;
 import com.example.cozaexpress.Adapter.PhotoAdapter;
 import com.example.cozaexpress.Adapter.ProDetailAdapter;
 import com.example.cozaexpress.Adapter.ReviewAdapter;
@@ -46,6 +51,7 @@ import com.example.cozaexpress.Model.Photo;
 import com.example.cozaexpress.Model.Product;
 import com.example.cozaexpress.Model.Review;
 import com.example.cozaexpress.Model.User;
+import com.example.cozaexpress.Model.UserWishlist;
 import com.example.cozaexpress.Model.Wishlist;
 import com.example.cozaexpress.Model.WishlistRequest;
 import com.example.cozaexpress.Model.WishlistResponse;
@@ -58,6 +64,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.nex3z.notificationbadge.NotificationBadge;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -73,7 +80,7 @@ import retrofit2.Response;
 public class ProDetailActivity extends AppCompatActivity {
 
     ImageView imgProduct;
-    TextView tvPrice, tvDesciption, tvGiaChuaGiam, tvNameSp, tvHangSP, wishList;
+    TextView tvPrice, tvDesciption, tvGiaChuaGiam, tvNameSp, tvHangSP, wishList, tvAvgRating, tvDiscount;
     List<Product> productList = new ArrayList<>();
 
     ImageView btnBackToHome;
@@ -84,6 +91,12 @@ public class ProDetailActivity extends AppCompatActivity {
 
     ProDetailAdapter proDetailAdapter;
 
+    RecyclerView rvFeedback;
+
+    TextView totalrating;
+
+    TextView tvBarcode;
+
     String id;
 
     int idDialog;
@@ -91,6 +104,8 @@ public class ProDetailActivity extends AppCompatActivity {
     Product product;
 
     EditText edtDanhGia;
+
+    public static final String DETAIL_REVIEW = "detail_review";
 
 
     EditText quantity;
@@ -105,6 +120,8 @@ public class ProDetailActivity extends AppCompatActivity {
 
     List<Review> mListReview;
 
+    LinearLayout action_rating;
+
     @BindView(R.id.add_to_wishlist)
     LottieAnimationView addToWishlist;
 
@@ -115,10 +132,14 @@ public class ProDetailActivity extends AppCompatActivity {
 
     GenericProductModel model;
 
+    TextView tvSeeAll;
+
     private String usermobile, useremail;
     private String username;
 
     private UserSession session;
+
+    RecyclerView rc_prodctsame;
 
     FrameLayout onStartCart;
     @Override
@@ -145,11 +166,7 @@ public class ProDetailActivity extends AppCompatActivity {
             getProductById(id);
         }
 
-
         AnhXa();
-
-
-
 
         registerForContextMenu(btnPopup);
         btnPopup.setOnClickListener(new View.OnClickListener() {
@@ -184,52 +201,45 @@ public class ProDetailActivity extends AppCompatActivity {
                 APIService.apiService.removeProductFromWishlist(wishlistRequest).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        progressDialog.dismiss();
+                            progressDialog.dismiss();
                             String message = response.body();
-                            wishlist_red.setVisibility(View.GONE);
-                            addToWishlist.setVisibility(View.VISIBLE);
+                        addToWishlist.setVisibility(View.VISIBLE);
+                        addToWishlist.cancelAnimation();
+                        addToWishlist.clearAnimation();
+                        addToWishlist.setProgress(0);
+                        addToWishlist = findViewById(R.id.add_to_wishlist);
+                        wishlist_red.setVisibility(View.GONE);
                             Toasty.success(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                            List<Product> products = new ArrayList<>();
-                            products.add(product);
-                            WishListModel wishListModel = new WishListModel();
-                            wishListModel.convertProductToString(products);
-                            String productID = wishListModel.getProducts();
-                            WishListModel wModel = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().checkWishlist(productID);
-                            if(wishListModel != null){
-                                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().delete(wModel);
-                                Toasty.error(getApplicationContext(), "Đã xoá" +products.get(0).getName(), Toast.LENGTH_SHORT).show();
-                            }
-                            //WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().delete();
-
-                            //Toasty.error(getApplicationContext(), "Đã xảy ra lỗi, vui lòng thử lại", Toast.LENGTH_SHORT).show();
-
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
+                        addToWishlist.setVisibility(View.VISIBLE);
+                        addToWishlist.cancelAnimation();
+                        addToWishlist.clearAnimation();
+                        addToWishlist.setProgress(0);
+                        addToWishlist = findViewById(R.id.add_to_wishlist);
+                        wishlist_red.setVisibility(View.GONE);
 
                     }
                 });
-
-
-                WishListModel wishListModel = new WishListModel();
-                //wishListModel = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().checkWishlist()
-                //APIService.apiService.removeWishlist()
 
             }
         });
 
 
-
-
-
         Product product = (Product) bundle.getSerializable("product");
         if(product != null){
             GetProductByBarcode(product);
+            checkExistWishlist();
         }
 
     }
     public void addToWishList(View view) {
+        User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+        if(user!= null){
+
 
         final KProgressHUD progressDialog=  KProgressHUD.create(ProDetailActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -240,10 +250,8 @@ public class ProDetailActivity extends AppCompatActivity {
                 .show();
 
         Wishlist wishlist1 = new Wishlist();
-        User user = SharedPrefManager.getInstance(getApplicationContext()).getUser();
-        if(user != null){
-            wishlist1.setUser(user);
-        }
+
+        wishlist1.setUser(user);
         List<Product> products1 = new ArrayList<>();
         products1.add(product);
         wishlist1.setProducts(products1);
@@ -255,25 +263,31 @@ public class ProDetailActivity extends AppCompatActivity {
             public void onResponse(Call<WishlistResponse> call, Response<WishlistResponse> response) {
 
                 progressDialog.dismiss();
-                WishlistResponse wishlistResponse1 = response.body();
-                Product productWishlist = response.body().getProduct();
-                WishListModel wishListModel = new WishListModel();
+                if(response.isSuccessful()){
+//                    WishlistResponse wishlistResponse1 = response.body();
+//                    Product productWishlist = response.body().getProduct();
+//                    WishListModel wishListModel = new WishListModel();
 
-                List<Product> productList1 = new ArrayList<>();
-                productList1.add(productWishlist);
-                wishListModel.setId(UUID.randomUUID().toString().split("-")[0]);
-                wishListModel.convertProductToString(products1);
-                WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(wishListModel);
+//                    List<Product> productList1 = new ArrayList<>();
+//                    productList1.add(productWishlist);
+//                    wishListModel.setId(UUID.randomUUID().toString().split("-")[0]);
+//                    wishListModel.convertProductToString(products1);
+                    //WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().insertProduct(wishListModel);
 
-                Toasty.success(ProDetailActivity.this,"Added to your Wishlist",2000).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        addToWishlist.playAnimation();
-                        addToWishlist.setVisibility(View.GONE);
-                        wishlist_red.setVisibility(View.VISIBLE);
-                    }
-                }, 2000);
+                    Toasty.success(ProDetailActivity.this,"Added to your Wishlist",2000).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            addToWishlist.playAnimation();
+                            addToWishlist.setVisibility(View.GONE);
+                            wishlist_red.setVisibility(View.VISIBLE);
+                        }
+                    }, 2000);
+                }
+                else {
+                    Toasty.error(ProDetailActivity.this,"Error",2000).show();
+                }
+
             }
 
             @Override
@@ -281,6 +295,10 @@ public class ProDetailActivity extends AppCompatActivity {
 
             }
         });
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"Bạn cần đăng nhập", Toast.LENGTH_LONG).show();
+        }
 
 //        APIService.apiService.insertWishlist(wishlist1).enqueue(new Callback<Wishlist>() {
 //            @Override
@@ -325,20 +343,28 @@ public class ProDetailActivity extends AppCompatActivity {
         finish();
     }
 
-    private boolean checkExistWishlist() {
-        List<WishListModel> wishListModelList = WishlistDatabase.getInstance(getApplicationContext()).wishlistDAO().getAll();
-        List<Product> products = new ArrayList<>();
-        for (WishListModel wishListModel : wishListModelList) {
-            products = wishListModel.getStringToProduct();
-            for (Product product : products) {
-                if (product.getId().equals(id)) {
-                    addToWishlist.setVisibility(View.GONE);
-                    wishlist_red.setVisibility(View.VISIBLE);
-                    return true;
+    private void checkExistWishlist() {
+
+        APIService.apiService.getWishlistByUser(SharedPrefManager.getInstance(getApplicationContext()).getUser()).enqueue(new Callback<UserWishlist>() {
+            @Override
+            public void onResponse(Call<UserWishlist> call, Response<UserWishlist> response) {
+                if(response.isSuccessful()){
+                    UserWishlist userWishlist = response.body();
+                    List<Product> productList = userWishlist.getList();
+                    for(Product product1 : productList){
+                        if(product1.getId().equals(product.getId())){
+                            addToWishlist.setVisibility(View.GONE);
+                            wishlist_red.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             }
-        }
-        return false;
+
+            @Override
+            public void onFailure(Call<UserWishlist> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -361,29 +387,35 @@ public class ProDetailActivity extends AppCompatActivity {
         tvNameSp.setText(product.getName());
         checkExistWishlist();
         Log.d("TAG", product.getName());
+        getProductSame(product.getId());
     }
 
 
-    private void GetReviews(Product p) {
+    private void GetReviews() {
 
         //Lấy danh sách đánh giá
-//        APIService.apiService.getReviewByProduct(p).enqueue(new Callback<List<Review>>() {
-//            @Override
-//            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
-//                mListReview = response.body();
-//                ReviewAdapter reviewAdapter = new ReviewAdapter(ProDetailActivity.this, mListReview);
-//                rcReview.setHasFixedSize(false);
-//                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-//                rcReview.setLayoutManager(layoutManager);
-//                rcReview.setAdapter(reviewAdapter);
-//                reviewAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Review>> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Lỗi"+ t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
+        APIService.apiService.getReviewByProduct(product).enqueue(new Callback<List<Review>>() {
+            @Override
+            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+                mListReview = response.body();
+                if(mListReview.size() > 0){
+                    action_rating.setVisibility(View.VISIBLE);
+                    totalrating.setText("("+mListReview.size()+")");
+                }
+
+                ReviewAdapter reviewAdapter = new ReviewAdapter(ProDetailActivity.this, mListReview);
+                rvFeedback.setHasFixedSize(false);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                rvFeedback.setLayoutManager(layoutManager);
+                rvFeedback.setAdapter(reviewAdapter);
+                reviewAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onFailure(Call<List<Review>> call, Throwable t) {
+                Log.e("TAG", "onFailure: "+ t.getMessage() );
+                Toast.makeText(getApplicationContext(), "Lỗi"+ t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void SubmitDanGia() {
@@ -399,7 +431,7 @@ public class ProDetailActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Review review1 = response.body();
                     Toast.makeText(getApplicationContext(), "Thành Công", Toast.LENGTH_LONG).show();
-                    GetReviews(product);
+                    GetReviews();
                     edtDanhGia.setText("");
                 }
                 else {
@@ -422,26 +454,31 @@ public class ProDetailActivity extends AppCompatActivity {
                 tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
                 tvDesciption.setText(product.getDesciption());
                 tvNameSp.setText(product.getName());
-                Log.e("CHECK", checkExistWishlist()+"" );
-                if(checkExistWishlist())
-                {
-                    addToWishlist.clearAnimation();
-                    addToWishlist.setVisibility(View.GONE);
-                    wishlist_red.setVisibility(View.VISIBLE);
+                tvAvgRating.setText(product.getRating().toString());
+                if(product.getPrice() == product.getPromotionaprice()){
+                    tvGiaChuaGiam.setVisibility(View.INVISIBLE);
+                    tvDiscount.setVisibility(View.INVISIBLE);
                 }
+                Double discount = (product.getPrice()-product.getPromotionaprice() )/ product.getPrice();
+                int discountPercentage = (int) (discount * 100); // Chuyển đổi thành phần trăm (25)
+                String discountText = String.format("%d%% off", discountPercentage); // Định dạng chuỗi "xx% off"
+                tvDiscount.setText(discountText); // Gán chuỗi vào TextView
+                checkExistWishlist();
                 List<Photo> photoList = new ArrayList<>();
                 photoList = product.getListPhoto();
                 PhotoAdapter photoAdapter = new PhotoAdapter(ProDetailActivity.this, photoList);
                 mViewPager2.setAdapter(photoAdapter);
                 mCircleIndicator3.setViewPager(mViewPager2);
-
-                GetReviews(product);
+                GetReviews();
+                getProductSame(id);
             }
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
 
             }
         });
+
+
     }
 
     public void shareProduct(View view) {
@@ -454,13 +491,20 @@ public class ProDetailActivity extends AppCompatActivity {
 
 
     private void AnhXa() {
+        tvBarcode = findViewById(R.id.tvBarcode);
+        tvSeeAll = findViewById(R.id.tvSeeAll);
+        totalrating = findViewById(R.id.total_rating);
+        action_rating = findViewById(R.id.action_rating);
+        rc_prodctsame = findViewById(R.id.rc_productsame);
+        tvAvgRating = findViewById(R.id.tvAvgRating);
+        rvFeedback = (RecyclerView) findViewById(R.id.rvFeedback);
         firestore = FirebaseFirestore.getInstance();
         onStartCart = findViewById(R.id.onStartCart);
         btnBack = findViewById(R.id.btn_back_to_prodetail);
         btnCart = findViewById(R.id.btn_cart);
         btnPopup = findViewById(R.id.btnMoreOption);
         tvPrice = findViewById(R.id.tvGiaDaGiam);
-        tvGiaChuaGiam = findViewById(R.id.tv_Gia_Da_Giam);
+        tvGiaChuaGiam = findViewById(R.id.tv_GiaChuaGiam);
         tvGiaChuaGiam.setPaintFlags(tvGiaChuaGiam.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         tvDesciption = findViewById(R.id.tvmota);
         tvNameSp = findViewById(R.id.tvnamedetail);
@@ -469,12 +513,25 @@ public class ProDetailActivity extends AppCompatActivity {
         addToWishlist = findViewById(R.id.add_to_wishlist);
         wishlist_red = findViewById(R.id.wishlist_red);
 
-
         btnBackToHome = findViewById(R.id.btn_back_to_prodetail);
         btnThemVaoGio = findViewById(R.id.btn_add_to_cart);
 
         mViewPager2 = findViewById(R.id.view_page_2);
         mCircleIndicator3 = findViewById(R.id.indicator_3);
+
+        tvDiscount = findViewById(R.id.tvDiscount);
+
+        tvSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProDetailActivity.this, ViewAllReviewsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(DETAIL_REVIEW, (Serializable) mListReview);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
 
 
         onStartCart.setOnClickListener(new View.OnClickListener() {
@@ -499,6 +556,26 @@ public class ProDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DiaLog1();
+            }
+        });
+    }
+
+    private void getProductSame(String id) {
+        APIService.apiService.getListProductSame(id).enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> productsame = response.body();
+                LastProductAdapter productadap = new LastProductAdapter(ProDetailActivity.this,productsame);
+                rc_prodctsame.setHasFixedSize(false);
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProDetailActivity.this,2);
+                rc_prodctsame.setLayoutManager(layoutManager);
+                rc_prodctsame.setAdapter(productadap);
+                productadap.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+
             }
         });
     }
@@ -610,6 +687,7 @@ public class ProDetailActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(product.getListPhoto().get(0).getResources())
                 .into(imgae);
+        decrement.setEnabled(false);
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -617,6 +695,12 @@ public class ProDetailActivity extends AppCompatActivity {
                 int quantityNum = Integer.parseInt(quantity.getText().toString());
                 quantityNum ++;
                 quantity.setText(String.valueOf(quantityNum));
+                if(quantityNum > 1){
+                    decrement.setEnabled(true);
+                }
+                if(quantityNum == product.getQuantity()){
+                    increment.setEnabled(false);
+                }
             }
         });
         decrement.setOnClickListener(new View.OnClickListener() {
@@ -624,6 +708,12 @@ public class ProDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int quantityNum = Integer.parseInt(quantity.getText().toString());
                 quantityNum --;
+                if(quantityNum == 1){
+                    decrement.setEnabled(false);
+                }
+                if(quantityNum < product.getQuantity()){
+                    increment.setEnabled(true);
+                }
                 quantity.setText(String.valueOf(quantityNum));
             }
         });

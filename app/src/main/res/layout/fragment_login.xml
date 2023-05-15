@@ -45,10 +45,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đăng Nhập"
         android:backgroundTint="@color/black"
         android:padding="12dp"/>
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:textAlignment="viewEnd"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quên mật khẩu?"/>
 </LinearLayout>

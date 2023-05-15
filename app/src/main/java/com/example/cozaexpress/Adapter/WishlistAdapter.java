@@ -86,6 +86,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.MyView
                     bundle.putString("idProduct", id);
                     Intent intent = new Intent(mContext, ProDetailActivity.class);
                     intent.putExtras(bundle);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity (intent);
                 }
             });

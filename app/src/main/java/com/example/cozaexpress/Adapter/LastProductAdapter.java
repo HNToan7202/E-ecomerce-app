@@ -37,6 +37,11 @@ public class LastProductAdapter extends RecyclerView.Adapter<LastProductAdapter.
         this.context = context;
     }
 
+    public void setListenterList(List<Product> iconModels){
+        this.array = iconModels;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

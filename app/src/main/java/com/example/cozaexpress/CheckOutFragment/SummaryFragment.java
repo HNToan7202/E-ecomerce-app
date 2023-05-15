@@ -60,9 +60,11 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
     private Double sum = 0.0;
     private RecyclerView summaryRecyclerView;
 
+    public static final String GET_CART_ITEMS = "get_cart_items";
+
     Order order;
 
-    String orderId;
+    String orderIdPayment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
 //        mRef = database.getReference();
 //        user = FirebaseAuth.getInstance().getCurrentUser();
 
+
         binding.showAddress.name.setText(getArguments().getString("name"));
         String address = getArguments().getString("houseName") + "\n" + getArguments().getString("area");
         binding.showAddress.address.setText(address);
@@ -99,6 +102,9 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
         binding.showAddress.state.setText(getArguments().getString("state"));
         binding.showAddress.pincode.setText(getArguments().getString("pincode"));
         binding.showAddress.phoneNumber.setText(getArguments().getString("phoneNumber"));
+
+        List<Product> p = (List<Product>) getArguments().getSerializable(GET_CART_ITEMS);
+
         binding.showAddress.changeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,15 +113,17 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
         });
         List<Product> productList = ProductDatabase.getInstance(getContext()).productDAO().getAll();
 
-        for(Product product: productList){
-            sum = sum + product.getPrice()*product.getQuantity();
+        for(Product product: p){
+            sum = sum + product.getPromotionaprice()*product.getQuantity();
         }
-        binding.priceDetails.price.setText("Đ"+sum);
-        binding.priceDetails.finalPayment.setText("Đ"+String.valueOf(sum+50.0));
-        binding.finalPaymentHead.setText("Đ"+String.valueOf(sum+50.0));
 
 
-        OrderSumaryAdapter summaryAdapter = new OrderSumaryAdapter(getContext(), productList);
+        binding.priceDetails.price.setText(String.format( "%,.0f",sum)+ "đ");
+        binding.priceDetails.finalPayment.setText(String.format( "%,.0f",sum+50000)+ "đ");
+        binding.finalPaymentHead.setText(String.format( "%,.0f",sum+50000)+ "đ");
+
+
+        OrderSumaryAdapter summaryAdapter = new OrderSumaryAdapter(getContext(), p);
         binding.summaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.summaryRecyclerView.setAdapter(summaryAdapter);
 
@@ -125,7 +133,7 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
         order.setPrice(sum);
         order.setStatusOrder(StatusOrder.CHOXACNHAN);
         List<OrderItem> orderItems = new ArrayList<>();
-        for(Product product: productList){
+        for(Product product: p){
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(product);
@@ -154,11 +162,13 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
                             Order orderResponse = response.body();
 
                             List<OrderItem> orderItems = new ArrayList<>();
-                            for(Product product: productList){
+                            for(Product product: p){
                                 OrderItem orderItem = new OrderItem();
                                 orderItem.setOrder(orderResponse);
                                 orderItem.setProduct(product);
+                                Log.d(TAG, "onResponse: "+orderIdPayment);
                                 orderItem.setCount(product.getQuantity());
+                                //Chỗ này chưa sửa
                                 orderItem.setTotalprice(2000000.0);
                                 orderItems.add(orderItem);
                             }
@@ -167,9 +177,13 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
                                 @Override
                                 public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
                                     if (response.isSuccessful()){
-                                        orderId = response.body().get(0).getOrder().getId();
+                                        orderIdPayment = response.body().get(0).getOrder().getId();
+                                        Log.d(TAG, "onResponse: "+orderIdPayment);
                                         Toast.makeText(getContext(), "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-                                        ProductDatabase.getInstance(getContext()).productDAO().deleteAll();
+                                        for(Product product: p){
+                                            ProductDatabase.getInstance(getContext()).productDAO().delete(product);
+                                        }
+                                        //ProductDatabase.getInstance(getContext()).productDAO().deleteAll();
                                         List<OrderItem> orderItems1 = response.body();
                                         //Navigation.findNavController(view).navigate(R.id.action_summaryFragment_to_paymentFragment);
                                     }
@@ -235,7 +249,8 @@ public class SummaryFragment extends Fragment implements PaymentResultWithDataLi
             options.put("prefill", preFill);
 
             Bundle bundle = new Bundle();
-            bundle.putString("orderId", orderId);
+            bundle.putString("orderId", orderIdPayment);
+            Log.e("ORDER", "startPayment: "+ orderIdPayment);
 
             //co.open(requireActivity(), options);
             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_summaryFragment_to_paymentFragment2, bundle);

@@ -3,6 +3,7 @@ package com.example.cozaexpress.CheckOutFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,20 +59,24 @@ public class PaymentFragment extends Fragment {
         summaryTopayment.setBackgroundColor(Color.parseColor("#11FF0A"));
 
         submitContinue = view.findViewById(R.id.btn_continue_shopping);
-        orderId = view.findViewById(R.id.orderid);
 
         btn_next_to_order = view.findViewById(R.id.btn_next_to_order);
 
-        String orderid = getArguments().getString("orderid");
-        orderId.setText(orderid);
+//        String order = getArguments().getString("orderId");
+//        orderId.setText(order);
+
+        //Log.e("ORDERID", "onViewCreated: "+order);
 
         submitContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                if (mainActivity != null) {
-                    mainActivity.navigateToCartFragment();
-                }
+//                MainActivity mainActivity = (MainActivity) getActivity();
+//                if (mainActivity != null) {
+//                    mainActivity.navigateToCartFragment();
+//                }
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                ((CheckoutActivity)getActivity()).finish();
+
             }
         });
 

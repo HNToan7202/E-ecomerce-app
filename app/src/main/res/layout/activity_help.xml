@@ -11,7 +11,7 @@
         android:background="@drawable/top_bar">
 
         <ImageView
-            android:id="@+id/btnBackAccount"
+            android:id="@+id/btnBackHome"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,11 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Quy định chung"
+            android:text="Liên hệ hỗ trợ"
             android:textColor="#ffffff"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnBackAccount"
+            app:layout_constraintStart_toEndOf="@+id/btnBackHome"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 <LinearLayout

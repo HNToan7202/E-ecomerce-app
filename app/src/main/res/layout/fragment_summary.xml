@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:backgroundTint="#000"
-                android:text="CONTINUE"
+                android:text="Thanh Toán"
                 android:id="@+id/continueToPayment"
                 android:layout_gravity="center"
                 />

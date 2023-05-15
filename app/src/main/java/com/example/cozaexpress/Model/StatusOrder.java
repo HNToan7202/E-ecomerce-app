@@ -6,6 +6,7 @@ public enum StatusOrder implements Serializable {
 		HUY,
 		CHOXACNHAN,
 		DANGGIAO,
-		DAGIAO
+		DAGIAO,
+	TUCHOI
 }
 

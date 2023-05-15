@@ -48,9 +48,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
 
     public interface OnItemClickListener {
-        void onItemClick(int position, Double sum);
-        void onItemDercrement(int position, Double sum);
-        void onItemIncrement(int position, Double sum);
+        void onItemClick(int position);
+        void onItemDercrement(int position);
+        void onItemIncrement(int position);
+        void onCheckBoxClick(int position, boolean isChecked);
 
 //        onItemClick: được gọi khi người dùng nhấn vào sản phẩm trong giỏ hàng để xóa.
 //        onItemDecrement: được gọi khi người dùng giảm số lượng sản phẩm.
@@ -94,12 +95,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.tvPrice.setText(String.format( "%,.0f",product.getPromotionaprice())+"đ");
         holder.tvSoLuong.setText(product.getQuantity().toString());
         Glide.with(context).load(product.getListPhoto().get(0).getResources()).into(holder.imgItemCart);
-        Double price = product.getPrice()*product.getQuantity();
+        Double price = product.getPromotionaprice()*product.getQuantity();
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mListener != null){
-                    mListener.onItemClick(position, price);
+                    mListener.onItemClick(position);
 
                 }
                 ProductDatabase.getInstance(context).productDAO().delete(product);
@@ -112,15 +113,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    Utils.manggiohang.add(product);
-                    EventBus.getDefault().postSticky(new MessageEvent(Utils.manggiohang));
-                }else {
-                    for(int i = 0; i< Utils.manggiohang.size(); i++){
-                        if(Utils.manggiohang.get(i).getId() == product.getId()){
-                            Utils.manggiohang.remove(i);
-                        }
-                    }
+                if(mListener != null){
+                    mListener.onCheckBoxClick(position, b);
                 }
             }
         });
@@ -128,40 +122,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int quantityNum = Integer.parseInt(holder.tvSoLuong.getText().toString());
-                int temp = quantityNum;
-                quantityNum ++;
-
-                product.setQuantity(quantityNum);
-
-                //Giá cập nhật bằng giá mới nhân số lượng mới
-                Double price1 = product.getPrice()*temp;
                 if(mListener != null){
-                    mListener.onItemIncrement(position, price1);
+                    mListener.onItemIncrement(position);
                 }
-                holder.tvSoLuong.setText(String.valueOf(quantityNum));
-                ProductDatabase.getInstance(context.getApplicationContext()).productDAO().update(product);
-                products = ProductDatabase.getInstance(context).productDAO().getAll();
-                setData(products);
             }
         });
         holder.decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int quantityNum = Integer.parseInt(holder.tvSoLuong.getText().toString());
-                int temp = quantityNum;
-                quantityNum --;
-                holder.tvSoLuong.setText(String.valueOf(quantityNum));
-                Log.d("TAG", product.getName());
-                product.setQuantity(quantityNum);
-                //Giá cập nhật bằng giá mới nhân số lượng mới
-                Double price2 = product.getPrice()*temp;
                 if(mListener != null){
-                    mListener.onItemDercrement(position, price2);
+                    mListener.onItemDercrement(position);
                 }
-                ProductDatabase.getInstance(context.getApplicationContext()).productDAO().update(product);
-                products = ProductDatabase.getInstance(context).productDAO().getAll();
-                setData(products);
             }
         });
     }
@@ -174,8 +145,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgItemCart, btnDelete, increment, decrement;
         TextView tvNameItem, tvPrice, tvSoLuong;
-
-
         CheckBox cbCheck;
 
 
@@ -188,7 +157,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tvNameItem = itemView.findViewById(R.id.tv_name_cart);
             tvPrice = itemView.findViewById(R.id.tv_price_cart);
             tvSoLuong = itemView.findViewById(R.id.tv_count_item);
-            cbCheck = itemView.findViewById(R.id.cBCheck);
             cbCheck = itemView.findViewById(R.id.cBCheck);
         }
     }

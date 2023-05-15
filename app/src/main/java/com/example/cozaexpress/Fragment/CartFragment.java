@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,14 +24,17 @@ import com.example.cozaexpress.Activity.CheckoutActivity;
 import com.example.cozaexpress.Activity.MainActivity;
 import com.example.cozaexpress.Adapter.CartAdapter;
 //import com.example.cozaexpress.Database.ProductDatabase;
+import com.example.cozaexpress.DataLocal.SharedPrefManager;
 import com.example.cozaexpress.Database.ProductDatabase;
 import com.example.cozaexpress.Model.Product;
+import com.example.cozaexpress.Model.User;
 import com.example.cozaexpress.R;
 import com.example.cozaexpress.Utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,6 +73,12 @@ public class CartFragment extends Fragment {
 
     Double tongTiensp = 0.0;
 
+    CheckBox checkAll;
+
+    private boolean isAllChecked = false;
+
+    List<Product> listPayment = new ArrayList<>();
+
     private void setData(List<Product> products) {
         cartAdapter.setData(products);
     }
@@ -87,6 +99,8 @@ public class CartFragment extends Fragment {
         }
     }
 
+
+
     //Hàm trả về view
     @Nullable
     @Override
@@ -97,9 +111,7 @@ public class CartFragment extends Fragment {
         total = view.findViewById(R.id.tvTotal_cart);
         emptycart = view.findViewById(R.id.empty_cart);
         btnContinue = view.findViewById(R.id.btn_continue);
-
         constraintLayout = view.findViewById(R.id.constraintLayoutPayment);
-
 
         products = ProductDatabase.getInstance(getContext()).productDAO().getAll();
 
@@ -109,18 +121,25 @@ public class CartFragment extends Fragment {
         }
 
 
-        for(int i = 0 ; i <products.size();i++){
-            sum += products.get(i).getPromotionaprice()*products.get(i).getQuantity();
-        }
+//        for(int i = 0 ; i <products.size();i++){
+//            sum += products.get(i).getPromotionaprice()*products.get(i).getQuantity();
+//        }
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(GET_CART_ITEMS, (Serializable) products);
-                bundle.putDouble(GET_SUM, sum);
-                Intent intent1 = new Intent(getContext(), CheckoutActivity.class);
-                intent1.putExtra(GET_BUNDLE,bundle);
-                startActivity(intent1);
+                User user = SharedPrefManager.getInstance(getContext()).getUser();
+                if(user!=null){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(GET_CART_ITEMS, (Serializable) listPayment);
+                    bundle.putDouble(GET_SUM, sum);
+                    Intent intent1 = new Intent(getContext(), CheckoutActivity.class);
+                    intent1.putExtra(GET_BUNDLE,bundle);
+                    startActivity(intent1);
+                }
+                else{
+                    Toast.makeText(getContext(),"Bạn cần đăng nhập để thanh toán",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -128,24 +147,16 @@ public class CartFragment extends Fragment {
 
         Double price = 0.0;
 
-//        cartAdapter = new CartAdapter(getContext(),products, ((position, sum1) -> {
-//
-//            sum -= sum1;
-//            total.setText(String.format( "%,.0f" +"đ",sum));
-//            if(sum == 0){
-//                emptycart.setVisibility(View.VISIBLE);
-//                constraintLayout.setVisibility(View.INVISIBLE);
-//            }
-//        }));
         cartAdapter = new CartAdapter(getContext(), products, new CartAdapter.OnItemClickListener() {
+
             @Override
-            public void onItemClick(int position, Double sum) {
+            public void onItemClick(int position) {
                 // Xóa sản phẩm khỏi giỏ hàng
                 Product productToRemove = products.get(position);
                 ProductDatabase.getInstance(getContext()).productDAO().delete(productToRemove);
 
                 // Cập nhật giá trị tổng tiền
-                sum -= productToRemove.getPrice() * productToRemove.getQuantity();
+                sum -= productToRemove.getPromotionaprice() * productToRemove.getQuantity();
                 total.setText(String.format("%,.0f" + "đ", sum));
 
                 // Kiểm tra nếu giỏ hàng trống thì hiển thị thông báo
@@ -160,24 +171,7 @@ public class CartFragment extends Fragment {
             }
 
             @Override
-            public void onItemIncrement(int position, Double sum) {
-                // Tăng số lượng sản phẩm
-                Product productToIncrement = products.get(position);
-                int quantity = productToIncrement.getQuantity() + 1;
-                productToIncrement.setQuantity(quantity);
-                ProductDatabase.getInstance(getContext()).productDAO().update(productToIncrement);
-
-                // Cập nhật giá trị tổng tiền
-                sum += productToIncrement.getPrice();
-                total.setText(String.format("%,.0f" + "đ", sum));
-
-                // Cập nhật lại danh sách sản phẩm trong giỏ hàng
-                products = ProductDatabase.getInstance(getContext()).productDAO().getAll();
-                setData(products);
-            }
-
-            @Override
-            public void onItemDercrement(int position, Double sum) {
+            public void onItemDercrement(int position) {
                 // Giảm số lượng sản phẩm
                 Product productToDercrement = products.get(position);
                 int quantity = productToDercrement.getQuantity() - 1;
@@ -192,7 +186,7 @@ public class CartFragment extends Fragment {
                 }
 
                 // Cập nhật giá trị tổng tiền
-                sum -= productToDercrement.getPrice();
+                sum -= productToDercrement.getPromotionaprice();
                 total.setText(String.format("%,.0f" + "đ", sum));
 
                 // Kiểm tra nếu giỏ hàng trống thì hiển thị thông báo
@@ -204,7 +198,39 @@ public class CartFragment extends Fragment {
                 // Cập nhật lại danh sách sản phẩm trong giỏ hàng
                 products = ProductDatabase.getInstance(getContext()).productDAO().getAll();
                 setData(products);
+
             }
+
+            @Override
+            public void onItemIncrement(int position) {
+                // Tăng số lượng sản phẩm
+                Product productToIncrement = products.get(position);
+                int quantity = productToIncrement.getQuantity() + 1;
+                productToIncrement.setQuantity(quantity);
+                ProductDatabase.getInstance(getContext()).productDAO().update(productToIncrement);
+
+                // Cập nhật giá trị tổng tiền
+                sum += productToIncrement.getPromotionaprice();
+                total.setText(String.format("%,.0f" + "đ", sum));
+
+                // Cập nhật lại danh sách sản phẩm trong giỏ hàng
+                products = ProductDatabase.getInstance(getContext()).productDAO().getAll();
+                setData(products);
+            }
+
+            @Override
+            public void onCheckBoxClick(int position, boolean isChecked) {
+                if(isChecked){
+                    sum += products.get(position).getPromotionaprice()*products.get(position).getQuantity();
+                    listPayment.add(products.get(position));
+                    total.setText(String.format("%,.0f" + "đ", sum));
+                }else{
+                    sum -= products.get(position).getPromotionaprice()*products.get(position).getQuantity();
+                    total.setText(String.format("%,.0f" + "đ", sum));
+                    listPayment.remove(products.get(position));
+                }
+            }
+
         });
         cartAdapter.setData(products);
         rcCart.setHasFixedSize(false);
