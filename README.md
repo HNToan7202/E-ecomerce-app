@@ -26,15 +26,33 @@
    - Quản lý đơn hàng: Người dùng có thể xem và quản lý các đơn hàng đã đặt.
 
 ### 2. Công nghệ sử dụng:
-   - Backend/API: Sử dụng Spring Boot để xây dựng các API cung cấp dữ liệu và chức năng cho ứng dụng. Sử dụng MySQL hoặc PostgreSQL để lưu trữ dữ liệu.
+   - Backend/API: Sử dụng Spring Boot để xây dựng các API cung cấp dữ liệu và chức năng cho ứng dụng. Sử dụng MongoDB để lưu trữ dữ liệu.
    - Frontend: Sử dụng Android Studio và Java để phát triển ứng dụng di động Android. Sử dụng các thư viện và giao thức như Retrofit, OkHttp, Gson để giao tiếp với các API từ phía backend.
+   - 
 
 ### 3. Kiến trúc hệ thống:
    - Backend/API: Sử dụng kiến trúc RESTful để thiết kế các API, cho phép người dùng truy cập và tương tác với các tài nguyên thông qua các yêu cầu HTTP.
    - Frontend: Phát triển ứng dụng di động Android với mô hình kiến trúc MVVM (Model-View-ViewModel) để tách biệt logic xử lý và giao diện người dùng.
 
+
 ### 4. Tính năng bổ sung (tùy chọn):
-   - Đánh giá và nhận xét: Cho phép người dùng đánh giá và viết nhận xét về
+   - Đánh giá và nhận xét: Cho phép người dùng đánh giá và viết nhận xét về sản phẩm đã Đặt hàng 
+   - Theo dõi đơn hàng: Người dùng có thể đặt hàng và theo dõi trạng thái đơn hàng của mình, từ khi đặt hàng cho đến khi nhận hàng.
+Quản lý tài khoản: Người dùng có thể cập nhật thông tin cá nhân, thay đổi mật khẩu và xem lịch sử giao dịch.
+Bảo mật và xác thực:
+- Xác thực người dùng: Sử dụng cơ chế đăng nhập và xác thực để bảo vệ thông tin người dùng và đảm bảo chỉ người dùng được phép truy cập vào các chức năng quản lý và thanh toán.
+- Mã hóa dữ liệu: Đảm bảo rằng dữ liệu người dùng và thông tin giao dịch được mã hóa để tránh rủi ro bị đánh cắp thông tin.
+Phát triển và triển khai:
+
+- Phát triển backend/API: Sử dụng Spring Boot để xây dựng các API, cùng với Hibernate/JPA để thao tác với cơ sở dữ liệu.
+- Phát triển frontend: Sử dụng Android Studio và Java để phát triển ứng dụng di động Android, kết hợp các thư viện hỗ trợ giao tiếp với API.
+Triển khai ứng dụng:
+Dự án bán đồ nội thất sử dụng công nghệ Spring Boot viết API và front-end sử dụng Android Java sẽ cung cấp cho người dùng trải nghiệm mua sắm thuận tiện và dễ dàng trên nền tảng di động.
+
+
+
+
+
 
 
 
