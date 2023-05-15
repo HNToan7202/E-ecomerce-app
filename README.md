@@ -6,6 +6,7 @@
 <h2 align="right">GVHD : Nguyễn Hữu Trung</h2>
 
 
+<!-- 
 <style>
 a[href="#top"] {
     display: inline-block;
@@ -23,6 +24,8 @@ a[href="#top"]:hover {
     background-color: #333;
 }
 </style>
+-->
+
 
 <!-- Nội dung README.md tiếp theo -->
 
