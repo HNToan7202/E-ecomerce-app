@@ -1,6 +1,25 @@
-<p align="center">
+<p id="top" align="center">
   <img src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-news.png" alt="Example Image">
 </p>
+
+<style>
+a[href="#top"] {
+    display: inline-block;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 5px;
+}
+
+a[href="#top"]:hover {
+    background-color: #333;
+}
+</style>
+
 
 <h1 align="center">Group 14 Mobile programming</h1>
 <h2 align="right">GVHD : Nguyễn Hữu Trung</h2>
@@ -52,7 +71,7 @@ Triển khai ứng dụng:
 ### Kiến trúc trong môi truong phát triển ứng dụng 
 ![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">back to top</a></p>
 
 
 
