@@ -75,7 +75,7 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 - Backend/API: Sử dụng kiến trúc RESTful để thiết kế các API, cho phép người dùng truy cập và tương tác với các tài nguyên thông qua các yêu cầu HTTP.
-- Frontend: Phát triển ứng dụng di động Android với mô hình kiến trúc MVVM (Model-View-ViewModel) để tách biệt logic xử lý và giao diện người dùng.
+- Frontend: Phát triển ứng dụng di động Android với mô hình kiến trúc MVC (Model-View-Controller) để tách biệt logic xử lý và giao diện người dùng.
 - Cơ sở dữ liệu: Sử dụng MongoDB làm cơ sở dữ liệu NoSQL để lưu trữ thông tin về sản phẩm, người dùng và đơn hàng.
 
 ### 4. Tính năng bổ sung (tùy chọn):
@@ -93,8 +93,6 @@ Trước khi cài đặt và chỉnh sửa web app, hãy chắc rằng trên má
    Triển khai ứng dụng:
 - Dự án bán đồ nội thất sử dụng công nghệ Spring Boot và MongoDB cho phép người dùng trải nghiệm mua sắm thuận tiện và dễ dàng trên nền tảng di động Android, với việc sử dụng cơ sở dữ liệu NoSQL linh hoạt và khả năng mở rộng cao của MongoDB.
 
-### Kiến trúc trong môi truong phát triển ứng dụng
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ![image](https://github.com/HNToan7202/E-ecomerce-app/assets/106101425/b94ae0ba-8b06-4fc2-b7a0-5dba164533e7)
 ### SCREEN SHOT
