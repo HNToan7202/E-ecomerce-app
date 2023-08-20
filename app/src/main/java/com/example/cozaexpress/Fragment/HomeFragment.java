@@ -170,6 +170,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getCategories() {
+        //Lọc sản phẩm theo xu hướng, mẫu mới
         productSaleAdapter = new ProductSaleAdapter(getActivity());
         viewPager2_xuhuong_muasam.setAdapter(productSaleAdapter);
         new TabLayoutMediator(tabLayoutXH, viewPager2_xuhuong_muasam, (tab, position) -> {
@@ -266,9 +267,9 @@ public class HomeFragment extends Fragment {
 
     private List<Photo> getListPhoto() {
         List<Photo> photos = new ArrayList<>();
-        Photo pt1 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
-        Photo pt2 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-ngu-nx-banner-27722.jpg");
-        Photo pt3 = new Photo("https://ecomserver1.up.railway.app/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        Photo pt1 = new Photo("https://moza.azurewebsites.net/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
+        Photo pt2 = new Photo("https://moza.azurewebsites.net/images/mau-phong-ngu-nx-banner-27722.jpg");
+        Photo pt3 = new Photo("https://moza.azurewebsites.net/images/mau-phong-khach-nha-xinh-banner-27722.jpg");
         photos.add(pt1);
         photos.add(pt2);
         photos.add(pt3);

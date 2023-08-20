@@ -96,14 +96,13 @@
                 >
 
                 <TextView
+                    android:id="@+id/finalPaymentHead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="\u20B9 1050"
-                    android:textStyle="bold"
-                    android:textSize="30sp"
-                    android:id="@+id/finalPaymentHead"
                     android:autoSizeMaxTextSize="30sp"
-                    />
+                    android:text="0VND"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

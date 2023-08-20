@@ -40,7 +40,7 @@ import retrofit2.http.Part;
 
 public interface APIService {
     //public static final String BASE_URL="http://app.iotstar.vn/shoppingapp/";
-    public static final String BASE_URL="https://ecomserver1.up.railway.app/";
+    public static final String BASE_URL="https://moza.azurewebsites.net/";
 
 //    public static final String BASE_URL="http://192.168.1.88:8080/";
 
